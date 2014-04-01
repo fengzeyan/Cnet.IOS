@@ -388,5 +388,15 @@
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cnet.API\Cnet.API.csproj">
+      <Project>{e1654776-09c3-4974-88c8-f49a4883303e}</Project>
+      <Name>Cnet.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web.API.Models\Web.API.Models.csproj">
+      <Project>{3af3ffac-4515-4049-a5af-2ee34c866c0e}</Project>
+      <Name>Web.API.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
 </Project>

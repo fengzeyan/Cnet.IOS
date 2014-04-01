@@ -14,11 +14,6 @@ namespace Cnet.iOS
 	{
 		[Action ("loginButtonClick:")]
 		partial void loginButtonClick (MonoTouch.UIKit.UIButton sender);
-
-		partial void loginButtonClick (MonoTouch.UIKit.UIButton sender)
-		{
-			throw new System.NotImplementedException ();
-		}
 		
 		void ReleaseDesignerOutlets ()
 		{
