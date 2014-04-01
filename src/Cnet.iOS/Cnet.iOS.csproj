@@ -257,6 +257,20 @@
     <BundleResource Include="Resources\time-picker%402x.png" />
     <BundleResource Include="Resources\view-map-button.png" />
     <BundleResource Include="Resources\view-map-button%402x.png" />
+    <BundleResource Include="Resources\DSLCalendar-nextMonth.png" />
+    <BundleResource Include="Resources\DSLCalendar-nextMonth%402x.png" />
+    <BundleResource Include="Resources\DSLCalendar-previousMonth.png" />
+    <BundleResource Include="Resources\DSLCalendar-previousMonth%402x.png" />
+    <BundleResource Include="Resources\DSLCalendarDayCallout.png" />
+    <BundleResource Include="Resources\DSLCalendarDayCallout%402x.png" />
+    <BundleResource Include="Resources\DSLCalendarDaySelection-left.png" />
+    <BundleResource Include="Resources\DSLCalendarDaySelection-left%402x.png" />
+    <BundleResource Include="Resources\DSLCalendarDaySelection-middle.png" />
+    <BundleResource Include="Resources\DSLCalendarDaySelection-middle%402x.png" />
+    <BundleResource Include="Resources\DSLCalendarDaySelection-right.png" />
+    <BundleResource Include="Resources\DSLCalendarDaySelection-right%402x.png" />
+    <BundleResource Include="Resources\DSLCalendarDaySelection.png" />
+    <BundleResource Include="Resources\DSLCalendarDaySelection%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
