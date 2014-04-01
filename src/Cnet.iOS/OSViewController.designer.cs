@@ -12,6 +12,13 @@ namespace Cnet.iOS
 	[Register ("OSViewController")]
 	partial class OSViewController
 	{
+		[Action ("loginButtonClick:")]
+		partial void loginButtonClick (MonoTouch.UIKit.UIButton sender);
+
+		partial void loginButtonClick (MonoTouch.UIKit.UIButton sender)
+		{
+			throw new System.NotImplementedException ();
+		}
 		
 		void ReleaseDesignerOutlets ()
 		{
