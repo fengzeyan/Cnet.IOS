@@ -9,11 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cnet.API", "..\Cnet.API\Cne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.API.Models", "..\Web.API.Models\Web.API.Models.csproj", "{3AF3FFAC-4515-4049-A5AF-2EE34C866C0E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{88E4CBAA-4071-4783-A6EB-39BDC5EE4967}"
-	ProjectSection(SolutionItems) = preProject
-		..\SolutionInfo.cs = ..\SolutionInfo.cs
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU

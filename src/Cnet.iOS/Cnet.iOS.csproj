@@ -91,7 +91,12 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
@@ -282,6 +287,111 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Cnet.API\Client.cs">
+      <Link>Cnet.API\Client.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Constants.cs">
+      <Link>Cnet.API\Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Exceptions\CnetResponseException.cs">
+      <Link>Cnet.API\Exceptions\CnetResponseException.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\RestHelper.cs">
+      <Link>Cnet.API\RestHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Services\NTMobile\ApplicationLoadService.cs">
+      <Link>Cnet.API\Services\NTMobile\ApplicationLoadService.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Services\NTMobile\AuthenticateService.cs">
+      <Link>Cnet.API\Services\NTMobile\AuthenticateService.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Services\NTMobile\AvailabilityService.cs">
+      <Link>Cnet.API\Services\NTMobile\AvailabilityService.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Services\NTMobile\CurrentPayPeriodService.cs">
+      <Link>Cnet.API\Services\NTMobile\CurrentPayPeriodService.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Services\NTMobile\MobileCarrierService.cs">
+      <Link>Cnet.API\Services\NTMobile\MobileCarrierService.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Services\NTMobile\NotificationService.cs">
+      <Link>Cnet.API\Services\NTMobile\NotificationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Services\NTMobile\OfficeService.cs">
+      <Link>Cnet.API\Services\NTMobile\OfficeService.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Services\NTMobile\PlacementService.cs">
+      <Link>Cnet.API\Services\NTMobile\PlacementService.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Services\NTMobile\TimesheetService.cs">
+      <Link>Cnet.API\Services\NTMobile\TimesheetService.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Services\NTMobile\UserService.cs">
+      <Link>Cnet.API\Services\NTMobile\UserService.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\Address.cs">
+      <Link>Web.API.Models\Address.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\ApiError.cs">
+      <Link>Web.API.Models\ApiError.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\ApiErrorCode.cs">
+      <Link>Web.API.Models\ApiErrorCode.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\ApiErrorSeverity.cs">
+      <Link>Web.API.Models\ApiErrorSeverity.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\ApiNotificationType.cs">
+      <Link>Web.API.Models\ApiNotificationType.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\ApiUserNotifications.cs">
+      <Link>Web.API.Models\ApiUserNotifications.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\AvailabilityBlock.cs">
+      <Link>Web.API.Models\AvailabilityBlock.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\DateRange.cs">
+      <Link>Web.API.Models\DateRange.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\Notification.cs">
+      <Link>Web.API.Models\Notification.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\NTMobileAppLoadedData.cs">
+      <Link>Web.API.Models\NTMobileAppLoadedData.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\NTMobileAppProfileStatus.cs">
+      <Link>Web.API.Models\NTMobileAppProfileStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\Office.cs">
+      <Link>Web.API.Models\Office.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\Placement.cs">
+      <Link>Web.API.Models\Placement.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\Schedule.cs">
+      <Link>Web.API.Models\Schedule.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\Student.cs">
+      <Link>Web.API.Models\Student.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\TimeBlock.cs">
+      <Link>Web.API.Models\TimeBlock.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\Timesheet.cs">
+      <Link>Web.API.Models\Timesheet.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\User.cs">
+      <Link>Web.API.Models\User.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\UserAvailability.cs">
+      <Link>Web.API.Models\UserAvailability.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\UserAvailabilityDay.cs">
+      <Link>Web.API.Models\UserAvailabilityDay.cs</Link>
+    </Compile>
+    <Compile Include="..\Web.API.Models\UserOfficeInfo.cs">
+      <Link>Web.API.Models\UserOfficeInfo.cs</Link>
+    </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="OSViewController.cs" />
@@ -388,15 +498,12 @@
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Cnet.API\Cnet.API.csproj">
-      <Project>{e1654776-09c3-4974-88c8-f49a4883303e}</Project>
-      <Name>Cnet.API</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Web.API.Models\Web.API.Models.csproj">
-      <Project>{3af3ffac-4515-4049-a5af-2ee34c866c0e}</Project>
-      <Name>Web.API.Models</Name>
-    </ProjectReference>
+    <XamarinComponentReference Include="json.net">
+      <Visible>False</Visible>
+      <Version>4.5.11</Version>
+    </XamarinComponentReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
 </Project>
