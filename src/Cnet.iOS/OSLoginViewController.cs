@@ -21,7 +21,7 @@ namespace Cnet.iOS
 			{
 				string deviceId = UIDevice.CurrentDevice.IdentifierForVendor.AsString();
 				Client client = new Client(this.tbxUsername.Text, this.tbxPassword.Text);
-				client.AuthenticateService.Authenticate(0);
+				client.AuthenticateService.Authenticate(deviceId);
 			}
 			catch (CntResponseException) { }
 		}
