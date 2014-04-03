@@ -10,9 +10,14 @@
 
 
 @interface OSLoginViewController : UIViewController {
+	UITextField *_tbxPassword;
+	UITextField *_tbxUsername;
 }
-@property (retain, nonatomic) IBOutlet UITextField *tbxUsername;
-@property (retain, nonatomic) IBOutlet UITextField *tbxPassword;
+
+@property (nonatomic, retain) IBOutlet UITextField *tbxPassword;
+
+@property (nonatomic, retain) IBOutlet UITextField *tbxUsername;
+
 - (IBAction)loginButtonClick:(UIButton *)sender;
 
 @end

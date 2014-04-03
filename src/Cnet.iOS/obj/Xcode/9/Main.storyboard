@@ -3494,13 +3494,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="U22-Tt-txF"/>
-        <segue reference="nvb-CW-OFv"/>
-        <segue reference="cdo-K6-RT6"/>
+        <segue reference="oj5-lK-5iD"/>
+        <segue reference="2MN-w9-4HM"/>
         <segue reference="oQd-yV-efo"/>
         <segue reference="zPS-ub-T9w"/>
+        <segue reference="U22-Tt-txF"/>
+        <segue reference="cdo-K6-RT6"/>
         <segue reference="CPr-Ap-8La"/>
         <segue reference="ULM-sc-5ME"/>
-        <segue reference="oj5-lK-5iD"/>
     </inferredMetricsTieBreakers>
 </document>

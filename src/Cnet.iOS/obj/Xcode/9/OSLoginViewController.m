@@ -9,11 +9,10 @@
 
 @implementation OSLoginViewController
 
-- (void)dealloc {
-    [_tbxUsername release];
-    [_tbxPassword release];
-    [super dealloc];
-}
+@synthesize tbxPassword = _tbxPassword;
+@synthesize tbxUsername = _tbxUsername;
+
 - (IBAction)loginButtonClick:(UIButton *)sender {
 }
+
 @end

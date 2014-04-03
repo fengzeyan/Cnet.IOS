@@ -9,10 +9,4 @@
 
 @implementation OSViewController
 
-@synthesize tbxPassword = _tbxPassword;
-@synthesize tbxUsername = _tbxUsername;
-
-- (IBAction)loginButtonClick:(UIButton *)sender {
-}
-
 @end
