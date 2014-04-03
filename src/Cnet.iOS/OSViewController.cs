@@ -4,8 +4,6 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using Cnt.API;
-using Cnt.API.Exceptions;
 
 namespace Cnet.iOS
 {
@@ -13,16 +11,6 @@ namespace Cnet.iOS
 	{
 		public OSViewController (IntPtr handle) : base (handle)
 		{
-		}
-
-		partial void loginButtonClick(UIButton sender)
-		{
-			try
-			{
-				Client client = new Client(null, null);
-				client.AuthenticateService.Authenticate(0);
-			}
-			catch (CntResponseException ex) { }
 		}
 	}
 }

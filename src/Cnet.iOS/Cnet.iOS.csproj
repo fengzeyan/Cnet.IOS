@@ -493,6 +493,10 @@
     <Compile Include="OSSettingsViewController.designer.cs">
       <DependentUpon>OSSettingsViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="OSLoginViewController.cs" />
+    <Compile Include="OSLoginViewController.designer.cs">
+      <DependentUpon>OSLoginViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
