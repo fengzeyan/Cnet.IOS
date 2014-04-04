@@ -521,6 +521,8 @@
     <Compile Include="Controllers\DSLCalendarView.designer.cs">
       <DependentUpon>DSLCalendarView.cs</DependentUpon>
     </Compile>
+    <Compile Include="KeychainHelpers.cs" />
+    <Compile Include="AuthenticationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
