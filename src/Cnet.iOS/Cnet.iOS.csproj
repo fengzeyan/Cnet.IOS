@@ -413,113 +413,113 @@
     </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="OSViewController.cs" />
-    <Compile Include="OSViewController.designer.cs">
-      <DependentUpon>OSViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSAssignmentsTableViewCell.cs" />
-    <Compile Include="OSAssignmentsTableViewCell.designer.cs">
+    <Compile Include="Controllers\OSAssignmentsTableViewCell.cs" />
+    <Compile Include="Controllers\OSAssignmentsTableViewCell.designer.cs">
       <DependentUpon>OSAssignmentsTableViewCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSUnconfirmedAssignmentViewController.cs" />
-    <Compile Include="OSUnconfirmedAssignmentViewController.designer.cs">
-      <DependentUpon>OSUnconfirmedAssignmentViewController.cs</DependentUpon>
+    <Compile Include="Controllers\OSAssignmentViewController.cs" />
+    <Compile Include="Controllers\OSAssignmentViewController.designer.cs">
+      <DependentUpon>OSAssignmentViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSFamilyCell.cs" />
-    <Compile Include="OSFamilyCell.designer.cs">
-      <DependentUpon>OSFamilyCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSStartEndCell.cs" />
-    <Compile Include="OSStartEndCell.designer.cs">
-      <DependentUpon>OSStartEndCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSTimesCell.cs" />
-    <Compile Include="OSTimesCell.designer.cs">
-      <DependentUpon>OSTimesCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSLocationCell.cs" />
-    <Compile Include="OSLocationCell.designer.cs">
-      <DependentUpon>OSLocationCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSChildrenCell.cs" />
-    <Compile Include="OSChildrenCell.designer.cs">
-      <DependentUpon>OSChildrenCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSInfoCell.cs" />
-    <Compile Include="OSInfoCell.designer.cs">
-      <DependentUpon>OSInfoCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSDetailsCell.cs" />
-    <Compile Include="OSDetailsCell.designer.cs">
-      <DependentUpon>OSDetailsCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSCalendarViewController.cs" />
-    <Compile Include="OSCalendarViewController.designer.cs">
-      <DependentUpon>OSCalendarViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSCalendarInfoCell.cs" />
-    <Compile Include="OSCalendarInfoCell.designer.cs">
-      <DependentUpon>OSCalendarInfoCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSCalendarAppointmentCell.cs" />
-    <Compile Include="OSCalendarAppointmentCell.designer.cs">
+    <Compile Include="Controllers\OSCalendarAppointmentCell.cs" />
+    <Compile Include="Controllers\OSCalendarAppointmentCell.designer.cs">
       <DependentUpon>OSCalendarAppointmentCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="DSLCalendarView.cs" />
-    <Compile Include="DSLCalendarView.designer.cs">
-      <DependentUpon>DSLCalendarView.cs</DependentUpon>
+    <Compile Include="Controllers\OSCalendarInfoCell.cs" />
+    <Compile Include="Controllers\OSCalendarInfoCell.designer.cs">
+      <DependentUpon>OSCalendarInfoCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSUpdatedAssignmentViewController.cs" />
-    <Compile Include="OSUpdatedAssignmentViewController.designer.cs">
-      <DependentUpon>OSUpdatedAssignmentViewController.cs</DependentUpon>
+    <Compile Include="Controllers\OSCalendarViewController.cs" />
+    <Compile Include="Controllers\OSCalendarViewController.designer.cs">
+      <DependentUpon>OSCalendarViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSUpdatedCell.cs" />
-    <Compile Include="OSUpdatedCell.designer.cs">
-      <DependentUpon>OSUpdatedCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSCancelledAssignmentViewController.cs" />
-    <Compile Include="OSCancelledAssignmentViewController.designer.cs">
+    <Compile Include="Controllers\OSCancelledAssignmentViewController.cs" />
+    <Compile Include="Controllers\OSCancelledAssignmentViewController.designer.cs">
       <DependentUpon>OSCancelledAssignmentViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSTimesheetDueViewController.cs" />
-    <Compile Include="OSTimesheetDueViewController.designer.cs">
-      <DependentUpon>OSTimesheetDueViewController.cs</DependentUpon>
+    <Compile Include="Controllers\OSChildrenCell.cs" />
+    <Compile Include="Controllers\OSChildrenCell.designer.cs">
+      <DependentUpon>OSChildrenCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSTimesheetViewController.cs" />
-    <Compile Include="OSTimesheetViewController.designer.cs">
-      <DependentUpon>OSTimesheetViewController.cs</DependentUpon>
+    <Compile Include="Controllers\OSDetailsCell.cs" />
+    <Compile Include="Controllers\OSDetailsCell.designer.cs">
+      <DependentUpon>OSDetailsCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSTimesheetCell.cs" />
-    <Compile Include="OSTimesheetCell.designer.cs">
-      <DependentUpon>OSTimesheetCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSNewTimesheetViewController.cs" />
-    <Compile Include="OSNewTimesheetViewController.designer.cs">
-      <DependentUpon>OSNewTimesheetViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSProfileViewController.cs" />
-    <Compile Include="OSProfileViewController.designer.cs">
-      <DependentUpon>OSProfileViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSProfileCell.cs" />
-    <Compile Include="OSProfileCell.designer.cs">
-      <DependentUpon>OSProfileCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSEditProfileViewController.cs" />
-    <Compile Include="OSEditProfileViewController.designer.cs">
+    <Compile Include="Controllers\OSEditProfileViewController.cs" />
+    <Compile Include="Controllers\OSEditProfileViewController.designer.cs">
       <DependentUpon>OSEditProfileViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSSettingsViewController.cs" />
-    <Compile Include="OSSettingsViewController.designer.cs">
-      <DependentUpon>OSSettingsViewController.cs</DependentUpon>
+    <Compile Include="Controllers\OSFamilyCell.cs" />
+    <Compile Include="Controllers\OSFamilyCell.designer.cs">
+      <DependentUpon>OSFamilyCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSLoginViewController.cs" />
-    <Compile Include="OSLoginViewController.designer.cs">
+    <Compile Include="Controllers\OSInfoCell.cs" />
+    <Compile Include="Controllers\OSInfoCell.designer.cs">
+      <DependentUpon>OSInfoCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSLocationCell.cs" />
+    <Compile Include="Controllers\OSLocationCell.designer.cs">
+      <DependentUpon>OSLocationCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSLoginViewController.cs" />
+    <Compile Include="Controllers\OSLoginViewController.designer.cs">
       <DependentUpon>OSLoginViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSAssignmentViewController.cs" />
-    <Compile Include="OSAssignmentViewController.designer.cs">
-      <DependentUpon>OSAssignmentViewController.cs</DependentUpon>
+    <Compile Include="Controllers\OSNewTimesheetViewController.cs" />
+    <Compile Include="Controllers\OSNewTimesheetViewController.designer.cs">
+      <DependentUpon>OSNewTimesheetViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSProfileCell.cs" />
+    <Compile Include="Controllers\OSProfileCell.designer.cs">
+      <DependentUpon>OSProfileCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSProfileViewController.cs" />
+    <Compile Include="Controllers\OSProfileViewController.designer.cs">
+      <DependentUpon>OSProfileViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSSettingsViewController.cs" />
+    <Compile Include="Controllers\OSSettingsViewController.designer.cs">
+      <DependentUpon>OSSettingsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSStartEndCell.cs" />
+    <Compile Include="Controllers\OSStartEndCell.designer.cs">
+      <DependentUpon>OSStartEndCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSTimesCell.cs" />
+    <Compile Include="Controllers\OSTimesCell.designer.cs">
+      <DependentUpon>OSTimesCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSTimesheetCell.cs" />
+    <Compile Include="Controllers\OSTimesheetCell.designer.cs">
+      <DependentUpon>OSTimesheetCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSTimesheetDueViewController.cs" />
+    <Compile Include="Controllers\OSTimesheetDueViewController.designer.cs">
+      <DependentUpon>OSTimesheetDueViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSTimesheetViewController.cs" />
+    <Compile Include="Controllers\OSTimesheetViewController.designer.cs">
+      <DependentUpon>OSTimesheetViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSUnconfirmedAssignmentViewController.cs" />
+    <Compile Include="Controllers\OSUnconfirmedAssignmentViewController.designer.cs">
+      <DependentUpon>OSUnconfirmedAssignmentViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSUpdatedAssignmentViewController.cs" />
+    <Compile Include="Controllers\OSUpdatedAssignmentViewController.designer.cs">
+      <DependentUpon>OSUpdatedAssignmentViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSUpdatedCell.cs" />
+    <Compile Include="Controllers\OSUpdatedCell.designer.cs">
+      <DependentUpon>OSUpdatedCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSViewController.cs" />
+    <Compile Include="Controllers\OSViewController.designer.cs">
+      <DependentUpon>OSViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\DSLCalendarView.cs" />
+    <Compile Include="Controllers\DSLCalendarView.designer.cs">
+      <DependentUpon>DSLCalendarView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -532,5 +532,8 @@
       <Version>4.5.11</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 </Project>
