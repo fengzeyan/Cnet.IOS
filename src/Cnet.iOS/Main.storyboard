@@ -290,10 +290,10 @@
             </objects>
             <point key="canvasLocation" x="1021" y="106"/>
         </scene>
-        <!--View Controller-->
+        <!--Assignment View Controller-->
         <scene sceneID="DF0-l3-0ca">
             <objects>
-                <viewController id="Z4t-Fv-uPH" customClass="OSViewController" sceneMemberID="viewController">
+                <viewController id="Z4t-Fv-uPH" userLabel="Assignment View Controller" customClass="OSAssignmentViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sp6-X0-xyo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -629,9 +629,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="completedButton" destination="QRL-qV-GcI" id="coO-UP-MwM"/>
+                        <outlet property="completedButton" destination="QRL-qV-GcI" id="9Io-6s-Epk"/>
+                        <outlet property="messageButton" destination="RAc-UJ-RgQ" id="2H7-Je-b9h"/>
                         <outlet property="messagesButton" destination="RAc-UJ-RgQ" id="oXU-Kl-ZV9"/>
-                        <outlet property="upcomingButton" destination="mpx-fp-uEq" id="qs6-IG-89V"/>
+                        <outlet property="upcomingButton" destination="mpx-fp-uEq" id="pYn-0x-6aB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SHe-7N-OpU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3494,13 +3495,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="U22-Tt-txF"/>
-        <segue reference="nvb-CW-OFv"/>
         <segue reference="cdo-K6-RT6"/>
+        <segue reference="2MN-w9-4HM"/>
+        <segue reference="oj5-lK-5iD"/>
         <segue reference="oQd-yV-efo"/>
         <segue reference="zPS-ub-T9w"/>
+        <segue reference="U22-Tt-txF"/>
         <segue reference="CPr-Ap-8La"/>
         <segue reference="ULM-sc-5ME"/>
-        <segue reference="oj5-lK-5iD"/>
     </inferredMetricsTieBreakers>
 </document>

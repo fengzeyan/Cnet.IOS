@@ -98,6 +98,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|iPhone'">
     <OutputPath>bin\iPhone\Staging\</OutputPath>
@@ -107,6 +108,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -514,6 +516,10 @@
     <Compile Include="OSLoginViewController.cs" />
     <Compile Include="OSLoginViewController.designer.cs">
       <DependentUpon>OSLoginViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OSAssignmentViewController.cs" />
+    <Compile Include="OSAssignmentViewController.designer.cs">
+      <DependentUpon>OSAssignmentViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
