@@ -6,11 +6,23 @@ using Cnt.API;
 
 namespace Cnet.iOS
 {
-	public partial class OSAssignmentViewController : UIViewController
+	public partial class OSAssignmentViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 	{
+		string[] tableItems;
+		string cellIdentifier = "AssignmentsCellIdentifier";
+
 		public OSAssignmentViewController (IntPtr handle) : base (handle)
 		{
 			Client client = AuthenticationHelper.GetClient ();
+		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			table = new UITableView(View.Bounds); // defaults to Plain style
+			string[] tableItems = new string[] {"Test 1","Test 2","Test 3"}; // make this non-static
+			table.Source = new TableSource(tableItems);
+			Add (table);
 		}
 	}
 }
