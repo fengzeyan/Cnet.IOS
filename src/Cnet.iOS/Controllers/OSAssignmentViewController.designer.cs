@@ -15,6 +15,12 @@ namespace Cnet.iOS
 		[Outlet]
 		MonoTouch.UIKit.UITableView assignmentsTable { get; set; }
 
+		[Outlet]
+		MonoTouch.UIKit.UIButton completedButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton upcomingButton { get; set; }
+
 		[Action ("completedSwitchPressed:")]
 		partial void completedSwitchPressed (MonoTouch.UIKit.UIButton sender);
 
@@ -26,6 +32,16 @@ namespace Cnet.iOS
 			if (assignmentsTable != null) {
 				assignmentsTable.Dispose ();
 				assignmentsTable = null;
+			}
+
+			if (upcomingButton != null) {
+				upcomingButton.Dispose ();
+				upcomingButton = null;
+			}
+
+			if (completedButton != null) {
+				completedButton.Dispose ();
+				completedButton = null;
 			}
 		}
 	}

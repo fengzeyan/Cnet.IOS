@@ -12,8 +12,8 @@ namespace Cnet.iOS
 {
 	public partial class OSAssignmentViewController : UIViewController
 	{
-		List<Placement> completedPlacements;
-		List<Placement> upcomingPlacements;
+		OSAssignmentTableSource completedPlacements;
+		OSAssignmentTableSource upcomingPlacements;
 
 		public OSAssignmentViewController (IntPtr handle) : base (handle)
 		{
@@ -23,31 +23,38 @@ namespace Cnet.iOS
 		{
 			base.ViewDidLoad ();
 			Client client = AuthenticationHelper.GetClient ();
-			completedPlacements = new List<Placement>(client.PlacementService.GetPlacements ());
-			upcomingPlacements = new List<Placement> (client.PlacementService.GetPlacements ());
-			this.assignmentsTable.Source = new OSAssignmentTableSource (upcomingPlacements);
+			completedPlacements = new OSAssignmentTableSource (OSAssignmentsTableViewCellType.Completed, new List<Placement> (client.PlacementService.GetPlacements ().Take (10)));
+			upcomingPlacements = new OSAssignmentTableSource (OSAssignmentsTableViewCellType.Upcoming, new List<Placement> (client.PlacementService.GetPlacements ()));
+			this.assignmentsTable.Source = upcomingPlacements;
 		}
 
 		partial void completedSwitchPressed (UIButton sender)
 		{
-			this.assignmentsTable.Source = new OSAssignmentTableSource (completedPlacements);
+			this.completedButton.Selected = true;
+			this.upcomingButton.Selected = false;
+			this.assignmentsTable.Source = completedPlacements;
+			this.assignmentsTable.ReloadData();
 		}
 
 		partial void upcomingSwitchPressed (UIButton sender)
 		{
-			this.assignmentsTable.Source = new OSAssignmentTableSource (upcomingPlacements);
+			this.upcomingButton.Selected = true;
+			this.completedButton.Selected = false;
+			this.assignmentsTable.Source = upcomingPlacements;
+			this.assignmentsTable.ReloadData();
 		}
 	}
 
 	public class OSAssignmentTableSource : UITableViewSource
 	{
-
+		private OSAssignmentsTableViewCellType tableType;
 		private List<Placement> tableItems;
 		static NSString OSAssignmentsTableViewCellId = new NSString ("AssignmentsCellIdentifier");
 
 
-		public OSAssignmentTableSource(List<Placement> items) : base()
+		public OSAssignmentTableSource(OSAssignmentsTableViewCellType type, List<Placement> items) : base()
 		{
+			tableType = type;
 			tableItems = items;
 		}
 
@@ -59,15 +66,18 @@ namespace Cnet.iOS
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
 			OSAssignmentsTableViewCell cell = (OSAssignmentsTableViewCell)tableView.DequeueReusableCell (OSAssignmentsTableViewCellId, indexPath);
-			cell.BelowProfilePicLabel.Text = "Upcoming";
+			cell.BelowProfilePicLabel.Text = tableType.ToString();
 			cell.BookmarkImage.Image = new UIImage ();
 			cell.ChildrenLabel.Text = tableItems [indexPath.Row].Students.Count() + " children";
 			cell.DateLabel.Text = tableItems [indexPath.Row].Start.ToString("ddd d MMM");
 			cell.FamilyNameLabel.Text = tableItems [indexPath.Row].ClientName;
-			cell.InfoImage.Image = new UIImage ();
+			if (tableType == OSAssignmentsTableViewCellType.Completed)
+				cell.InfoImage.Image = new UIImage ("icon-check.png");
+			else
+				cell.InfoImage.Image = new UIImage ();
 
 			Address location = tableItems[indexPath.Row].Location;
-			cell.LocationLabel.Text = location.City + ", " + location.State;
+			cell.LocationLabel.Text = location != null ? location.City + ", " + location.State : String.Empty;
 
 			cell.ProfileImage.Image = Utility.UIImageFromUrl(tableItems [indexPath.Row].ClientPhoto);
 
@@ -78,5 +88,11 @@ namespace Cnet.iOS
 			cell.TimeLabel.Text = nextSchedule != null ? nextSchedule.Time.ToFormattedString() : String.Empty;
 			return cell;
 		}
+	}
+
+	public enum OSAssignmentsTableViewCellType
+	{
+		Completed,
+		Upcoming
 	}
 }

@@ -590,13 +590,19 @@
                                     <outlet property="delegate" destination="Z4t-Fv-uPH" id="x4s-xx-Dfp"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mpx-fp-uEq">
+                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mpx-fp-uEq">
                                 <rect key="frame" x="60" y="215" width="100" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
-                                <state key="normal" title="Upcoming" backgroundImage="control-tab-left-on.png">
+                                <state key="normal" title="Upcoming" backgroundImage="control-tab-left-off.png">
                                     <color key="titleColor" white="0.20135720800000001" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" backgroundImage="control-tab-left-on.png">
+                                    <color key="titleColor" white="0.20135720800000001" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" title="Upcoming" backgroundImage="control-tab-left-on.png">
+                                    <color key="titleColor" white="0.20135720800000001" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="upcomingSwitchPressed:" destination="Z4t-Fv-uPH" eventType="touchUpInside" id="OHQ-rx-qcS"/>
@@ -609,6 +615,12 @@
                                 <state key="normal" title="Completed" backgroundImage="control-tab-right-off.png">
                                     <color key="titleColor" white="0.20135720800000001" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" title="Completed" backgroundImage="control-tab-right-on.png">
+                                    <color key="titleColor" white="0.20135720800000001" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" title="Completed" backgroundImage="control-tab-right-on.png">
+                                    <color key="titleColor" white="0.20135720800000001" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="completedSwitchPressed:" destination="Z4t-Fv-uPH" eventType="touchUpInside" id="ydu-2g-oKN"/>
@@ -624,6 +636,8 @@
                     </view>
                     <connections>
                         <outlet property="assignmentsTable" destination="Bvx-R8-af6" id="zU8-VX-JmC"/>
+                        <outlet property="completedButton" destination="QRL-qV-GcI" id="6fP-67-sfu"/>
+                        <outlet property="upcomingButton" destination="mpx-fp-uEq" id="KS4-0a-eZl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SHe-7N-OpU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3439,8 +3453,10 @@
         <image name="call-button.png" width="40" height="51"/>
         <image name="cancelled-dot.png" width="8" height="8"/>
         <image name="check-dollar.png" width="27" height="27"/>
+        <image name="control-tab-left-off.png" width="100" height="29"/>
         <image name="control-tab-left-on.png" width="100" height="29"/>
         <image name="control-tab-right-off.png" width="100" height="29"/>
+        <image name="control-tab-right-on.png" width="100" height="29"/>
         <image name="date-picker-left.png" width="145" height="69"/>
         <image name="date-picker-right.png" width="145" height="69"/>
         <image name="details-button.png" width="40" height="51"/>
