@@ -12,5 +12,9 @@ namespace Cnet.iOS
 		public OSProfileCell (IntPtr handle) : base (handle)
 		{
 		}
+			
+		public UILabel ProfileLabel{ get { return this.profileLabel; } set { this.profileLabel = value; } }
+		public UIImageView IconImage { get { return this.iconImage; } set { this.iconImage = value; } }
+		public UIImageView PhoneIconImage { get { return this.phoneIconImage; } set { this.phoneIconImage = value; } }
 	}
 }

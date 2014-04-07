@@ -2902,6 +2902,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <size key="freeformSize" width="320" height="568"/>
+                    <connections>
+                        <outlet property="profileTable" destination="Kyb-Hc-qSC" id="nJG-TY-smD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDd-Sm-fxx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3492,13 +3495,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="qMF-x8-UMV"/>
         <segue reference="U22-Tt-txF"/>
-        <segue reference="cdo-K6-RT6"/>
-        <segue reference="zPS-ub-T9w"/>
+        <segue reference="VQD-HR-0IB"/>
+        <segue reference="AiH-ud-SHk"/>
+        <segue reference="gOG-ci-hMN"/>
+        <segue reference="a7x-Aj-C7h"/>
+        <segue reference="CRV-nh-p12"/>
         <segue reference="CPr-Ap-8La"/>
         <segue reference="ULM-sc-5ME"/>
-        <segue reference="AqG-9j-HaY"/>
-        <segue reference="AiH-ud-SHk"/>
     </inferredMetricsTieBreakers>
 </document>
