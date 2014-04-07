@@ -31,7 +31,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loginButtonClick:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="y86-4s-lGe"/>
-                                    <segue destination="9iL-nt-HRs" kind="modal" id="oj5-lK-5iD"/>
+                                    <segue destination="Z4t-Fv-uPH" kind="modal" id="qMF-x8-UMV"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="    Username" minimumFontSize="17" background="fieldTop.png" id="q23-IT-dUz">
@@ -104,7 +104,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="cQF-K4-WJA">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="vXZ-lx-hvc" kind="modal" id="jnn-Kp-Eaz"/>
+                                                <segue destination="nVS-3Y-D9Z" kind="modal" id="bje-eN-B6S"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -159,9 +159,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="uXO-y1-zcf" kind="modal" id="Uzx-CK-Res"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -170,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v9c-Ps-uki" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="644" y="106"/>
+            <point key="canvasLocation" x="644" y="3457"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="WPW-ZJ-xhC">
@@ -195,7 +192,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="6Zk-YW-aHa">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="9iL-nt-HRs" kind="modal" id="3ok-32-oyq"/>
+                                                <segue destination="nVS-3Y-D9Z" kind="modal" id="AqG-9j-HaY"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -273,9 +270,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="Z4t-Fv-uPH" kind="modal" id="2MN-w9-4HM"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ContactUsImage.png" id="CIp-RX-7K1">
                                 <rect key="frame" x="0.0" y="64" width="320" height="217"/>
@@ -288,7 +282,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V0g-ec-EbZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1021" y="106"/>
+            <point key="canvasLocation" x="1021" y="3457"/>
         </scene>
         <!--Assignment View Controller-->
         <scene sceneID="DF0-l3-0ca">
@@ -3322,6 +3316,9 @@
                                                 <state key="highlighted">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="9iL-nt-HRs" kind="modal" id="SgG-q3-5tU"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UFL-db-y3F">
                                                 <rect key="frame" x="0.0" y="52" width="320" height="47"/>
@@ -3331,6 +3328,9 @@
                                                     <color key="titleColor" red="0.43137254899999999" green="0.34509803919999998" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="uXO-y1-zcf" kind="modal" id="DJb-VU-FDC"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PX8-3t-sWS">
                                                 <rect key="frame" x="0.0" y="102" width="320" height="47"/>
@@ -3492,13 +3492,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="cdo-K6-RT6"/>
-        <segue reference="2MN-w9-4HM"/>
-        <segue reference="oj5-lK-5iD"/>
-        <segue reference="oQd-yV-efo"/>
-        <segue reference="zPS-ub-T9w"/>
+        <segue reference="qMF-x8-UMV"/>
         <segue reference="U22-Tt-txF"/>
+        <segue reference="cdo-K6-RT6"/>
+        <segue reference="zPS-ub-T9w"/>
         <segue reference="CPr-Ap-8La"/>
         <segue reference="ULM-sc-5ME"/>
+        <segue reference="AqG-9j-HaY"/>
+        <segue reference="AiH-ud-SHk"/>
     </inferredMetricsTieBreakers>
 </document>
