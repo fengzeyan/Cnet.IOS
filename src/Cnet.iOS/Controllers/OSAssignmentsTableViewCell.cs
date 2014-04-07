@@ -12,5 +12,17 @@ namespace Cnet.iOS
 		public OSAssignmentsTableViewCell (IntPtr handle) : base (handle)
 		{
 		}
+
+		public UILabel BelowProfilePicLabel{ get { return this.belowProfilePicLabel; } set { this.belowProfilePicLabel = value; } }
+		public UIImageView BookmarkImage { get { return this.bookmarkImage; } set { this.bookmarkImage = value; } }
+		public UILabel ChildrenLabel{ get { return this.childrenLabel; } set { this.childrenLabel = value; } }
+		public UILabel DateLabel{ get { return this.dateLabel; } set { this.dateLabel = value; } }
+		public UILabel FamilyNameLabel{ get { return this.familyNameLabel; } set { this.familyNameLabel = value; } }
+		public UIImageView InfoImage { get { return this.infoImage; } set { this.infoImage = value; } }
+		public UILabel LocationLabel{ get { return this.locationLabel; } set { this.locationLabel = value; } }
+		public UIImageView ProfileImage { get { return this.profileImage; } set { this.profileImage = value; } }
+		public UIImageView PurpleInfoImage { get { return this.purpleInfoImage; } set { this.purpleInfoImage = value; } }
+		public UILabel PurpleInfoLabel{ get { return this.purpleInfoLabel; } set { this.purpleInfoLabel = value; } }
+		public UILabel TimeLabel{ get { return this.timeLabel; } set { this.timeLabel = value; } }
 	}
 }

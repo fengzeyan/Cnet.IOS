@@ -578,16 +578,16 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="belowProfilePicLabel" destination="85x-SG-etr" id="lfU-SU-8Nu"/>
-                                            <outlet property="bookmarkImage" destination="PfB-XX-vYy" id="YWt-bb-duO"/>
+                                            <outlet property="belowProfilePicLabel" destination="85x-SG-etr" id="SIE-eV-LGk"/>
+                                            <outlet property="bookmarkImage" destination="PfB-XX-vYy" id="1wH-TQ-ib8"/>
                                             <outlet property="childrenLabel" destination="M0i-OL-0yd" id="aNG-ja-O6u"/>
-                                            <outlet property="dateLabel" destination="6qN-do-bVk" id="fja-Mh-HZU"/>
-                                            <outlet property="familyNameLabel" destination="HpP-Ph-ZdH" id="Y6x-yh-HR7"/>
-                                            <outlet property="infoImage" destination="ZNa-S3-hIM" id="SWH-sd-KjV"/>
-                                            <outlet property="locationLabel" destination="ABk-OM-lfl" id="bbH-Mc-dvS"/>
-                                            <outlet property="profileImage" destination="90a-V7-fTi" id="WpM-AL-m5z"/>
-                                            <outlet property="purpleInfoLabel" destination="hR7-8N-dcB" id="z0b-6I-Ruc"/>
-                                            <outlet property="timeLabel" destination="aTs-gv-rim" id="Nzc-zQ-zty"/>
+                                            <outlet property="dateLabel" destination="6qN-do-bVk" id="LzZ-9A-uKj"/>
+                                            <outlet property="familyNameLabel" destination="HpP-Ph-ZdH" id="XEN-ql-aCS"/>
+                                            <outlet property="infoImage" destination="ZNa-S3-hIM" id="pP6-Ue-CLY"/>
+                                            <outlet property="locationLabel" destination="ABk-OM-lfl" id="9Sb-AD-zPl"/>
+                                            <outlet property="profileImage" destination="90a-V7-fTi" id="JVX-fb-KHw"/>
+                                            <outlet property="purpleInfoLabel" destination="hR7-8N-dcB" id="1WR-yL-bfv"/>
+                                            <outlet property="timeLabel" destination="aTs-gv-rim" id="Hx4-bF-uQ4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -629,10 +629,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="completedButton" destination="QRL-qV-GcI" id="9Io-6s-Epk"/>
-                        <outlet property="messageButton" destination="RAc-UJ-RgQ" id="2H7-Je-b9h"/>
-                        <outlet property="messagesButton" destination="RAc-UJ-RgQ" id="oXU-Kl-ZV9"/>
-                        <outlet property="upcomingButton" destination="mpx-fp-uEq" id="pYn-0x-6aB"/>
+                        <outlet property="assignmentsTable" destination="Bvx-R8-af6" id="zU8-VX-JmC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SHe-7N-OpU" userLabel="First Responder" sceneMemberID="firstResponder"/>
