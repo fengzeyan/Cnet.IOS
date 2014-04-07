@@ -13,29 +13,19 @@ namespace Cnet.iOS
 	partial class OSAssignmentViewController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIButton completedButton { get; set; }
+		MonoTouch.UIKit.UITableView assignmentsTable { get; set; }
 
-		[Outlet]
-		MonoTouch.UIKit.UIButton messageButton { get; set; }
+		[Action ("completedSwitchPressed:")]
+		partial void completedSwitchPressed (MonoTouch.UIKit.UIButton sender);
 
-		[Outlet]
-		MonoTouch.UIKit.UIButton upcomingButton { get; set; }
+		[Action ("upcomingSwitchPressed:")]
+		partial void upcomingSwitchPressed (MonoTouch.UIKit.UIButton sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (upcomingButton != null) {
-				upcomingButton.Dispose ();
-				upcomingButton = null;
-			}
-
-			if (completedButton != null) {
-				completedButton.Dispose ();
-				completedButton = null;
-			}
-
-			if (messageButton != null) {
-				messageButton.Dispose ();
-				messageButton = null;
+			if (assignmentsTable != null) {
+				assignmentsTable.Dispose ();
+				assignmentsTable = null;
 			}
 		}
 	}

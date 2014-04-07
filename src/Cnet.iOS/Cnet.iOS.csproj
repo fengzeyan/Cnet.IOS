@@ -523,6 +523,7 @@
     </Compile>
     <Compile Include="KeychainHelpers.cs" />
     <Compile Include="AuthenticationHelper.cs" />
+    <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
