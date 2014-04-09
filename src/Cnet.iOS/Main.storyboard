@@ -3511,12 +3511,12 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="U22-Tt-txF"/>
         <segue reference="VQD-HR-0IB"/>
-        <segue reference="AiH-ud-SHk"/>
+        <segue reference="oQd-yV-efo"/>
         <segue reference="gOG-ci-hMN"/>
-        <segue reference="a7x-Aj-C7h"/>
-        <segue reference="CRV-nh-p12"/>
+        <segue reference="cdo-K6-RT6"/>
+        <segue reference="zPS-ub-T9w"/>
+        <segue reference="U22-Tt-txF"/>
         <segue reference="CPr-Ap-8La"/>
         <segue reference="ULM-sc-5ME"/>
     </inferredMetricsTieBreakers>

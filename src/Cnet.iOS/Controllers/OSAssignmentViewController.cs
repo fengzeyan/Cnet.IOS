@@ -7,13 +7,14 @@ using MonoTouch.UIKit;
 using Cnt.API;
 using Cnt.Web.API.Models;
 using MonoTouch.Foundation;
+using Cnt.API.Models;
 
 namespace Cnet.iOS
 {
 	public partial class OSAssignmentViewController : UIViewController
 	{
-		OSAssignmentTableSource completedPlacements;
-		OSAssignmentTableSource upcomingPlacements;
+		OSAssignmentTableSource completedAssignments;
+		OSAssignmentTableSource upcomingAssignments;
 
 		public OSAssignmentViewController (IntPtr handle) : base (handle)
 		{
@@ -23,16 +24,16 @@ namespace Cnet.iOS
 		{
 			base.ViewDidLoad ();
 			Client client = AuthenticationHelper.GetClient ();
-			completedPlacements = new OSAssignmentTableSource (OSAssignmentsTableViewCellType.Completed, new List<Placement> (client.PlacementService.GetPlacements ().Take (10)));
-			upcomingPlacements = new OSAssignmentTableSource (OSAssignmentsTableViewCellType.Upcoming, new List<Placement> (client.PlacementService.GetPlacements ()));
-			this.assignmentsTable.Source = upcomingPlacements;
+			completedAssignments = new OSAssignmentTableSource (OSAssignmentsTableViewCellType.Completed, new List<Assignment> (client.PlacementService.GetCompletedAssignments ()));
+			upcomingAssignments = new OSAssignmentTableSource (OSAssignmentsTableViewCellType.Upcoming, new List<Assignment> (client.PlacementService.GetUpcomingAssignments ()));
+			this.assignmentsTable.Source = upcomingAssignments;
 		}
 
 		partial void completedSwitchPressed (UIButton sender)
 		{
 			this.completedButton.Selected = true;
 			this.upcomingButton.Selected = false;
-			this.assignmentsTable.Source = completedPlacements;
+			this.assignmentsTable.Source = completedAssignments;
 			this.assignmentsTable.ReloadData();
 		}
 
@@ -40,7 +41,7 @@ namespace Cnet.iOS
 		{
 			this.upcomingButton.Selected = true;
 			this.completedButton.Selected = false;
-			this.assignmentsTable.Source = upcomingPlacements;
+			this.assignmentsTable.Source = upcomingAssignments;
 			this.assignmentsTable.ReloadData();
 		}
 	}
@@ -48,11 +49,11 @@ namespace Cnet.iOS
 	public class OSAssignmentTableSource : UITableViewSource
 	{
 		private OSAssignmentsTableViewCellType tableType;
-		private List<Placement> tableItems;
+		private List<Assignment> tableItems;
 		static NSString OSAssignmentsTableViewCellId = new NSString ("AssignmentsCellIdentifier");
 
 
-		public OSAssignmentTableSource(OSAssignmentsTableViewCellType type, List<Placement> items) : base()
+		public OSAssignmentTableSource(OSAssignmentsTableViewCellType type, List<Assignment> items) : base()
 		{
 			tableType = type;
 			tableItems = items;
@@ -66,26 +67,66 @@ namespace Cnet.iOS
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
 			OSAssignmentsTableViewCell cell = (OSAssignmentsTableViewCell)tableView.DequeueReusableCell (OSAssignmentsTableViewCellId, indexPath);
-			cell.BelowProfilePicLabel.Text = tableType.ToString();
-			cell.BookmarkImage.Image = new UIImage ();
-			cell.ChildrenLabel.Text = tableItems [indexPath.Row].Students.Count() + " children";
-			cell.DateLabel.Text = tableItems [indexPath.Row].Start.ToString("ddd d MMM");
-			cell.FamilyNameLabel.Text = tableItems [indexPath.Row].ClientName;
-			if (tableType == OSAssignmentsTableViewCellType.Completed)
-				cell.InfoImage.Image = new UIImage ("icon-check.png");
-			else
-				cell.InfoImage.Image = new UIImage ();
 
-			Address location = tableItems[indexPath.Row].Location;
+			OSAssignmentsTableViewCellStatus status;
+			if (tableType == OSAssignmentsTableViewCellType.Upcoming) {
+				if (tableItems [indexPath.Row].IsCanceled)
+					status = OSAssignmentsTableViewCellStatus.Canceled;
+				else if (tableItems [indexPath.Row].Placement.SubServiceCategory == 1 && !tableItems [indexPath.Row].Placement.IsConfirmed)
+					status = OSAssignmentsTableViewCellStatus.New;
+				else
+					status = OSAssignmentsTableViewCellStatus.Confirmed;
+			} else
+				status = OSAssignmentsTableViewCellStatus.TimesheetRequired;
+
+			DateTime start = tableItems [indexPath.Row].Start;
+			DateTime end = start.AddSeconds (tableItems [indexPath.Row].Duration);
+			TimeSpan updated = TimeSpan.MinValue;
+			string infoImagePath = String.Empty;
+			string belowProfilePicLabel = String.Empty;
+			int childCount = tableItems [indexPath.Row].Placement.Students.Count ();
+
+			switch (status) {
+			case OSAssignmentsTableViewCellStatus.New:
+				infoImagePath = "check-off.png";
+				belowProfilePicLabel = "Unconfirmed";
+				updated = DateTime.Now.Subtract (start);
+				break;
+			case OSAssignmentsTableViewCellStatus.Canceled:
+				infoImagePath = "icon-cancelled.png";
+				belowProfilePicLabel = "Cancelled";
+				break;
+			case OSAssignmentsTableViewCellStatus.Confirmed:
+				infoImagePath = "icon-check.png";
+				belowProfilePicLabel = "Upcoming";
+				break;
+			case OSAssignmentsTableViewCellStatus.TimesheetRequired:
+				infoImagePath = "check-dollar.png";
+				break;
+			}
+
+			if (childCount > 0)
+				cell.ChildrenLabel.Text = (childCount == 1) ? "1 child" : childCount + " children";
+			cell.DateLabel.Text = tableItems [indexPath.Row].Start.ToString("ddd d MMM");
+			cell.FamilyNameLabel.Text = tableItems [indexPath.Row].Placement.ClientName + "Family - " + tableItems[indexPath.Row].Placement.SubService;
+
+			cell.InfoImage.Image = new UIImage (infoImagePath);
+
+			Address location = tableItems[indexPath.Row].Placement.Location;
 			cell.LocationLabel.Text = location != null ? location.City + ", " + location.State : String.Empty;
 
-			cell.ProfileImage.Image = Utility.UIImageFromUrl(tableItems [indexPath.Row].ClientPhoto);
+			cell.ProfileImage.Image = Utility.UIImageFromUrl(tableItems [indexPath.Row].Placement.ClientPhoto);
+			cell.BelowProfilePicLabel.Text = belowProfilePicLabel;
 
-			//cell.PurpleInfoImage.Image = new UIImage ();
-			//cell.PurpleInfoLabel.Text = tableItems [indexPath.Row].ClientName + " ago";
+			if (updated > TimeSpan.MinValue) {
+				cell.BookmarkImage.Image = new UIImage ("icon-bookmark.png");
+				cell.PurpleInfoLabel.Text = (updated.Hours > 0 ? updated.Hours + " hours" : updated.Minutes + " minutes") + " ago";
+			} else {
+				cell.BookmarkImage.Image = new UIImage ();
+				cell.PurpleInfoLabel.Text = (status == OSAssignmentsTableViewCellStatus.TimesheetRequired) ? "Timesheet due" : String.Empty;
+			}
 
-			Schedule nextSchedule = tableItems [indexPath.Row].Schedules.FirstOrDefault ();
-			cell.TimeLabel.Text = nextSchedule != null ? nextSchedule.Time.ToFormattedString() : String.Empty;
+			cell.TimeLabel.Text = start.ToString ("h:mmtt").ToLower() + " - " + end.ToString ("h:mmtt").ToLower();
 			return cell;
 		}
 	}
@@ -94,5 +135,14 @@ namespace Cnet.iOS
 	{
 		Completed,
 		Upcoming
+	}
+
+	public enum OSAssignmentsTableViewCellStatus
+	{
+		None,
+		New,
+		Confirmed,
+		Canceled,
+		TimesheetRequired
 	}
 }
