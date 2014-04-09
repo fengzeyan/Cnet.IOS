@@ -61,6 +61,7 @@
     <Compile Include="Client.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Exceptions\CnetResponseException.cs" />
+    <Compile Include="Models\Assignment.cs" />
     <Compile Include="RestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\NTMobile\ApplicationLoadService.cs" />
@@ -73,6 +74,8 @@
     <Compile Include="Services\NTMobile\PlacementService.cs" />
     <Compile Include="Services\NTMobile\TimesheetService.cs" />
     <Compile Include="Services\NTMobile\UserService.cs" />
+    <Compile Include="Utils\DateHelper.cs" />
+    <Compile Include="Utils\AdvanceSchedule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

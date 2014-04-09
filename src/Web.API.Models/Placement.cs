@@ -48,6 +48,9 @@ namespace Cnt.Web.API.Models
         /// <summary>Gets or sets the sub-service of the placement.</summary>
         public string SubService { get; set; }
 
+		/// <summary>Gets or sets the sub service category (None = 0, NannyOnCall = 1, NannyPlacement = 2, TutorNoChildLeftBehind = 3, Tutor = 4, Administrative = 5).</summary>
+		public int SubServiceCategory { get; set; }
+
         /// <summary>Gets or sets the name of the client associated with the placement.</summary>
         public string ClientName { get; set; }
 

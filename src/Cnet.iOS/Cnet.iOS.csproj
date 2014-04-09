@@ -315,6 +315,9 @@
     <Compile Include="..\Cnet.API\Exceptions\CnetResponseException.cs">
       <Link>Cnet.API\Exceptions\CnetResponseException.cs</Link>
     </Compile>
+    <Compile Include="..\Cnet.API\Models\Assignment.cs">
+      <Link>Cnet.API\Models\Assignment.cs</Link>
+    </Compile>
     <Compile Include="..\Cnet.API\RestHelper.cs">
       <Link>Cnet.API\RestHelper.cs</Link>
     </Compile>
@@ -347,6 +350,12 @@
     </Compile>
     <Compile Include="..\Cnet.API\Services\NTMobile\UserService.cs">
       <Link>Cnet.API\Services\NTMobile\UserService.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Utils\AdvanceSchedule.cs">
+      <Link>Cnet.API\Utils\AdvanceSchedule.cs</Link>
+    </Compile>
+    <Compile Include="..\Cnet.API\Utils\DateHelper.cs">
+      <Link>Cnet.API\Utils\DateHelper.cs</Link>
     </Compile>
     <Compile Include="..\Web.API.Models\Address.cs">
       <Link>Web.API.Models\Address.cs</Link>
@@ -536,7 +545,5 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

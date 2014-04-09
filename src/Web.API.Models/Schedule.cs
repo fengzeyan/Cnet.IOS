@@ -5,6 +5,12 @@ namespace Cnt.Web.API.Models
     /// <summary>Represents a schedule for a placement.</summary>
     public class Schedule
     {
+		/// <summary>Gets or sets the schedule ID.</summary>
+		public int Id { get; set; }
+
+		/// <summary>Gets or sets the parent schedule ID the schedule is associated with.</summary>
+		public int ParentId { get; set; }
+
         /// <summary>Gets or sets the start date of the schedule (although not necessarily the date of the first occurrence of the schedule).</summary>
         public DateTime StartDate { get; set; }
 
