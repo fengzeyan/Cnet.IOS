@@ -2,6 +2,7 @@
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
 using Cnt.Web.API.Models;
+using Cnt.API.Models;
 
 namespace Cnet.iOS
 {
@@ -17,12 +18,35 @@ namespace Cnet.iOS
 				return UIImage.LoadFromData (data);
 		}
 
-		public static string ToFormattedString(this TimeBlock timeBlock)
+		public static AssignmentStatus GetStatus (this Assignment assignment, AssignmentType type)
 		{
-			DateTime start = new DateTime (timeBlock.Start * TimeSpan.TicksPerSecond);
-			DateTime end = start.AddSeconds (timeBlock.Duration);
-			return start.ToString ("h:mmtt").ToLower() + " - " + end.ToString ("h:mmtt").ToLower();
+			AssignmentStatus status;
+			if (type == AssignmentType.Upcoming) {
+				if (assignment.IsCanceled)
+					status = AssignmentStatus.Canceled;
+				else if (assignment.Placement.SubServiceCategory == 1 && !assignment.Placement.IsConfirmed)
+					status = AssignmentStatus.New;
+				else
+					status = AssignmentStatus.Confirmed;
+			} else
+				status = AssignmentStatus.TimesheetRequired;
+			return status;
 		}
+	}
+
+	public enum AssignmentStatus
+	{
+		None,
+		New,
+		Confirmed,
+		Canceled,
+		TimesheetRequired
+	}
+
+	public enum AssignmentType
+	{
+		Completed,
+		Upcoming
 	}
 }
 

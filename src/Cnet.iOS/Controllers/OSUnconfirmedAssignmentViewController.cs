@@ -4,13 +4,29 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Cnt.API.Models;
 
 namespace Cnet.iOS
 {
 	public partial class OSUnconfirmedAssignmentViewController : UIViewController
 	{
+		public Assignment Assignment{ get; set; }
+
 		public OSUnconfirmedAssignmentViewController (IntPtr handle) : base (handle)
 		{
+		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			if (Assignment != null) {
+				LoadAssignment ();
+			}
+		}
+
+		void LoadAssignment ()
+		{
+
 		}
 	}
 }
