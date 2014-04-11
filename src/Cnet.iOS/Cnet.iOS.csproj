@@ -119,6 +119,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="TimesSquare.iOS">
+      <HintPath>Components\timessquare-1.0.3\lib\ios\TimesSquare.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -533,6 +536,30 @@
     <Compile Include="KeychainHelpers.cs" />
     <Compile Include="AuthenticationHelper.cs" />
     <Compile Include="Utility.cs" />
+    <Compile Include="OSAvailabilityCell.cs" />
+    <Compile Include="OSAvailabilityCell.designer.cs">
+      <DependentUpon>OSAvailabilityCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OSAvailabilityViewController.cs" />
+    <Compile Include="OSAvailabilityViewController.designer.cs">
+      <DependentUpon>OSAvailabilityViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSAddAvailabilityCell.cs" />
+    <Compile Include="Controllers\OSAddAvailabilityCell.designer.cs">
+      <DependentUpon>OSAddAvailabilityCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OSAddAvailabilityViewController.cs" />
+    <Compile Include="OSAddAvailabilityViewController.designer.cs">
+      <DependentUpon>OSAddAvailabilityViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OSEditAvailabilityViewController.cs" />
+    <Compile Include="OSEditAvailabilityViewController.designer.cs">
+      <DependentUpon>OSEditAvailabilityViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddAvailabilityViewController.cs" />
+    <Compile Include="AddAvailabilityViewController.designer.cs">
+      <DependentUpon>AddAvailabilityViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
@@ -542,6 +569,11 @@
   <ItemGroup>
     <XamarinComponentReference Include="json.net">
       <Version>4.5.11</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="timessquare">
+      <InstallationInProgress>True</InstallationInProgress>
+      <Version>1.0.3</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

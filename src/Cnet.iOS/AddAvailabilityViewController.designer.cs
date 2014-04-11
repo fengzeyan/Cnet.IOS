@@ -9,18 +9,12 @@ using System.CodeDom.Compiler;
 
 namespace Cnet.iOS
 {
-	[Register ("OSCalendarViewController")]
-	partial class OSCalendarViewController
+	[Register ("AddAvailabilityViewController")]
+	partial class AddAvailabilityViewController
 	{
-		[Outlet]
-		MonoTouch.UIKit.UITableView calendarTable { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (calendarTable != null) {
-				calendarTable.Dispose ();
-				calendarTable = null;
-			}
 		}
 	}
 }

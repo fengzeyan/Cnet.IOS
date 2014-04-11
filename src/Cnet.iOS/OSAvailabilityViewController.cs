@@ -7,9 +7,9 @@ using MonoTouch.UIKit;
 
 namespace Cnet.iOS
 {
-	public partial class OSCalendarViewController : UIViewController
+	public partial class OSAvailabilityViewController : UIViewController
 	{
-		public OSCalendarViewController (IntPtr handle) : base (handle)
+		public OSAvailabilityViewController (IntPtr handle) : base (handle)
 		{
 		}
 	}
