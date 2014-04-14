@@ -4,6 +4,8 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace Cnet.iOS
 {
@@ -11,6 +13,39 @@ namespace Cnet.iOS
 	{
 		public OSEditProfileViewController (IntPtr handle) : base (handle)
 		{
+		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+
+			// Indent text/set image in text views here
+			List<UITextField> textFieldList = new List<UITextField> {
+				firstNameTextField,
+				lastNameTextField,
+				emailTextField,
+				phoneTextField,
+				emergencyContactTextField,
+				ecPhoneTextField};
+
+			List<String> imageNameList = new List<String> {
+				"icon-user.png",
+				"icon-user.png",
+				"icon-mail.png",
+				"icon-mobile.png",
+				"icon-user.png",
+				"icon-phone.png"};
+
+			for (int i = 0; i < textFieldList.Count; i++)
+			{
+				UITextField tempTextField = textFieldList[i];
+				UIImageView spacerView = new UIImageView (new RectangleF (0, 0, 40, 24));
+
+				tempTextField.LeftViewMode = UITextFieldViewMode.Always;
+				spacerView.Image = new UIImage (imageNameList [i]);
+				spacerView.ContentMode = UIViewContentMode.Center;
+				textFieldList [i].LeftView = spacerView;
+			}
 		}
 	}
 }

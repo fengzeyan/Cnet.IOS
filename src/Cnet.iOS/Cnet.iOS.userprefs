@@ -1,9 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.Onsharp iPod 5th Gen" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/OSCalendarViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/OSEditProfileViewController.cs">
     <Files>
-      <File FileName="Controllers/OSCalendarViewController.cs" Line="61" Column="5" />
-      <File FileName="Controllers/OSProfileViewController.cs" Line="35" Column="32" />
+      <File FileName="Main.cs" Line="16" Column="1" />
+      <File FileName="Controllers/OSEditProfileViewController.cs" Line="30" Column="4" />
+      <File FileName="Controllers/OSCalendarViewController.cs" Line="29" Column="44" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -17,9 +18,8 @@
             </Node>
             <Node name="Controllers" expanded="True">
               <Node name="DSLCalendarView.cs" expanded="True" />
-              <Node name="OSAssignmentViewController.cs" expanded="True" />
-              <Node name="OSCalendarViewController.cs" expanded="True" selected="True" />
             </Node>
+            <Node name="Main.storyboard" selected="True" />
           </Node>
         </State>
       </Pad>

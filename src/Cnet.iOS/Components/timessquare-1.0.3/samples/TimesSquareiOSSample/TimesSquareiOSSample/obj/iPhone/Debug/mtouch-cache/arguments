@@ -1,0 +1,30 @@
+# Version: 7.2.0.2 (58c3efa)
+# [first argument, ignore] # /Users/kristian.lien/Documents/iOS Projects/Cnet.IOS/src/Cnet.iOS/Components/timessquare-1.0.3/samples/TimesSquareiOSSample/TimesSquareiOSSample/bin/iPhone/Debug/mtouch.exe
+/Developer/MonoTouch/usr/bin/mtouch \
+	-sdkroot \
+	/Applications/Xcode.app/Contents/Developer \
+	--cache \
+	"/Users/kristian.lien/Documents/iOS Projects/Cnet.IOS/src/Cnet.iOS/Components/timessquare-1.0.3/samples/TimesSquareiOSSample/TimesSquareiOSSample/obj/iPhone/Debug/mtouch-cache" \
+	--nomanifest \
+	--nosign \
+	-dev \
+	"/Users/kristian.lien/Documents/iOS Projects/Cnet.IOS/src/Cnet.iOS/Components/timessquare-1.0.3/samples/TimesSquareiOSSample/TimesSquareiOSSample/bin/iPhone/Debug/TimesSquareiOSSample.app" \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.Xml.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.Core.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/monotouch.dll \
+	-r \
+	"/Users/kristian.lien/Documents/iOS Projects/Cnet.IOS/src/Cnet.iOS/Components/timessquare-1.0.3/lib/ios/TimesSquare.iOS.dll" \
+	-debug \
+	-linksdkonly \
+	-sdk \
+	7.1 \
+	-targetver \
+	5.1 \
+	--abi=armv7 \
+	--registrar:static \
+	"/Users/kristian.lien/Documents/iOS Projects/Cnet.IOS/src/Cnet.iOS/Components/timessquare-1.0.3/samples/TimesSquareiOSSample/TimesSquareiOSSample/bin/iPhone/Debug/TimesSquareiOSSample.exe" \
