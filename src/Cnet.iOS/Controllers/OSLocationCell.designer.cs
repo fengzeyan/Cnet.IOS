@@ -12,9 +12,15 @@ namespace Cnet.iOS
 	[Register ("OSLocationCell")]
 	partial class OSLocationCell
 	{
+		[Outlet]
+		MonoTouch.UIKit.UILabel locationLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (locationLabel != null) {
+				locationLabel.Dispose ();
+				locationLabel = null;
+			}
 		}
 	}
 }

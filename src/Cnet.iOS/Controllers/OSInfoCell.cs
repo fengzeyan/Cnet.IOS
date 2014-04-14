@@ -12,5 +12,7 @@ namespace Cnet.iOS
 		public OSInfoCell (IntPtr handle) : base (handle)
 		{
 		}
+
+		public UILabel InfoLabel { get { return infoLabel; } set { infoLabel = value; } }
 	}
 }

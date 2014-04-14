@@ -12,9 +12,15 @@ namespace Cnet.iOS
 	[Register ("OSChildrenCell")]
 	partial class OSChildrenCell
 	{
+		[Outlet]
+		MonoTouch.UIKit.UILabel childrenLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (childrenLabel != null) {
+				childrenLabel.Dispose ();
+				childrenLabel = null;
+			}
 		}
 	}
 }

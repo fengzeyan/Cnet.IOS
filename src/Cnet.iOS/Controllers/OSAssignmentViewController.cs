@@ -48,6 +48,7 @@ namespace Cnet.iOS
 			}
 		}
 
+		#region Event Delegates
 		partial void completedSwitchPressed (UIButton sender)
 		{
 			this.completedButton.Selected = true;
@@ -63,7 +64,7 @@ namespace Cnet.iOS
 			Mode = AssignmentType.Upcoming;
 			this.assignmentsTable.ReloadData();
 		}
-
+		#endregion
 
 		class OSAssignmentTableSource : UITableViewSource
 		{
@@ -85,45 +86,38 @@ namespace Cnet.iOS
 				OSAssignmentsTableViewCell cell = (OSAssignmentsTableViewCell)tableView.DequeueReusableCell (OSAssignmentsTableViewCellId, indexPath);
 
 				Assignment assignment = controller.Assignments [indexPath.Row];
-				AssignmentStatus status = assignment.GetStatus (controller.Mode);
+				AssignmentStatus status = assignment.GetStatus ();
 
 				DateTime start = assignment.Start;
 				DateTime end = start.AddSeconds (assignment.Duration);
 				TimeSpan updated = TimeSpan.MinValue;
-				string infoImagePath = String.Empty;
 				string belowProfilePicLabel = String.Empty;
 				int childCount = assignment.Placement.Students.Count ();
 
 				switch (status) {
 				case AssignmentStatus.New:
-					infoImagePath = "check-off.png";
 					belowProfilePicLabel = "Unconfirmed";
 					updated = DateTime.Now.Subtract (start);
 					break;
 				case AssignmentStatus.Canceled:
-					infoImagePath = "icon-cancelled.png";
 					belowProfilePicLabel = "Cancelled";
 					break;
 				case AssignmentStatus.Confirmed:
-					infoImagePath = "icon-check.png";
 					belowProfilePicLabel = "Upcoming";
-					break;
-				case AssignmentStatus.TimesheetRequired:
-					infoImagePath = "check-dollar.png";
 					break;
 				}
 
 				if (childCount > 0)
 					cell.ChildrenLabel.Text = (childCount == 1) ? "1 child" : childCount + " children";
 				cell.DateLabel.Text = assignment.Start.ToString("ddd d MMM");
-				cell.FamilyNameLabel.Text = assignment.Placement.ClientName + "Family - " + controller.Assignments[indexPath.Row].Placement.SubService;
 
-				cell.InfoImage.Image = new UIImage (infoImagePath);
+				cell.ProfileImage.Image = assignment.GetProfileImage();
+				cell.InfoImage.Image = assignment.GetInfoImage();
 
-				Address location = controller.Assignments[indexPath.Row].Placement.Location;
-				cell.LocationLabel.Text = location != null ? location.City + ", " + location.State : String.Empty;
+				string clientName = assignment.Placement.ClientName;
+				cell.FamilyNameLabel.Text = clientName.Substring(clientName.LastIndexOf(" ") + 1) + " Family - " + controller.Assignments[indexPath.Row].Placement.SubService;
 
-				cell.ProfileImage.Image = Utility.UIImageFromUrl(assignment.Placement.ClientPhoto);
+				cell.LocationLabel.Text = assignment.ToLocationString("{1}, {2}");
 				cell.BelowProfilePicLabel.Text = belowProfilePicLabel;
 
 				if (updated > TimeSpan.MinValue) {

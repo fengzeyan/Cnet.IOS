@@ -572,7 +572,6 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="timessquare">
-      <InstallationInProgress>True</InstallationInProgress>
       <Version>1.0.3</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>

@@ -12,5 +12,8 @@ namespace Cnet.iOS
 		public OSStartEndCell (IntPtr handle) : base (handle)
 		{
 		}
+
+		public UILabel StartLabel { get { return startLabel; } set { startLabel = value; } }
+		public UILabel EndLabel { get { return endLabel; } set { endLabel = value; } }
 	}
 }

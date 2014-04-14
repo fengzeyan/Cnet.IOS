@@ -12,9 +12,23 @@ namespace Cnet.iOS
 	[Register ("OSStartEndCell")]
 	partial class OSStartEndCell
 	{
+		[Outlet]
+		MonoTouch.UIKit.UILabel endLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel startLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (startLabel != null) {
+				startLabel.Dispose ();
+				startLabel = null;
+			}
+
+			if (endLabel != null) {
+				endLabel.Dispose ();
+				endLabel = null;
+			}
 		}
 	}
 }

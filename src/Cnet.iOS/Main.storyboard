@@ -695,8 +695,12 @@
                                                     <rect key="frame" x="5" y="9" width="61" height="61"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check-dollar.png" id="QiR-HP-CCV">
-                                                    <rect key="frame" x="42" y="6" width="27" height="27"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-photo-container.png" id="QNa-Jk-4wG">
+                                                    <rect key="frame" x="5" y="9" width="61" height="61"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check-dollar.png" id="QiR-HP-CCV">
+                                                    <rect key="frame" x="45" y="9" width="27" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brown Family" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ds1-gK-Qnr">
@@ -724,6 +728,13 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="callButton" destination="2El-Qk-uc3" id="qbn-nP-tjR"/>
+                                            <outlet property="familyNameLabel" destination="Ds1-gK-Qnr" id="aWv-Zk-dnz"/>
+                                            <outlet property="infoImage" destination="QiR-HP-CCV" id="9Y0-d7-5Gp"/>
+                                            <outlet property="profileImage" destination="zLS-ix-O3q" id="dv5-6W-v7u"/>
+                                            <outlet property="statusLabel" destination="VfD-SY-fPU" id="aeY-18-XiD"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="StartEndCellIdentifier" rowHeight="75" id="l9i-Gx-p2z" customClass="OSStartEndCell">
                                         <rect key="frame" x="0.0" y="98" width="320" height="75"/>
@@ -761,13 +772,17 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thin-right-arrow.png" id="zUA-Sa-IuT">
-                                                    <rect key="frame" x="146" y="-8" width="28" height="90"/>
+                                                    <rect key="frame" x="146" y="0.0" width="28" height="75"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="endLabel" destination="dsn-xs-zax" id="A4n-0b-G4v"/>
+                                            <outlet property="startLabel" destination="Meb-Gb-xDA" id="J7J-sX-AwC"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TimesCellIdentifier" rowHeight="75" id="fnd-Jf-qWb" customClass="OSTimesCell">
                                         <rect key="frame" x="0.0" y="173" width="320" height="75"/>
@@ -812,6 +827,10 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="OIi-1B-gFj" id="w4F-GD-RCi"/>
+                                            <outlet property="timeLabel" destination="GUT-m3-j06" id="jX7-uz-KCB"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LocationCellIdentifier" rowHeight="50" id="XAu-h7-4Sc" customClass="OSLocationCell">
                                         <rect key="frame" x="0.0" y="248" width="320" height="50"/>
@@ -834,6 +853,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="locationLabel" destination="x0m-I1-egq" id="Sf5-Ct-882"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ChildrenCellIdentifier" rowHeight="50" id="gj0-hE-xED" customClass="OSChildrenCell">
                                         <rect key="frame" x="0.0" y="298" width="320" height="50"/>
@@ -856,6 +878,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="childrenLabel" destination="rsT-Da-WDG" id="n5E-7U-Tef"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="InfoCellIdentifier" rowHeight="50" id="baM-0w-mWo" customClass="OSInfoCell">
                                         <rect key="frame" x="0.0" y="348" width="320" height="50"/>
@@ -878,6 +903,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="infoLabel" destination="9et-8f-DFS" id="is7-9y-4Is"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DetailsCellIdentifier" rowHeight="250" id="Tdg-EG-P0d" customClass="OSDetailsCell">
                                         <rect key="frame" x="0.0" y="398" width="320" height="250"/>
@@ -917,6 +945,12 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="importantDetailsHeaderLabel" destination="bDa-Ez-JBI" id="Fwe-en-7Ic"/>
+                                            <outlet property="importantDetailsLabel" destination="abI-bW-uuY" id="rW6-Vp-PVR"/>
+                                            <outlet property="orderNotesHeaderLabel" destination="opJ-61-Bgw" id="eUi-72-cwu"/>
+                                            <outlet property="orderNotesLabel" destination="uwX-4a-IQ3" id="8Ix-Gy-axp"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -961,38 +995,6 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.99607843139999996" green="0.86666666670000003" blue="0.01176470588" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kMf-aV-oZT">
-                                <rect key="frame" x="0.0" y="523" width="320" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.5725490196078431" green="0.79607843137254897" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="Confirm">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notepad.png" id="8rR-5M-v5h">
-                                <rect key="frame" x="5" y="496" width="13" height="14"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="p6h-6w-LaL">
-                                <rect key="frame" x="249" y="492" width="51" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <state key="normal" title="Decline">
-                                    <color key="titleColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dww-r9-Nhu">
-                                <rect key="frame" x="26" y="490" width="51" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <state key="normal" title="Policy">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <view contentMode="scaleToFill" id="ICd-0Y-I2h">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1002,13 +1004,65 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="h-rule.png" id="X5M-e0-0d8">
-                                <rect key="frame" x="0.0" y="484" width="320" height="1"/>
+                            <view contentMode="scaleToFill" id="5lg-jH-6J9">
+                                <rect key="frame" x="0.0" y="484" width="320" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kMf-aV-oZT">
+                                        <rect key="frame" x="0.0" y="41" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.5725490196078431" green="0.79607843137254897" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                        <state key="normal" title="Confirm">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notepad.png" id="8rR-5M-v5h">
+                                        <rect key="frame" x="5" y="12" width="13" height="14"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="p6h-6w-LaL">
+                                        <rect key="frame" x="249" y="8" width="51" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <state key="normal" title="Decline">
+                                            <color key="titleColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dww-r9-Nhu">
+                                        <rect key="frame" x="26" y="6" width="51" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <state key="normal" title="Policy">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="h-rule.png" id="X5M-e0-0d8">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="actionButton" destination="kMf-aV-oZT" id="3GL-Zg-adA"/>
+                        <outlet property="declineButton" destination="p6h-6w-LaL" id="YMm-de-CAw"/>
+                        <outlet property="detailTable" destination="cTc-BH-MV0" id="m9l-Mt-RZq"/>
+                        <outlet property="mapLabel" destination="LKS-Fo-YR1" id="frc-cf-cr9"/>
+                        <outlet property="mapLabelView" destination="NiK-oq-zKe" id="mTF-zW-ACI"/>
+                        <outlet property="mapView" destination="KBc-jB-uzz" id="9FV-P7-3bO"/>
+                        <outlet property="messageCloseButton" destination="xyL-44-M4K" id="117-ML-tDX"/>
+                        <outlet property="messageLabel" destination="OrJ-hr-1ug" id="JfR-xK-8fO"/>
+                        <outlet property="messageView" destination="sHf-9B-Wex" id="k26-Ih-PWb"/>
+                        <outlet property="policyButton" destination="dww-r9-Nhu" id="QML-UK-wDj"/>
+                        <outlet property="policyView" destination="5lg-jH-6J9" id="byX-Th-YhU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ciZ-zl-rgC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1580,7 +1634,7 @@
                                 <color key="backgroundColor" red="0.99607843137254903" green="0.8666666666666667" blue="0.011764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notepad.png" id="0cf-xI-ce9">
-                                <rect key="frame" x="5" y="545" width="13" height="14"/>
+                                <rect key="frame" x="5" y="547" width="13" height="14"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FoI-Lx-oRB">
@@ -4227,14 +4281,12 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="liK-Jx-jnx"/>
-        <segue reference="vLg-fS-Yjj"/>
+        <segue reference="BB7-U1-jl7"/>
         <segue reference="nvb-CW-OFv"/>
-        <segue reference="oQd-yV-efo"/>
-        <segue reference="gOG-ci-hMN"/>
-        <segue reference="sGH-Kp-aOs"/>
         <segue reference="zPS-ub-T9w"/>
-        <segue reference="F5g-1m-IVQ"/>
-        <segue reference="kLg-Mr-RbM"/>
+        <segue reference="sGH-Kp-aOs"/>
         <segue reference="xUc-TM-EUX"/>
+        <segue reference="gOG-ci-hMN"/>
+        <segue reference="vLg-fS-Yjj"/>
     </inferredMetricsTieBreakers>
 </document>
