@@ -1,4 +1,4 @@
-﻿<Properties>
+﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.Onsharp iPod 5th Gen" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/OSCalendarViewController.cs">
     <Files>

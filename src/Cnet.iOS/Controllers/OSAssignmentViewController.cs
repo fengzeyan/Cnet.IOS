@@ -3,38 +3,42 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Cnt.API;
-using Cnt.Web.API.Models;
-using MonoTouch.Foundation;
 using Cnt.API.Models;
+using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
 	public partial class OSAssignmentViewController : UIViewController
 	{
-		const string AssignmentDetailSegueName = "AssignmentDetail";
+		#region Private Members
+		private const string AssignmentDetailSegueName = "AssignmentDetail";
+		private const string NextAssignmentDetailSegueName = "NextAssignmentDetail";
+		private Assignment nextAssignment;
+		private List<Assignment> completedAssignments;
+		private List<Assignment> upcomingAssignments;
+		#endregion
 
-		List<Assignment> completedAssignments;
-		List<Assignment> upcomingAssignments;
-
+		#region Public Properties
 		public List<Assignment> Assignments {
 			get { return (Mode == AssignmentType.Completed) ? completedAssignments : upcomingAssignments; }
 		}
 		public AssignmentType Mode { get; set; }
+		#endregion
 
 		public OSAssignmentViewController (IntPtr handle) : base (handle)
 		{
 		}
 
+		#region Public Methods
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			Client client = AuthenticationHelper.GetClient ();
-			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments ());
-			upcomingAssignments =  new List<Assignment> (client.PlacementService.GetUpcomingAssignments ());
-			Mode = AssignmentType.Upcoming;
-			this.assignmentsTable.Source = new OSAssignmentTableSource (this);
+			LoadAssignments ();
+			RenderNextAssignment ();
+			RenderAssignments ();
 		}
 
 		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
@@ -44,9 +48,14 @@ namespace Cnet.iOS
 				var indexPath = this.assignmentsTable.IndexPathForSelectedRow;
 				var selectedAssignment = Assignments [indexPath.Row];
 				var view = (OSUnconfirmedAssignmentViewController)segue.DestinationViewController;
-				view.Assignment = selectedAssignment;
+				view.PlacementId = selectedAssignment.Placement.Id;
+			}
+			else if (segue.Identifier == NextAssignmentDetailSegueName) {
+				var view = (OSUnconfirmedAssignmentViewController)segue.DestinationViewController;
+				view.PlacementId = nextAssignment.Placement.Id;
 			}
 		}
+		#endregion
 
 		#region Event Delegates
 		partial void completedSwitchPressed (UIButton sender)
@@ -63,19 +72,72 @@ namespace Cnet.iOS
 			this.completedButton.Selected = false;
 			Mode = AssignmentType.Upcoming;
 			this.assignmentsTable.ReloadData();
+   		}
+
+		private void callNextAssignment(object sender, EventArgs e)
+		{
+			if (!Utility.OpenPhoneDailer (nextAssignment.Placement.ClientMobilePhone))
+				Utility.OpenPhoneDailer (nextAssignment.Placement.ClientHomePhone);
+		}
+
+		private void viewNextAssignmentMap(object sender, EventArgs e)
+		{
+			Utility.OpenMap (nextAssignment.Placement.Location);
 		}
 		#endregion
 
-		class OSAssignmentTableSource : UITableViewSource
+		#region Private Methods
+		private void LoadAssignments()
 		{
-			OSAssignmentViewController controller;
-			static NSString OSAssignmentsTableViewCellId = new NSString ("AssignmentsCellIdentifier");
+			Client client = AuthenticationHelper.GetClient ();
+			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments ());
+			upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments ());
+
+			// Next Assignment
+			if (upcomingAssignments.Count > 0)
+				nextAssignment = upcomingAssignments.OrderBy (a => a.Start).First ();
+		}
+
+		private void RenderAssignments()
+		{
+			Mode = AssignmentType.Upcoming;
+			this.assignmentsTable.Source = new OSAssignmentTableSource (this);
+		}
+
+		private void RenderNextAssignment()
+		{
+			if (nextAssignment != null) {
+				DateTime end = nextAssignment.Start.AddSeconds (nextAssignment.Duration);
+
+				nextAssignmentDateLabel.Text = nextAssignment.Start.ToString ("dddd MMM d");
+				nextAssignmentStartLabel.Text = nextAssignment.Start.ToString ("h:mm");
+				nextAssignmentStartPmLabel.Text = nextAssignment.Start.ToString ("tt").ToUpper ();
+				nextAssignmentEndLabel.Text = end.ToString ("- h:mm");
+				nextAssignmentEndPmLabel.Text = end.ToString ("tt").ToUpper ();
+				nextAssignmentFamilyLabel.Text = nextAssignment.Placement.ToFamilyNameString ();
+
+				nextAssignmentMapButton.TouchUpInside += viewNextAssignmentMap;
+				nextAssignmentCallButton.TouchUpInside += callNextAssignment;
+			} else {
+				// TODO: Figure out what to do if there is no next assignment.
+			}
+		}
+		#endregion
+
+		private class OSAssignmentTableSource : UITableViewSource
+		{
+			#region Private Members
+			private OSAssignmentViewController controller;
+			private static NSString OSAssignmentsTableViewCellId = new NSString ("AssignmentsCellIdentifier");
+			private int purpleLabelMaxWidth = 70;
+			#endregion
 
 			public OSAssignmentTableSource(OSAssignmentViewController parent) : base()
 			{
 				controller = parent;
 			}
 
+			#region Public Methods
 			public override int RowsInSection (UITableView tableview, int section)
 			{
 				return controller.Assignments.Count;
@@ -88,8 +150,6 @@ namespace Cnet.iOS
 				Assignment assignment = controller.Assignments [indexPath.Row];
 				AssignmentStatus status = assignment.GetStatus ();
 
-				DateTime start = assignment.Start;
-				DateTime end = start.AddSeconds (assignment.Duration);
 				TimeSpan updated = TimeSpan.MinValue;
 				string belowProfilePicLabel = String.Empty;
 				int childCount = assignment.Placement.Students.Count ();
@@ -97,7 +157,7 @@ namespace Cnet.iOS
 				switch (status) {
 				case AssignmentStatus.New:
 					belowProfilePicLabel = "Unconfirmed";
-					updated = DateTime.Now.Subtract (start);
+					updated = DateTime.Now.Subtract (assignment.Start);
 					break;
 				case AssignmentStatus.Canceled:
 					belowProfilePicLabel = "Cancelled";
@@ -109,28 +169,36 @@ namespace Cnet.iOS
 
 				if (childCount > 0)
 					cell.ChildrenLabel.Text = (childCount == 1) ? "1 child" : childCount + " children";
-				cell.DateLabel.Text = assignment.Start.ToString("ddd d MMM");
+				cell.DateLabel.Text = assignment.ToStartString();
 
-				cell.ProfileImage.Image = assignment.GetProfileImage();
-				cell.InfoImage.Image = assignment.GetInfoImage();
+				cell.ProfileImage.Image = assignment.Placement.GetProfileImage();
+				cell.InfoImage.Image = status.GetInfoImage();
 
-				string clientName = assignment.Placement.ClientName;
-				cell.FamilyNameLabel.Text = clientName.Substring(clientName.LastIndexOf(" ") + 1) + " Family - " + controller.Assignments[indexPath.Row].Placement.SubService;
+				cell.FamilyNameLabel.Text = assignment.Placement.ToFamilyNameString() + " - " + controller.Assignments[indexPath.Row].Placement.SubService;
 
-				cell.LocationLabel.Text = assignment.ToLocationString("{1}, {2}");
+				cell.LocationLabel.Text = assignment.Placement.ToLocationString("{1}, {2}");
 				cell.BelowProfilePicLabel.Text = belowProfilePicLabel;
 
 				if (updated > TimeSpan.MinValue) {
 					cell.BookmarkImage.Image = new UIImage ("icon-bookmark.png");
 					cell.PurpleInfoLabel.Text = (updated.Hours > 0 ? updated.Hours + " hours" : updated.Minutes + " minutes") + " ago";
 				} else {
-					cell.BookmarkImage.Image = new UIImage ();
+					cell.BookmarkImage.Hidden = true;
+					if (purpleLabelMaxWidth != cell.PurpleInfoLabel.Frame.Width)
+						cell.PurpleInfoLabel.AdjustFrame (0, 0, purpleLabelMaxWidth - cell.PurpleInfoLabel.Frame.Width, 0);
 					cell.PurpleInfoLabel.Text = (status == AssignmentStatus.TimesheetRequired) ? "Timesheet due" : String.Empty;
 				}
 
-				cell.TimeLabel.Text = start.ToString ("h:mmtt").ToLower() + " - " + end.ToString ("h:mmtt").ToLower();
+				cell.TimeLabel.Text = assignment.ToTimesString ();
 				return cell;
 			}
+			#endregion
+		}
+
+		public enum AssignmentType
+		{
+			Completed,
+			Upcoming
 		}
 	}
 }

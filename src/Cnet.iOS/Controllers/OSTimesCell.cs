@@ -13,7 +13,6 @@ namespace Cnet.iOS
 		{
 		}
 
-		public UILabel DateLabel { get { return dateLabel; } set { dateLabel = value; } }
-		public UILabel TimeLabel { get { return timeLabel; } set { timeLabel = value; } }
+		public UILabel TimesLabel { get { return timesLabel; } set { timesLabel = value; } }
 	}
 }

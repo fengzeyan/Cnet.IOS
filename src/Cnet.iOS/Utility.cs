@@ -1,13 +1,16 @@
 ﻿using System;
-using MonoTouch.UIKit;
+using System.Collections.Generic;
+using System.Linq;
 using MonoTouch.Foundation;
-using Cnt.Web.API.Models;
+using MonoTouch.UIKit;
 using Cnt.API.Models;
+using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
 	public static class Utility
 	{
+		#region Static Settings
 		public static UIColor CanceledBackgroundColor = UIColor.FromRGB (255, 0, 87);
 		public static UIColor CanceledTextColor = UIColor.FromRGB (134, 15, 56);
 		public static UIColor CanceledStatusTextColor = UIColor.FromRGB (255, 0, 67);
@@ -16,7 +19,9 @@ namespace Cnet.iOS
 		public static UIColor UpdatedBackgroundColor = UIColor.FromRGB (254, 221, 3);
 		public static UIColor UpdatedTextColor = UIColor.FromRGB (160, 116, 85);
 		public static UIColor UpdatedStatusTextColor = UIColor.FromRGB (204, 175, 0);
+		#endregion
 
+		#region Helper Methods
 		public static UIImage UIImageFromUrl(string uri)
 		{
 			if (String.IsNullOrEmpty (uri))
@@ -27,6 +32,30 @@ namespace Cnet.iOS
 				return UIImage.LoadFromData (data);
 		}
 
+		public static bool OpenPhoneDailer(string phoneNumber)
+		{
+			var cleanNumber = new String (phoneNumber.Where (Char.IsDigit).ToArray ());
+			var urlToSend = new NSUrl ("tel:" + cleanNumber);
+			if (UIApplication.SharedApplication.CanOpenUrl (urlToSend)) {
+				UIApplication.SharedApplication.OpenUrl (urlToSend);
+				return true;
+			}
+			return false;
+		}
+
+		public static bool OpenMap(Address address)
+		{
+			// TODO: Get map URL.
+			var urlToSend = new NSUrl (String.Empty);
+			if (UIApplication.SharedApplication.CanOpenUrl (urlToSend)) {
+				UIApplication.SharedApplication.OpenUrl (urlToSend);
+				return true;
+			}
+			return false;
+		}
+		#endregion
+
+		#region Extension Methods
 		public static void AdjustFrame(this UIView view, float x, float y, float width, float height)
 		{
 			var frame = view.Frame;
@@ -37,20 +66,26 @@ namespace Cnet.iOS
 			view.Frame = frame;
 		}
 
-		public static void SetFrame(this UIView view, float? x, float? y, float? width, float? height)
+		public static AssignmentStatus GetStatus (this List<Assignment> assignments)
 		{
-			var frame = view.Frame;
-			frame.X = x.HasValue ? x.Value : frame.X;
-			frame.Y = y.HasValue ? y.Value : frame.Y;
-			frame.Width = width.HasValue ? width.Value : frame.Width;
-			frame.Height = height.HasValue ? height.Value : frame.Height;
-			view.Frame = frame;
+			AssignmentStatus status = AssignmentStatus.New;
+			foreach (Assignment assignment in assignments) {
+				AssignmentStatus currentStatus = assignment.GetStatus ();
+				if (currentStatus == AssignmentStatus.Canceled)
+					return AssignmentStatus.Canceled;
+
+				// TODO: Figure out the order for assignment statuses.
+				if (currentStatus == AssignmentStatus.TimesheetRequired ||
+				    (status != AssignmentStatus.TimesheetRequired && currentStatus == AssignmentStatus.Updated) ||
+					(status != AssignmentStatus.TimesheetRequired && status != AssignmentStatus.Updated && currentStatus == AssignmentStatus.Confirmed))
+					status = currentStatus;
+			}
+			return status;
 		}
 
-		#region Assignment Extensions
 		public static AssignmentStatus GetStatus (this Assignment assignment)
 		{
-			AssignmentStatus status = AssignmentStatus.None;
+			AssignmentStatus status;
 			if (assignment.Start.AddSeconds (assignment.Duration) >= DateTime.Now) {
 				if (assignment.IsCanceled)
 					status = AssignmentStatus.Canceled;
@@ -67,9 +102,20 @@ namespace Cnet.iOS
 			return status;
 		}
 
-		public static UIImage GetInfoImage(this Assignment assignment)
+		public static string ToStartString(this Assignment assignment)
 		{
-			switch (assignment.GetStatus ()) {
+			return assignment.Start.ToString("ddd d MMM");
+		}
+
+		public static string ToTimesString(this Assignment assignment)
+		{
+			DateTime end = assignment.Start.AddSeconds (assignment.Duration);
+			return assignment.Start.ToString ("h:mmtt").ToLower() + " - " + end.ToString ("h:mmtt").ToLower();
+		}
+
+		public static UIImage GetInfoImage(this AssignmentStatus assignmentStatus)
+		{
+			switch (assignmentStatus) {
 			case AssignmentStatus.New:
 				return new UIImage("check-off.png");
 			case AssignmentStatus.Canceled:
@@ -83,23 +129,28 @@ namespace Cnet.iOS
 			}
 		}
 
-		public static UIImage GetProfileImage(this Assignment assignment)
+		public static UIImage GetProfileImage(this Placement placement)
 		{
-			if (String.IsNullOrWhiteSpace (assignment.Placement.ClientPhoto))
+			if (String.IsNullOrWhiteSpace (placement.ClientPhoto))
 				return new UIImage ("icon-no-image.png");
 
-			return UIImageFromUrl (assignment.Placement.ClientPhoto);
+			return UIImageFromUrl (placement.ClientPhoto);
 		}
 
-		public static string ToLocationString(this Assignment assignment, string format)
+		public static string ToFamilyNameString(this Placement placement)
 		{
-			if (assignment.Placement.Location == null)
+			string clientName = placement.ClientName;
+			return clientName.Substring (clientName.LastIndexOf (" ") + 1) + " Family";
+		}
+
+		public static string ToLocationString(this Placement placement, string format)
+		{
+			if (placement.Location == null)
 				return String.Empty;
 
-			Address location = assignment.Placement.Location;
+			Address location = placement.Location;
 			return String.Format(format, location.Line1, location.Line2, location.City, location.State, location.Zip);
 		}
-		#endregion
 
 		public static string ToAgeString(this Student child)
 		{
@@ -136,23 +187,17 @@ namespace Cnet.iOS
 
 			return String.Format("{0}yo {1}mo", ageInYears, ageInMonths);
 		}
+		#endregion
 	}
 
 	public enum AssignmentStatus
 	{
-		None,
 		New,
 		Confirmed,
 		Updated,
 		TimesheetRequired,
 		NoTimesheetRequired,
 		Canceled
-	}
-
-	public enum AssignmentType
-	{
-		Completed,
-		Upcoming
-	}
+  	}
 }
 

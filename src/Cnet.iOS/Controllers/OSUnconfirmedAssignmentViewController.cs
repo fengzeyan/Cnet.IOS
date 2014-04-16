@@ -13,9 +13,13 @@ namespace Cnet.iOS
 {
 	public partial class OSUnconfirmedAssignmentViewController : UIViewController
 	{
+		#region Private Members
 		private AssignmentStatus assignmentStatus;
+		private List<Assignment> assignments;
+		private Placement placement;
+		#endregion
 
-		public Assignment Assignment{ get; set; }
+		public int PlacementId { get; set; }
 
 		public OSUnconfirmedAssignmentViewController (IntPtr handle) : base (handle)
 		{
@@ -24,48 +28,63 @@ namespace Cnet.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			if (Assignment != null) {
-				RenderAssignment ();
+			if (PlacementId > 0) {
+				LoadPlacement ();
+				RenderPlacement ();
 			}
 		}
 
 		#region Event Delegates
-
 		public void CallCnet(object sender, EventArgs e)
 		{
-			//TODO: Handle call CNet click.
+			//TODO: Handle call CNet.
+		}
+
+		public void CallFamily(object sender, EventArgs e)
+		{
+			if (!Utility.OpenPhoneDailer (placement.ClientMobilePhone))
+				Utility.OpenPhoneDailer (placement.ClientHomePhone);
 		}
 
 		public void CloseMessage (object sender, EventArgs e)
 		{
 			messageView.Hidden = true;
+			// TODO: Dismiss notification.
 		}
 
 		public void ConfirmAssignment(object sender, EventArgs e)
 		{
 			Client client = AuthenticationHelper.GetClient ();
 			if (client != null)
-				client.PlacementService.ConfirmPlacement (Assignment.Placement.Id);
+				client.PlacementService.ConfirmPlacement (PlacementId);
 		}
 
 		public void DeclineAssignment(object sender, EventArgs e)
 		{
 			Client client = AuthenticationHelper.GetClient ();
 			if (client != null)
-				client.PlacementService.DeclinePlacement (Assignment.Placement.Id);
+				client.PlacementService.DeclinePlacement (PlacementId);
 		}
 
 		public void ViewPolicy (object sender, EventArgs e)
 		{
-			//TODO: Handle view policy click.
+			string message = "As a College Nannies and Tutors employee, you are expected to fulfill you responsibilities as outlined in the CNT Role Model Promise. "
+				+ "If declining an assignment, you must contact the CNT office to explain the situation. Thank You!";
+			new UIAlertView ("Policy", message, null, "ok", null).Show ();
 		}
 		#endregion
 
 		#region Private Methods
-		private void RenderAssignment ()
+		private void LoadPlacement()
 		{
-			assignmentStatus = AssignmentStatus.Updated; //Assignment.GetStatus ();
+			Client client = AuthenticationHelper.GetClient ();
+			placement = client.PlacementService.GetPlacement (PlacementId);
+			assignments = new List<Assignment> (client.PlacementService.GetAssignments (placement));
+			assignmentStatus = assignments.GetStatus ();
+		}
 
+		private void RenderPlacement ()
+		{
 			// Message
 			RenderMessage ();
 
@@ -108,7 +127,7 @@ namespace Cnet.iOS
 			case AssignmentStatus.Confirmed:
 			case AssignmentStatus.Updated:
 				//TODO: Render map image.
-				mapLabel.Text = Assignment.ToLocationString ("{1}, {2}");
+				mapLabel.Text = placement.ToLocationString ("{1}, {2}");
 				break;
 			default:
 				mapView.Hidden = true;
@@ -120,6 +139,8 @@ namespace Cnet.iOS
 
 		void RenderActionButton ()
 		{
+			policyButton.TouchUpInside += ViewPolicy;
+
 			switch (assignmentStatus) {
 			case AssignmentStatus.New:
 				actionButton.SetTitle ("Confirm", UIControlState.Normal);
@@ -131,7 +152,6 @@ namespace Cnet.iOS
 				declineButton.Hidden = true;
 				break;
 			default:
-				policyButton.TouchUpInside += ViewPolicy;
 				actionButton.Hidden = true;
 				declineButton.Hidden = true;
 				policyView.AdjustFrame (0, 45, 0, 0);
@@ -154,6 +174,8 @@ namespace Cnet.iOS
 			private static NSString DetailsCellId = new NSString ("DetailsCellIdentifier");
 
 			private const decimal CharactersPerLine = 35;
+			private int timesLineCount;
+			private NSMutableAttributedString timesText;
 			private int locationLineCount;
 			private int childrenLineCount;
 			private string childrenText;
@@ -165,6 +187,7 @@ namespace Cnet.iOS
 			{
 				controller = parent;
 
+				LoadTimesData();
 				LoadLocationData();
 				LoadChildrenData();
 				LoadDetailData();
@@ -217,7 +240,7 @@ namespace Cnet.iOS
 			{
 				switch (indexPath.Row) {
 				case 2: // Times
-					return 75;
+					return 25 + (25 * timesLineCount);
 				case 3: // Location
 					return 33 + (17 * locationLineCount);
 				case 4: // Children
@@ -235,11 +258,45 @@ namespace Cnet.iOS
 			#endregion
 
 			#region Private Methods
+			private void LoadTimesData()
+			{
+				timesLineCount = controller.assignments.Count;
+
+				var boldAttribute = new UIStringAttributes {
+					Font = UIFont.FromName ("Helvetica-Bold", 14f),
+					ParagraphStyle = new NSMutableParagraphStyle () { LineSpacing = 8.0f }
+				};
+				var regularAttribute = new UIStringAttributes { 
+					Font = UIFont.FromName ("Helvetica-Regular", 14f),
+					ParagraphStyle = new NSMutableParagraphStyle () { LineSpacing = 8.0f }
+				};
+				string timesString = String.Empty;
+				List<NSRange> ranges = new List<NSRange> ();
+				int index = 0;
+				for (int i = 0; i < timesLineCount; i++) {
+					Assignment assignment = controller.assignments [i];
+					string date = assignment.ToStartString ();
+					string times = " - " + assignment.ToTimesString ();
+					if (i < (timesLineCount - 1))
+						times += "\n";
+					timesString += date + times;
+					ranges.Add (new NSRange (index, date.Length));
+					index += date.Length;
+					ranges.Add (new NSRange (index, times.Length));
+					index += times.Length;
+				}
+
+				timesText = new NSMutableAttributedString (timesString);
+				for (int i = 0; i < ranges.Count; i++) {
+					timesText.SetAttributes ((i % 2 == 0 ? boldAttribute : regularAttribute), ranges [i]);
+				}
+			}
+
 			private void LoadLocationData()
 			{
 				if (controller.assignmentStatus == AssignmentStatus.New)
 					locationLineCount = 1;
-				else if (String.IsNullOrWhiteSpace (controller.Assignment.Placement.Location.Line2))
+				else if (String.IsNullOrWhiteSpace (controller.placement.Location.Line2))
 					locationLineCount = 2;
 				else
 					locationLineCount = 3;
@@ -248,7 +305,7 @@ namespace Cnet.iOS
 			private void LoadChildrenData()
 			{
 				List<string> childStrings = new List<string> ();
-				foreach (Student child in controller.Assignment.Placement.Students) {
+				foreach (Student child in controller.placement.Students) {
 					if (controller.assignmentStatus == AssignmentStatus.New) {
 						childStrings.Add (String.Format ("{0}, {1}", child.Gender, child.ToAgeString ()));
 					} else {
@@ -265,22 +322,21 @@ namespace Cnet.iOS
 			private void LoadDetailData()
 			{
 				notesLineCount = 0;
-				if (!String.IsNullOrWhiteSpace (controller.Assignment.Placement.Notes))
-					notesLineCount = (int)Math.Ceiling (controller.Assignment.Placement.Notes.ToCharArray ().Length / CharactersPerLine);
+				if (!String.IsNullOrWhiteSpace (controller.placement.Notes))
+					notesLineCount = (int)Math.Ceiling (controller.placement.Notes.ToCharArray ().Length / CharactersPerLine);
 
-				detailsLineCount = (int)Math.Ceiling(controller.Assignment.Placement.ImportantDetails.ToCharArray ().Length / CharactersPerLine);
+				detailsLineCount = (int)Math.Ceiling(controller.placement.ImportantDetails.ToCharArray ().Length / CharactersPerLine);
 			}
 
 			private void RenderFamilyCell (OSFamilyCell cell)
 			{
-				cell.ProfileImage.Image = controller.Assignment.GetProfileImage ();
+				cell.ProfileImage.Image = controller.placement.GetProfileImage ();
 				if (controller.assignmentStatus == AssignmentStatus.TimesheetRequired)
-					cell.InfoImage.Image = controller.Assignment.GetInfoImage ();
+					cell.InfoImage.Image = controller.assignmentStatus.GetInfoImage ();
 				else
 					cell.InfoImage.Hidden = true;
 
-				string clientName = controller.Assignment.Placement.ClientName;
-				cell.FamilyNameLabel.Text = clientName.Substring (clientName.LastIndexOf (" ") + 1) + " Family";
+				cell.FamilyNameLabel.Text = controller.placement.ToFamilyNameString ();
 
 				switch (controller.assignmentStatus) {
 				case AssignmentStatus.New:
@@ -289,6 +345,7 @@ namespace Cnet.iOS
 					break;
 				case AssignmentStatus.Updated:
 					cell.StatusLabel.Text = "Updated: ";
+					// TODO: Get updated message.
 					cell.StatusLabel.TextColor = Utility.UpdatedStatusTextColor;
 					cell.StatusLabel.Font = UIFont.FromName ("Helvetica-Bold", 12);
 					break;
@@ -313,13 +370,20 @@ namespace Cnet.iOS
 
 			private void RenderStartEndCell (OSStartEndCell cell)
 			{
-				cell.StartLabel.Text = controller.Assignment.Start.ToString ("ddd d MMM");
-				cell.EndLabel.Text = controller.Assignment.Start.AddSeconds (controller.Assignment.Duration).ToString ("ddd d MMM");
+				cell.StartLabel.Text = controller.placement.Start.ToString ("ddd d MMM");
+				if (controller.placement.End.HasValue)
+					cell.EndLabel.Text = controller.placement.End.Value.ToString ("ddd d MMM");
+				else 
+					cell.EndLabel.Text = String.Empty;
 			}
 
 			private void RenderTimesCell (OSTimesCell cell)
 			{
-				// TODO: Load times cell data.
+				int labelHeight = (25 * timesLineCount) - 8;
+				if (labelHeight != cell.TimesLabel.Frame.Height)
+					cell.TimesLabel.AdjustFrame (0, 0, 0, labelHeight - cell.TimesLabel.Frame.Height);
+				cell.TimesLabel.Lines = timesLineCount;
+				cell.TimesLabel.AttributedText = timesText;
 			}
 
 			private void RenderLocationCell (OSLocationCell cell)
@@ -334,7 +398,7 @@ namespace Cnet.iOS
 					format = "{0}\n{2}, {3} {4}";
 				else if (locationLineCount == 3)
 					format = "{0}\n{1}\n{2}, {3} {4}";
-				cell.LocationLabel.Text = controller.Assignment.ToLocationString (format);
+				cell.LocationLabel.Text = controller.placement.ToLocationString (format);
 			}
 
 			private void RenderChildrenCell (OSChildrenCell cell)
@@ -350,7 +414,7 @@ namespace Cnet.iOS
 			{
 				// TODO: Get all sub-service category text firgured out.
 				string infoText = String.Empty;
-				switch (controller.Assignment.Placement.SubServiceCategory) {
+				switch (controller.placement.SubServiceCategory) {
 				case 1:
 					infoText = "On-Call";
 					break;
@@ -366,7 +430,7 @@ namespace Cnet.iOS
 
 			private void RenderDetailsCell (OSDetailsCell cell)
 			{
-				if (String.IsNullOrWhiteSpace (controller.Assignment.Placement.Notes)) {
+				if (String.IsNullOrWhiteSpace (controller.placement.Notes)) {
 					cell.OrderNotesHeaderLabel.Hidden = true;
 					cell.OrderNotesLabel.Hidden = true;
 				} else {
@@ -374,7 +438,7 @@ namespace Cnet.iOS
 					if (notesLabelHeight != cell.OrderNotesLabel.Frame.Height)
 						cell.OrderNotesLabel.AdjustFrame (0, 0, 0, notesLabelHeight - cell.OrderNotesLabel.Frame.Height);
 					cell.OrderNotesLabel.Lines = notesLineCount;
-					cell.OrderNotesLabel.Text = controller.Assignment.Placement.Notes;
+					cell.OrderNotesLabel.Text = controller.placement.Notes;
 				}
 
 				int detailsHeaderLabelY = 20 + (notesLineCount > 0 ? 40 : 0) + (17 * notesLineCount);
@@ -385,7 +449,7 @@ namespace Cnet.iOS
 				if (detailsLabelY != cell.ImportantDetailsLabel.Frame.Y || detailsLabelHeight != cell.ImportantDetailsLabel.Frame.Height)
 					cell.ImportantDetailsLabel.AdjustFrame (0, detailsLabelY - cell.ImportantDetailsLabel.Frame.Y, 0, detailsLabelHeight - cell.ImportantDetailsLabel.Frame.Height);
 				cell.ImportantDetailsLabel.Lines = detailsLineCount;
-				cell.ImportantDetailsLabel.Text = controller.Assignment.Placement.ImportantDetails;
+				cell.ImportantDetailsLabel.Text = controller.placement.ImportantDetails;
 			}
 			#endregion
 		}

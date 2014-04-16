@@ -13,21 +13,13 @@ namespace Cnet.iOS
 	partial class OSTimesCell
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel dateLabel { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UILabel timeLabel { get; set; }
+		MonoTouch.UIKit.UILabel timesLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (dateLabel != null) {
-				dateLabel.Dispose ();
-				dateLabel = null;
-			}
-
-			if (timeLabel != null) {
-				timeLabel.Dispose ();
-				timeLabel = null;
+			if (timesLabel != null) {
+				timesLabel.Dispose ();
+				timesLabel = null;
 			}
 		}
 	}

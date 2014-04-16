@@ -452,6 +452,9 @@
                                             <color key="titleColor" red="0.90980392156862744" green="0.97254901960784312" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="NextAssignmentDetail" id="R0C-4K-CJL"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qHB-Ua-bj3">
                                         <rect key="frame" x="174" y="84" width="40" height="51"/>
@@ -459,9 +462,6 @@
                                         <state key="normal" image="call-button.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <connections>
-                                            <segue destination="iwz-5G-sLE" kind="modal" id="U22-Tt-txF"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PgN-4W-7Uz">
                                         <rect key="frame" x="222" y="84" width="40" height="51"/>
@@ -476,6 +476,9 @@
                                         <state key="normal" image="details-button.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="NextAssignmentDetail" id="tsk-sk-Tp6"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.41568627450980389" green="0.25490196078431371" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
@@ -562,8 +565,8 @@
                                                     <rect key="frame" x="48" y="6" width="27" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 min ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hR7-8N-dcB">
-                                                    <rect key="frame" x="244" y="9" width="54" height="12"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 min ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hR7-8N-dcB">
+                                                    <rect key="frame" x="234" y="9" width="64" height="12"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <color key="textColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -638,6 +641,15 @@
                     <connections>
                         <outlet property="assignmentsTable" destination="Bvx-R8-af6" id="zU8-VX-JmC"/>
                         <outlet property="completedButton" destination="QRL-qV-GcI" id="6fP-67-sfu"/>
+                        <outlet property="nextAssignmentButton" destination="vHP-dW-k3q" id="r0b-Ve-Y1Y"/>
+                        <outlet property="nextAssignmentCallButton" destination="qHB-Ua-bj3" id="xBV-PC-j7N"/>
+                        <outlet property="nextAssignmentDateLabel" destination="9ep-ZC-ZbH" id="rFr-hj-P7b"/>
+                        <outlet property="nextAssignmentEndLabel" destination="Fwl-SC-5Wt" id="jB8-Fw-Tnw"/>
+                        <outlet property="nextAssignmentEndPmLabel" destination="gDE-iS-3ah" id="hMB-dT-fdb"/>
+                        <outlet property="nextAssignmentFamilyLabel" destination="741-sd-3ad" id="Zgl-Th-fSG"/>
+                        <outlet property="nextAssignmentMapButton" destination="PgN-4W-7Uz" id="nMk-hE-GLd"/>
+                        <outlet property="nextAssignmentStartLabel" destination="kHI-zU-cgO" id="jwV-Lp-WtC"/>
+                        <outlet property="nextAssignmentStartPmLabel" destination="H3e-l9-fM5" id="CRM-ES-5de"/>
                         <outlet property="upcomingButton" destination="mpx-fp-uEq" id="KS4-0a-eZl"/>
                     </connections>
                 </viewController>
@@ -784,40 +796,19 @@
                                             <outlet property="startLabel" destination="Meb-Gb-xDA" id="J7J-sX-AwC"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TimesCellIdentifier" rowHeight="75" id="fnd-Jf-qWb" customClass="OSTimesCell">
-                                        <rect key="frame" x="0.0" y="173" width="320" height="75"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TimesCellIdentifier" rowHeight="50" id="fnd-Jf-qWb" customClass="OSTimesCell">
+                                        <rect key="frame" x="0.0" y="173" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fnd-Jf-qWb" id="OhI-t3-l7I">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cal-icon.png" id="Lk2-hT-ejn">
                                                     <rect key="frame" x="20" y="13" width="14" height="13"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu 6 Dec" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OIi-1B-gFj">
-                                                    <rect key="frame" x="34" y="12" width="78" height="16"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 8:00am - 10:00am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GUT-m3-j06">
-                                                    <rect key="frame" x="118" y="13" width="160" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu 6 Dec" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u79-4Y-KPj">
-                                                    <rect key="frame" x="34" y="38" width="78" height="16"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 12:00pm - 4:00pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fbU-UK-4ye">
-                                                    <rect key="frame" x="118" y="39" width="160" height="17"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tue 6 Dec - 8:00am - 10:00am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GUT-m3-j06">
+                                                    <rect key="frame" x="44" y="13" width="256" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -828,28 +819,27 @@
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
-                                            <outlet property="dateLabel" destination="OIi-1B-gFj" id="w4F-GD-RCi"/>
-                                            <outlet property="timeLabel" destination="GUT-m3-j06" id="jX7-uz-KCB"/>
+                                            <outlet property="timesLabel" destination="GUT-m3-j06" id="keQ-eY-HOx"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LocationCellIdentifier" rowHeight="50" id="XAu-h7-4Sc" customClass="OSLocationCell">
-                                        <rect key="frame" x="0.0" y="248" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="223" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XAu-h7-4Sc" id="BqN-HL-uzG">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-map-dark.png" id="K7B-GW-Tq2">
+                                                    <rect key="frame" x="20" y="16" width="15" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bloomington, MN 55425" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="x0m-I1-egq">
-                                                    <rect key="frame" x="43" y="16" width="190" height="17"/>
+                                                    <rect key="frame" x="44" y="16" width="256" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-map-dark.png" id="K7B-GW-Tq2">
-                                                    <rect key="frame" x="20" y="16" width="15" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -858,12 +848,16 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ChildrenCellIdentifier" rowHeight="50" id="gj0-hE-xED" customClass="OSChildrenCell">
-                                        <rect key="frame" x="0.0" y="298" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="273" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gj0-hE-xED" id="8BB-Yy-K13">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-person-dark.png" id="Xyc-NN-oqP">
+                                                    <rect key="frame" x="20" y="18" width="12" height="12"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="F, 5yo 1mo    M, 7yo 6mos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rsT-Da-WDG">
                                                     <rect key="frame" x="44" y="16" width="256" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -871,10 +865,6 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-person-dark.png" id="Xyc-NN-oqP">
-                                                    <rect key="frame" x="20" y="18" width="12" height="12"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -883,7 +873,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="InfoCellIdentifier" rowHeight="50" id="baM-0w-mWo" customClass="OSInfoCell">
-                                        <rect key="frame" x="0.0" y="348" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="323" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="baM-0w-mWo" id="O0Y-ND-5Nx">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -908,7 +898,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DetailsCellIdentifier" rowHeight="250" id="Tdg-EG-P0d" customClass="OSDetailsCell">
-                                        <rect key="frame" x="0.0" y="398" width="320" height="250"/>
+                                        <rect key="frame" x="0.0" y="373" width="320" height="250"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tdg-EG-P0d" id="AvC-Wg-tdA">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="249"/>
@@ -4280,13 +4270,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="liK-Jx-jnx"/>
-        <segue reference="BB7-U1-jl7"/>
-        <segue reference="nvb-CW-OFv"/>
-        <segue reference="zPS-ub-T9w"/>
-        <segue reference="sGH-Kp-aOs"/>
-        <segue reference="xUc-TM-EUX"/>
         <segue reference="gOG-ci-hMN"/>
+        <segue reference="oQd-yV-efo"/>
+        <segue reference="nvb-CW-OFv"/>
+        <segue reference="R0C-4K-CJL"/>
+        <segue reference="cdo-K6-RT6"/>
+        <segue reference="zPS-ub-T9w"/>
+        <segue reference="liK-Jx-jnx"/>
         <segue reference="vLg-fS-Yjj"/>
     </inferredMetricsTieBreakers>
 </document>
