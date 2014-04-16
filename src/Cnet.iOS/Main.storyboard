@@ -294,6 +294,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-assign-lg-wtext.png" id="rTq-fm-vH0">
+                                <rect key="frame" x="0.0" y="57" width="320" height="461"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.90200159671532842" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tfj-sR-A73">
                                 <rect key="frame" x="0.0" y="518" width="80" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -632,11 +637,6 @@
                                     <action selector="completedSwitchPressed:" destination="Z4t-Fv-uPH" eventType="touchUpInside" id="ydu-2g-oKN"/>
                                 </connections>
                             </button>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-assign-lg-wtext.png" id="rTq-fm-vH0">
-                                <rect key="frame" x="0.0" y="57" width="320" height="461"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.90200159671532842" alpha="1" colorSpace="calibratedWhite"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -652,6 +652,8 @@
                         <outlet property="nextAssignmentMapButton" destination="PgN-4W-7Uz" id="nMk-hE-GLd"/>
                         <outlet property="nextAssignmentStartLabel" destination="kHI-zU-cgO" id="jwV-Lp-WtC"/>
                         <outlet property="nextAssignmentStartPmLabel" destination="H3e-l9-fM5" id="CRM-ES-5de"/>
+                        <outlet property="nextAssignmentView" destination="nBW-6O-hVe" id="UNy-8X-GkF"/>
+                        <outlet property="noAssignmentsImage" destination="rTq-fm-vH0" id="eVY-dD-nEP"/>
                         <outlet property="upcomingButton" destination="mpx-fp-uEq" id="KS4-0a-eZl"/>
                     </connections>
                 </viewController>
@@ -1026,6 +1028,7 @@
                     </view>
                     <connections>
                         <outlet property="actionButton" destination="kMf-aV-oZT" id="3GL-Zg-adA"/>
+                        <outlet property="callOfficeButton" destination="5EK-a2-cUw" id="pVk-Zn-8MN"/>
                         <outlet property="declineButton" destination="p6h-6w-LaL" id="YMm-de-CAw"/>
                         <outlet property="detailTable" destination="cTc-BH-MV0" id="m9l-Mt-RZq"/>
                         <outlet property="messageCloseButton" destination="xyL-44-M4K" id="117-ML-tDX"/>
@@ -4251,13 +4254,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gOG-ci-hMN"/>
-        <segue reference="oQd-yV-efo"/>
-        <segue reference="qMF-x8-UMV"/>
         <segue reference="cdo-K6-RT6"/>
+        <segue reference="nvb-CW-OFv"/>
         <segue reference="R0C-4K-CJL"/>
         <segue reference="zPS-ub-T9w"/>
-        <segue reference="ULM-sc-5ME"/>
+        <segue reference="oQd-yV-efo"/>
+        <segue reference="gOG-ci-hMN"/>
         <segue reference="vLg-fS-Yjj"/>
+        <segue reference="ULM-sc-5ME"/>
     </inferredMetricsTieBreakers>
 </document>

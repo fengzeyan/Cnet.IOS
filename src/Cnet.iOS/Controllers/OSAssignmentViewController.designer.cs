@@ -46,6 +46,12 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UILabel nextAssignmentStartPmLabel { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIView nextAssignmentView { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView noAssignmentsImage { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton upcomingButton { get; set; }
 
 		[Action ("completedSwitchPressed:")]
@@ -56,19 +62,39 @@ namespace Cnet.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (noAssignmentsImage != null) {
+				noAssignmentsImage.Dispose ();
+				noAssignmentsImage = null;
+			}
+
+			if (assignmentsTable != null) {
+				assignmentsTable.Dispose ();
+				assignmentsTable = null;
+			}
+
+			if (completedButton != null) {
+				completedButton.Dispose ();
+				completedButton = null;
+			}
+
+			if (nextAssignmentView != null) {
+				nextAssignmentView.Dispose ();
+				nextAssignmentView = null;
+			}
+
+			if (nextAssignmentButton != null) {
+				nextAssignmentButton.Dispose ();
+				nextAssignmentButton = null;
+			}
+
+			if (nextAssignmentCallButton != null) {
+				nextAssignmentCallButton.Dispose ();
+				nextAssignmentCallButton = null;
+			}
+
 			if (nextAssignmentDateLabel != null) {
 				nextAssignmentDateLabel.Dispose ();
 				nextAssignmentDateLabel = null;
-			}
-
-			if (nextAssignmentStartLabel != null) {
-				nextAssignmentStartLabel.Dispose ();
-				nextAssignmentStartLabel = null;
-			}
-
-			if (nextAssignmentStartPmLabel != null) {
-				nextAssignmentStartPmLabel.Dispose ();
-				nextAssignmentStartPmLabel = null;
 			}
 
 			if (nextAssignmentEndLabel != null) {
@@ -86,29 +112,19 @@ namespace Cnet.iOS
 				nextAssignmentFamilyLabel = null;
 			}
 
-			if (nextAssignmentButton != null) {
-				nextAssignmentButton.Dispose ();
-				nextAssignmentButton = null;
-			}
-
-			if (nextAssignmentCallButton != null) {
-				nextAssignmentCallButton.Dispose ();
-				nextAssignmentCallButton = null;
-			}
-
 			if (nextAssignmentMapButton != null) {
 				nextAssignmentMapButton.Dispose ();
 				nextAssignmentMapButton = null;
 			}
 
-			if (assignmentsTable != null) {
-				assignmentsTable.Dispose ();
-				assignmentsTable = null;
+			if (nextAssignmentStartLabel != null) {
+				nextAssignmentStartLabel.Dispose ();
+				nextAssignmentStartLabel = null;
 			}
 
-			if (completedButton != null) {
-				completedButton.Dispose ();
-				completedButton = null;
+			if (nextAssignmentStartPmLabel != null) {
+				nextAssignmentStartPmLabel.Dispose ();
+				nextAssignmentStartPmLabel = null;
 			}
 
 			if (upcomingButton != null) {

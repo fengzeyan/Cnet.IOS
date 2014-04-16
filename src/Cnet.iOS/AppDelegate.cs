@@ -21,20 +21,21 @@ namespace Cnet.iOS
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
-			Window = new UIWindow(UIScreen.MainScreen.Bounds);
+			Window = new UIWindow (UIScreen.MainScreen.Bounds);
 
-			var storyboard = UIStoryboard.FromName("Main", NSBundle.MainBundle);
+			var storyboard = UIStoryboard.FromName ("Main", NSBundle.MainBundle);
 
 			Client client = AuthenticationHelper.GetClient ();
-			bool skipFirstStep = (client != null);
+			bool isLoggedIn = (client != null);
 			UIViewController rootViewController;
-			if (skipFirstStep)
-				rootViewController = (UIViewController)storyboard.InstantiateViewController("OSAssignmentViewController");
-			else
-				rootViewController = (UIViewController)storyboard.InstantiateInitialViewController();
+			if (isLoggedIn) {
+				AuthenticationHelper.UpdateAppLoadData ();
+				rootViewController = (UIViewController)storyboard.InstantiateViewController ("OSAssignmentViewController");
+			} else
+				rootViewController = (UIViewController)storyboard.InstantiateInitialViewController ();
 
 			Window.RootViewController = rootViewController;
-			Window.MakeKeyAndVisible();
+			Window.MakeKeyAndVisible ();
 
 			return true;
 		}

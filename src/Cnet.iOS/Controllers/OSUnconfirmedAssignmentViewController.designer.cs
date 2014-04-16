@@ -16,6 +16,9 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UIButton actionButton { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIBarButtonItem callOfficeButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton declineButton { get; set; }
 
 		[Outlet]
@@ -47,39 +50,9 @@ namespace Cnet.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (detailTable != null) {
-				detailTable.Dispose ();
-				detailTable = null;
-			}
-
-			if (mapView != null) {
-				mapView.Dispose ();
-				mapView = null;
-			}
-
-			if (mapLabelView != null) {
-				mapLabelView.Dispose ();
-				mapLabelView = null;
-			}
-
-			if (mapLabel != null) {
-				mapLabel.Dispose ();
-				mapLabel = null;
-			}
-
-			if (messageView != null) {
-				messageView.Dispose ();
-				messageView = null;
-			}
-
-			if (messageLabel != null) {
-				messageLabel.Dispose ();
-				messageLabel = null;
-			}
-
-			if (messageCloseButton != null) {
-				messageCloseButton.Dispose ();
-				messageCloseButton = null;
+			if (callOfficeButton != null) {
+				callOfficeButton.Dispose ();
+				callOfficeButton = null;
 			}
 
 			if (actionButton != null) {
@@ -90,6 +63,41 @@ namespace Cnet.iOS
 			if (declineButton != null) {
 				declineButton.Dispose ();
 				declineButton = null;
+			}
+
+			if (detailTable != null) {
+				detailTable.Dispose ();
+				detailTable = null;
+			}
+
+			if (mapLabel != null) {
+				mapLabel.Dispose ();
+				mapLabel = null;
+			}
+
+			if (mapLabelView != null) {
+				mapLabelView.Dispose ();
+				mapLabelView = null;
+			}
+
+			if (mapView != null) {
+				mapView.Dispose ();
+				mapView = null;
+			}
+
+			if (messageCloseButton != null) {
+				messageCloseButton.Dispose ();
+				messageCloseButton = null;
+			}
+
+			if (messageLabel != null) {
+				messageLabel.Dispose ();
+				messageLabel = null;
+			}
+
+			if (messageView != null) {
+				messageView.Dispose ();
+				messageView = null;
 			}
 
 			if (policyButton != null) {

@@ -3,6 +3,7 @@
 using System;
 
 using System.Collections.Generic;
+using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Cnt.API;
@@ -35,9 +36,12 @@ namespace Cnet.iOS
 		}
 
 		#region Event Delegates
-		public void CallCnet(object sender, EventArgs e)
+		public void CallOffice(object sender, EventArgs e)
 		{
-			//TODO: Handle call CNet.
+			UserData data = AuthenticationHelper.UserData;
+			UserOfficeInfo office = data.Offices.FirstOrDefault (o => o.Id == placement.OfficeId);
+			if (office != null)
+				Utility.OpenPhoneDailer (office.Phone);
 		}
 
 		public void CallFamily(object sender, EventArgs e)
@@ -85,6 +89,8 @@ namespace Cnet.iOS
 
 		private void RenderPlacement ()
 		{
+			callOfficeButton.Clicked += CallOffice;
+
 			// Message
 			RenderMessage ();
 
@@ -344,7 +350,7 @@ namespace Cnet.iOS
 				}
 
 				if (controller.assignmentStatus == AssignmentStatus.Confirmed || controller.assignmentStatus == AssignmentStatus.Updated)
-					cell.CallButton.TouchUpInside += controller.CallCnet;
+					cell.CallButton.TouchUpInside += controller.CallFamily;
 				else
 					cell.CallButton.Hidden = true;
 			}
@@ -393,20 +399,7 @@ namespace Cnet.iOS
 
 			private void RenderInfoCell (OSInfoCell cell)
 			{
-				// TODO: Get all sub-service category text firgured out.
-				string infoText = String.Empty;
-				switch (controller.placement.SubServiceCategory) {
-				case 1:
-					infoText = "On-Call";
-					break;
-				case 4:
-					infoText = "Tutor";
-					break;
-				case 5:
-					infoText = "Administrative";
-					break;
-				}
-				cell.InfoLabel.Text = infoText;
+				cell.InfoLabel.Text = controller.placement.Service + " - " + controller.placement.SubService;
 			}
 
 			private void RenderDetailsCell (OSDetailsCell cell)

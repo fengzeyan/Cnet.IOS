@@ -45,7 +45,7 @@ namespace Cnet.iOS
 		{
 			base.PrepareForSegue (segue, sender);
 			if (segue.Identifier == AssignmentDetailSegueName) {
-				var indexPath = this.assignmentsTable.IndexPathForSelectedRow;
+				var indexPath = assignmentsTable.IndexPathForSelectedRow;
 				var selectedAssignment = Assignments [indexPath.Row];
 				var view = (OSUnconfirmedAssignmentViewController)segue.DestinationViewController;
 				view.PlacementId = selectedAssignment.Placement.Id;
@@ -60,19 +60,21 @@ namespace Cnet.iOS
 		#region Event Delegates
 		partial void completedSwitchPressed (UIButton sender)
 		{
-			this.completedButton.Selected = true;
-			this.upcomingButton.Selected = false;
+			completedButton.Selected = true;
+			upcomingButton.Selected = false;
 			Mode = AssignmentType.Completed;
-			this.assignmentsTable.ReloadData();
+			assignmentsTable.ReloadData();
+			assignmentsTable.Hidden = (completedAssignments.Count == 0);
 		}
 
 		partial void upcomingSwitchPressed (UIButton sender)
 		{
-			this.upcomingButton.Selected = true;
-			this.completedButton.Selected = false;
+			upcomingButton.Selected = true;
+			completedButton.Selected = false;
 			Mode = AssignmentType.Upcoming;
-			this.assignmentsTable.ReloadData();
-   		}
+			assignmentsTable.ReloadData();
+			assignmentsTable.Hidden = (upcomingAssignments.Count == 0);
+		}
 
 		private void callNextAssignment(object sender, EventArgs e)
 		{
@@ -101,7 +103,10 @@ namespace Cnet.iOS
 		private void RenderAssignments()
 		{
 			Mode = AssignmentType.Upcoming;
-			this.assignmentsTable.Source = new OSAssignmentTableSource (this);
+			assignmentsTable.Source = new OSAssignmentTableSource (this);
+			assignmentsTable.Hidden = (upcomingAssignments.Count == 0);
+
+			noAssignmentsImage.Hidden = (upcomingAssignments.Count > 0 || completedAssignments.Count > 0);
 		}
 
 		private void RenderNextAssignment()
@@ -119,7 +124,10 @@ namespace Cnet.iOS
 				nextAssignmentMapButton.TouchUpInside += viewNextAssignmentMap;
 				nextAssignmentCallButton.TouchUpInside += callNextAssignment;
 			} else {
-				// TODO: Figure out what to do if there is no next assignment.
+				nextAssignmentView.Hidden = true;
+				upcomingButton.AdjustFrame (0, -150, 0, 0);
+				completedButton.AdjustFrame (0, -150, 0, 0);
+				assignmentsTable.AdjustFrame (0, -150, 0, 150);
 			}
 		}
 		#endregion
@@ -174,7 +182,7 @@ namespace Cnet.iOS
 				cell.ProfileImage.Image = assignment.Placement.GetProfileImage();
 				cell.InfoImage.Image = status.GetInfoImage();
 
-				cell.FamilyNameLabel.Text = assignment.Placement.ToFamilyNameString() + " - " + controller.Assignments[indexPath.Row].Placement.SubService;
+				cell.FamilyNameLabel.Text = assignment.Placement.ToFamilyNameString() + " - " + controller.Assignments[indexPath.Row].Placement.SubServiceAbbreviation;
 
 				cell.LocationLabel.Text = assignment.Placement.ToLocationString("{1}, {2}");
 				cell.BelowProfilePicLabel.Text = belowProfilePicLabel;

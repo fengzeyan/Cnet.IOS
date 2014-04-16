@@ -40,8 +40,8 @@ namespace Cnet.iOS
 
 		public static bool OpenMap(Address address)
 		{
-			// TODO: Get map URL.
-			return OpenUrl (String.Empty);
+			string mapUrl = String.Format ("http://maps.google.com/maps?f=d&daddr={0} {1} {2} {3} {4}", address.Line1, address.Line2, address.City, address.State, address.Zip).Replace(' ', '+');
+			return OpenUrl (mapUrl);
 		}
 
 		public static bool OpenUrl(string url)
@@ -68,16 +68,11 @@ namespace Cnet.iOS
 
 		public static AssignmentStatus GetStatus (this List<Assignment> assignments)
 		{
-			AssignmentStatus status = AssignmentStatus.New;
+			// Default to the lowest priority status.
+			AssignmentStatus status = AssignmentStatus.NoTimesheetRequired;
 			foreach (Assignment assignment in assignments) {
 				AssignmentStatus currentStatus = assignment.GetStatus ();
-				if (currentStatus == AssignmentStatus.Canceled)
-					return AssignmentStatus.Canceled;
-
-				// TODO: Figure out the order for assignment statuses.
-				if (currentStatus == AssignmentStatus.TimesheetRequired ||
-				    (status != AssignmentStatus.TimesheetRequired && currentStatus == AssignmentStatus.Updated) ||
-					(status != AssignmentStatus.TimesheetRequired && status != AssignmentStatus.Updated && currentStatus == AssignmentStatus.Confirmed))
+				if ((int)currentStatus < (int)status)
 					status = currentStatus;
 			}
 			return status;
@@ -193,11 +188,11 @@ namespace Cnet.iOS
 	public enum AssignmentStatus
 	{
 		New,
-		Confirmed,
-		Updated,
 		TimesheetRequired,
-		NoTimesheetRequired,
-		Canceled
+		Canceled,
+		Updated,
+		Confirmed,
+		NoTimesheetRequired
   	}
 }
 
