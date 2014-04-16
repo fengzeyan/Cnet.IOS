@@ -690,7 +690,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" id="cTc-BH-MV0">
-                                <rect key="frame" x="0.0" y="241" width="320" height="240"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="422"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -944,24 +944,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="KBc-jB-uzz">
-                                <rect key="frame" x="0.0" y="64" width="320" height="178"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </mapView>
-                            <view alpha="0.60000002384185791" contentMode="scaleToFill" id="NiK-oq-zKe">
-                                <rect key="frame" x="0.0" y="202" width="320" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edina, MN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LKS-Fo-YR1">
-                                        <rect key="frame" x="20" y="13" width="151" height="13"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
                             <view contentMode="scaleToFill" id="sHf-9B-Wex">
                                 <rect key="frame" x="0.0" y="64" width="320" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1044,9 +1026,6 @@
                         <outlet property="actionButton" destination="kMf-aV-oZT" id="3GL-Zg-adA"/>
                         <outlet property="declineButton" destination="p6h-6w-LaL" id="YMm-de-CAw"/>
                         <outlet property="detailTable" destination="cTc-BH-MV0" id="m9l-Mt-RZq"/>
-                        <outlet property="mapLabel" destination="LKS-Fo-YR1" id="frc-cf-cr9"/>
-                        <outlet property="mapLabelView" destination="NiK-oq-zKe" id="mTF-zW-ACI"/>
-                        <outlet property="mapView" destination="KBc-jB-uzz" id="9FV-P7-3bO"/>
                         <outlet property="messageCloseButton" destination="xyL-44-M4K" id="117-ML-tDX"/>
                         <outlet property="messageLabel" destination="OrJ-hr-1ug" id="JfR-xK-8fO"/>
                         <outlet property="messageView" destination="sHf-9B-Wex" id="k26-Ih-PWb"/>
@@ -4273,10 +4252,10 @@
         <segue reference="gOG-ci-hMN"/>
         <segue reference="oQd-yV-efo"/>
         <segue reference="nvb-CW-OFv"/>
-        <segue reference="R0C-4K-CJL"/>
+        <segue reference="BB7-U1-jl7"/>
+        <segue reference="ULM-sc-5ME"/>
         <segue reference="cdo-K6-RT6"/>
         <segue reference="zPS-ub-T9w"/>
-        <segue reference="liK-Jx-jnx"/>
         <segue reference="vLg-fS-Yjj"/>
     </inferredMetricsTieBreakers>
 </document>

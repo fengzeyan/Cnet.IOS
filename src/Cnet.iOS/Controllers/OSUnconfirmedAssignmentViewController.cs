@@ -88,9 +88,6 @@ namespace Cnet.iOS
 			// Message
 			RenderMessage ();
 
-			// Map
-			RenderMap ();
-
 			// Details Table
 			detailTable.Source = new OSAssignmentDetailSource(this);
 
@@ -98,7 +95,7 @@ namespace Cnet.iOS
 			RenderActionButton ();
 		}
 
-		void RenderMessage ()
+		private void RenderMessage ()
 		{
 			switch (assignmentStatus) {
 			case AssignmentStatus.Canceled:
@@ -121,23 +118,7 @@ namespace Cnet.iOS
 			}
 		}
 
-		void RenderMap ()
-		{
-			switch (assignmentStatus) {
-			case AssignmentStatus.Confirmed:
-			case AssignmentStatus.Updated:
-				//TODO: Render map image.
-				mapLabel.Text = placement.ToLocationString ("{1}, {2}");
-				break;
-			default:
-				mapView.Hidden = true;
-				mapLabelView.Hidden = true;
-				detailTable.AdjustFrame (0, -178, 0, 178);
-				break;
-			}
-		}
-
-		void RenderActionButton ()
+		private void RenderActionButton ()
 		{
 			policyButton.TouchUpInside += ViewPolicy;
 
