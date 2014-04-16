@@ -35,18 +35,18 @@ namespace Cnet.iOS
 		public static bool OpenPhoneDailer(string phoneNumber)
 		{
 			var cleanNumber = new String (phoneNumber.Where (Char.IsDigit).ToArray ());
-			var urlToSend = new NSUrl ("tel:" + cleanNumber);
-			if (UIApplication.SharedApplication.CanOpenUrl (urlToSend)) {
-				UIApplication.SharedApplication.OpenUrl (urlToSend);
-				return true;
-			}
-			return false;
+			return OpenUrl("tel:" + cleanNumber);
 		}
 
 		public static bool OpenMap(Address address)
 		{
 			// TODO: Get map URL.
-			var urlToSend = new NSUrl (String.Empty);
+			return OpenUrl (String.Empty);
+		}
+
+		public static bool OpenUrl(string url)
+		{
+			var urlToSend = new NSUrl (url);
 			if (UIApplication.SharedApplication.CanOpenUrl (urlToSend)) {
 				UIApplication.SharedApplication.OpenUrl (urlToSend);
 				return true;

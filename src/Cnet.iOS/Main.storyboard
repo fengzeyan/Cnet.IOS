@@ -31,7 +31,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loginButtonClick:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="y86-4s-lGe"/>
-                                    <segue destination="Z4t-Fv-uPH" kind="modal" id="qMF-x8-UMV"/>
+                                    <segue destination="Z4t-Fv-uPH" kind="modal" identifier="LogIn" animates="NO" id="qMF-x8-UMV"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="    Username" minimumFontSize="17" background="fieldTop.png" id="q23-IT-dUz">
@@ -72,6 +72,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="forgotPasswordButton" destination="cxV-FS-UWX" id="Bvt-tL-cUz"/>
+                        <outlet property="signUpButton" destination="pgJ-Zn-hQt" id="Jhd-fH-OkE"/>
                         <outlet property="tbxPassword" destination="xjB-6w-FQG" id="rLL-uW-2bn"/>
                         <outlet property="tbxUsername" destination="q23-IT-dUz" id="DHt-db-Y2e"/>
                     </connections>
@@ -287,7 +289,7 @@
         <!--Assignment View Controller-->
         <scene sceneID="DF0-l3-0ca">
             <objects>
-                <viewController id="Z4t-Fv-uPH" userLabel="Assignment View Controller" customClass="OSAssignmentViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OSAssignmentViewController" id="Z4t-Fv-uPH" userLabel="Assignment View Controller" customClass="OSAssignmentViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sp6-X0-xyo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4251,11 +4253,11 @@
     <inferredMetricsTieBreakers>
         <segue reference="gOG-ci-hMN"/>
         <segue reference="oQd-yV-efo"/>
-        <segue reference="nvb-CW-OFv"/>
-        <segue reference="BB7-U1-jl7"/>
-        <segue reference="ULM-sc-5ME"/>
+        <segue reference="qMF-x8-UMV"/>
         <segue reference="cdo-K6-RT6"/>
+        <segue reference="R0C-4K-CJL"/>
         <segue reference="zPS-ub-T9w"/>
+        <segue reference="ULM-sc-5ME"/>
         <segue reference="vLg-fS-Yjj"/>
     </inferredMetricsTieBreakers>
 </document>
