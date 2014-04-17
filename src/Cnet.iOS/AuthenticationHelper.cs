@@ -12,7 +12,7 @@ namespace Cnet.iOS
 	{
 		private const string UserNameKey = "username";
 
-		public static UserData UserData{ get; set; }
+		public static NTMobileAppLoadData UserData{ get; set; }
 
 		#region Public Methods
 		public static Client GetClient()
@@ -56,12 +56,7 @@ namespace Cnet.iOS
 
 		private static void SaveAppLoadData(NTMobileAppLoadData loadData)
 		{
-			UserData = new UserData();
-			UserData.UserId = loadData.UserId;
-			UserData.AvailabilityLocked = loadData.AvailabilityLocked;
-			UserData.Notifications = loadData.Notifications;
-			UserData.CurrentPayPeriod = loadData.PayPeriod;
-			UserData.Offices = loadData.Offices;
+			UserData = loadData;
 		}
 	}
 }

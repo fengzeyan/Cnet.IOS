@@ -92,8 +92,9 @@ namespace Cnet.iOS
 		private void LoadAssignments()
 		{
 			Client client = AuthenticationHelper.GetClient ();
-			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments ());
-			upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments ());
+			DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
+			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value, currentPayPeriod.End.Value));
+			upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (DateTime.Today, DateTime.Today.AddDays(7)));
 
 			// Next Assignment
 			if (upcomingAssignments.Count > 0)
@@ -184,7 +185,7 @@ namespace Cnet.iOS
 
 				cell.FamilyNameLabel.Text = assignment.Placement.ToFamilyNameString() + " - " + controller.Assignments[indexPath.Row].Placement.SubServiceAbbreviation;
 
-				cell.LocationLabel.Text = assignment.Placement.ToLocationString("{1}, {2}");
+				cell.LocationLabel.Text = assignment.Placement.Location.ToLocationString("{1}, {2}");
 				cell.BelowProfilePicLabel.Text = belowProfilePicLabel;
 
 				if (updated > TimeSpan.MinValue) {

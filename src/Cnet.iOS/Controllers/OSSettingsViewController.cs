@@ -9,8 +9,47 @@ namespace Cnet.iOS
 {
 	public partial class OSSettingsViewController : UIViewController
 	{
+		private Settings settings;
+		private NSString DoneSegueName = new NSString("Done");
+
 		public OSSettingsViewController (IntPtr handle) : base (handle)
 		{
+		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			settings = new Settings ();
+			settings.Load ();
+
+			SetupSwitches ();
+		}
+
+		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
+		{
+			if (segue.Identifier == DoneSegueName)
+				settings.Save ();
+			base.PrepareForSegue (segue, sender);
+		}
+
+		private void SetupSwitches ()
+		{
+			confirmAssignmentSwitch.On = settings.ConfirmAssignment;
+			confirmAssignmentSwitch.ValueChanged += (object sender, EventArgs e) => settings.ConfirmAssignment = confirmAssignmentSwitch.On;
+			submitTimesheetSwitch.On = settings.SubmitTimesheet;
+			submitTimesheetSwitch.ValueChanged += (object sender, EventArgs e) => settings.SubmitTimesheet = submitTimesheetSwitch.On;
+			availabilityRequiredSwitch.On = settings.AvailabilityRequired;
+			availabilityRequiredSwitch.ValueChanged += (object sender, EventArgs e) => settings.AvailabilityRequired = availabilityRequiredSwitch.On;
+			assignmentUpdatedSwitch.On = settings.AssignmentUpdated;
+			assignmentUpdatedSwitch.ValueChanged += (object sender, EventArgs e) => settings.AssignmentUpdated = assignmentUpdatedSwitch.On;
+			assignmentCanceledSwitch.On = settings.AssignmentCanceled;
+			assignmentCanceledSwitch.ValueChanged += (object sender, EventArgs e) => settings.AssignmentCanceled = assignmentCanceledSwitch.On;
+			assignmentRemindersSwitch.On = settings.AssignmentReminders;
+			assignmentRemindersSwitch.ValueChanged += (object sender, EventArgs e) => settings.AssignmentReminders = assignmentRemindersSwitch.On;
+			assignmentConfirmationRequiredSwitch.On = settings.AssignmentConfirmationRequired;
+			assignmentConfirmationRequiredSwitch.ValueChanged += (object sender, EventArgs e) => settings.AssignmentConfirmationRequired = assignmentConfirmationRequiredSwitch.On;
+
+			rateAppButton.TouchUpInside += (object sender, EventArgs e) => Utility.RateApp();
 		}
 	}
 }

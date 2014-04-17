@@ -44,7 +44,10 @@ namespace Cnet.iOS
 
 			// Populate list for calendar
 			Client client = AuthenticationHelper.GetClient ();
-			calendarEvents = new List<Assignment> (client.PlacementService.GetCompletedAssignments ());
+			DateTime startDate = new DateTime (DateTime.Now.Year, DateTime.Now.Month, 1);
+			DateTime endDate = new DateTime (DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth (DateTime.Now.Year, DateTime.Now.Month));
+
+			calendarEvents = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (startDate, endDate));
 			this.calendarTable.Source = new OSCalendarTableSource (calendarEvents);
 
 		}

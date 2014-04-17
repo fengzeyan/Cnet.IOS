@@ -38,7 +38,7 @@ namespace Cnet.iOS
 		#region Event Delegates
 		public void CallOffice(object sender, EventArgs e)
 		{
-			UserData data = AuthenticationHelper.UserData;
+			NTMobileAppLoadData data = AuthenticationHelper.UserData;
 			UserOfficeInfo office = data.Offices.FirstOrDefault (o => o.Id == placement.OfficeId);
 			if (office != null)
 				Utility.OpenPhoneDailer (office.Phone);
@@ -83,7 +83,7 @@ namespace Cnet.iOS
 		{
 			Client client = AuthenticationHelper.GetClient ();
 			placement = client.PlacementService.GetPlacement (PlacementId);
-			assignments = new List<Assignment> (client.PlacementService.GetAssignments (placement));
+			assignments = new List<Assignment> (client.PlacementService.GetAssignments (placement, DateTime.Now, DateTime.Now.AddDays(7)));
 			assignmentStatus = assignments.GetStatus ();
 		}
 
@@ -385,7 +385,7 @@ namespace Cnet.iOS
 					format = "{0}\n{2}, {3} {4}";
 				else if (locationLineCount == 3)
 					format = "{0}\n{1}\n{2}, {3} {4}";
-				cell.LocationLabel.Text = controller.placement.ToLocationString (format);
+				cell.LocationLabel.Text = controller.placement.Location.ToLocationString (format);
 			}
 
 			private void RenderChildrenCell (OSChildrenCell cell)

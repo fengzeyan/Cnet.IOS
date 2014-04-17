@@ -11,6 +11,7 @@ namespace Cnet.iOS
 	public static class Utility
 	{
 		#region Static Settings
+		public static int AppId = 0; // TODO: Figure out App ID.
 		public static UIColor CanceledBackgroundColor = UIColor.FromRGB (255, 0, 87);
 		public static UIColor CanceledTextColor = UIColor.FromRGB (134, 15, 56);
 		public static UIColor CanceledStatusTextColor = UIColor.FromRGB (255, 0, 67);
@@ -52,6 +53,11 @@ namespace Cnet.iOS
 				return true;
 			}
 			return false;
+		}
+
+		public static bool RateApp ()
+		{
+			return OpenUrl(String.Format("itms-apps://itunes.apple.com/app/id{0}", AppId));
 		}
 		#endregion
 
@@ -138,12 +144,10 @@ namespace Cnet.iOS
 			return clientName.Substring (clientName.LastIndexOf (" ") + 1) + " Family";
 		}
 
-		public static string ToLocationString(this Placement placement, string format)
+		public static string ToLocationString(this Address location, string format)
 		{
-			if (placement.Location == null)
+			if (location == null)
 				return String.Empty;
-
-			Address location = placement.Location;
 			return String.Format(format, location.Line1, location.Line2, location.City, location.State, location.Zip);
 		}
 

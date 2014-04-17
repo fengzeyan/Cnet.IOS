@@ -9,12 +9,18 @@ using System.CodeDom.Compiler;
 
 namespace Cnet.iOS
 {
-	[Register ("DSLCalendarView")]
-	partial class DSLCalendarView
+	[Register ("OSAboutUsViewController")]
+	partial class OSAboutUsViewController
 	{
+		[Outlet]
+		MonoTouch.UIKit.UIButton visitWebsiteButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (visitWebsiteButton != null) {
+				visitWebsiteButton.Dispose ();
+				visitWebsiteButton = null;
+			}
 		}
 	}
 }

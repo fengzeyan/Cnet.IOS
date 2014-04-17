@@ -529,38 +529,46 @@
     <Compile Include="Controllers\OSViewController.designer.cs">
       <DependentUpon>OSViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\DSLCalendarView.cs" />
-    <Compile Include="Controllers\DSLCalendarView.designer.cs">
-      <DependentUpon>DSLCalendarView.cs</DependentUpon>
-    </Compile>
     <Compile Include="KeychainHelpers.cs" />
     <Compile Include="AuthenticationHelper.cs" />
     <Compile Include="Utility.cs" />
-    <Compile Include="OSAvailabilityCell.cs" />
-    <Compile Include="OSAvailabilityCell.designer.cs">
-      <DependentUpon>OSAvailabilityCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OSAvailabilityViewController.cs" />
-    <Compile Include="OSAvailabilityViewController.designer.cs">
-      <DependentUpon>OSAvailabilityViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\OSAddAvailabilityCell.cs" />
     <Compile Include="Controllers\OSAddAvailabilityCell.designer.cs">
       <DependentUpon>OSAddAvailabilityCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSAddAvailabilityViewController.cs" />
-    <Compile Include="OSAddAvailabilityViewController.designer.cs">
+    <Compile Include="Controllers\OSAddAvailabilityViewController.cs" />
+    <Compile Include="Controllers\OSAddAvailabilityViewController.designer.cs">
       <DependentUpon>OSAddAvailabilityViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSEditAvailabilityViewController.cs" />
-    <Compile Include="OSEditAvailabilityViewController.designer.cs">
+    <Compile Include="Controllers\OSAvailabilityCell.cs" />
+    <Compile Include="Controllers\OSAvailabilityCell.designer.cs">
+      <DependentUpon>OSAvailabilityCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSAvailabilityViewController.cs" />
+    <Compile Include="Controllers\OSAvailabilityViewController.designer.cs">
+      <DependentUpon>OSAvailabilityViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSEditAvailabilityViewController.cs" />
+    <Compile Include="Controllers\OSEditAvailabilityViewController.designer.cs">
       <DependentUpon>OSEditAvailabilityViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddAvailabilityViewController.cs" />
-    <Compile Include="AddAvailabilityViewController.designer.cs">
+    <Compile Include="Controllers\AddAvailabilityViewController.cs" />
+    <Compile Include="Controllers\AddAvailabilityViewController.designer.cs">
       <DependentUpon>AddAvailabilityViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserData.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Controllers\OSAboutUsViewController.cs" />
+    <Compile Include="Controllers\OSAboutUsViewController.designer.cs">
+      <DependentUpon>OSAboutUsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSContactUsViewController.cs" />
+    <Compile Include="Controllers\OSContactUsViewController.designer.cs">
+      <DependentUpon>OSContactUsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSContactUsCell.cs" />
+    <Compile Include="Controllers\OSContactUsCell.designer.cs">
+      <DependentUpon>OSContactUsCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
