@@ -529,8 +529,6 @@
     <Compile Include="Controllers\OSViewController.designer.cs">
       <DependentUpon>OSViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="KeychainHelpers.cs" />
-    <Compile Include="AuthenticationHelper.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="Controllers\OSAddAvailabilityCell.cs" />
     <Compile Include="Controllers\OSAddAvailabilityCell.designer.cs">
@@ -569,6 +567,9 @@
     <Compile Include="Controllers\OSContactUsCell.designer.cs">
       <DependentUpon>OSContactUsCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AuthenticationHelper.cs" />
+    <Compile Include="Helpers\KeychainHelpers.cs" />
+    <Compile Include="Helpers\ActionSheetDatePicker.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
@@ -586,4 +587,7 @@
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
 </Project>

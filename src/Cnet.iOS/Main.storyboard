@@ -2449,12 +2449,12 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="GGg-Eu-d1h">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="GGg-Eu-d1h">
                                 <rect key="frame" x="0.0" y="144" width="320" height="374"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimesheetCellIdentifier" rowHeight="60" id="fJg-jo-hqi" customClass="OSTimesheetCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimesheetCellIdentifier" id="fJg-jo-hqi" customClass="OSTimesheetCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fJg-jo-hqi" id="Ilv-CY-LLn">
@@ -2504,7 +2504,14 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="J1O-ty-Y6Y" kind="modal" id="Idl-dV-zGE"/>
+                                            <outlet property="checkImage" destination="R5G-Ou-Tix" id="5wc-kp-GKy"/>
+                                            <outlet property="dayLabel" destination="M3K-US-pbW" id="ka8-r7-gWh"/>
+                                            <outlet property="familyNameLabel" destination="waz-Wh-Gxv" id="v8h-2N-K1W"/>
+                                            <outlet property="iconClockImage" destination="pje-Nu-gxa" id="C53-Xi-d9X"/>
+                                            <outlet property="monthLabel" destination="bBu-Rv-wkW" id="GUO-AW-rKh"/>
+                                            <outlet property="profileImage" destination="4Jf-Ss-Kfj" id="Lhx-P9-a7P"/>
+                                            <outlet property="timesLabel" destination="LOs-uE-YbO" id="5r1-6U-ayZ"/>
+                                            <segue destination="J1O-ty-Y6Y" kind="modal" identifier="TimesheetDetail" id="Idl-dV-zGE"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2516,6 +2523,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="currentPayPeriodLabel" destination="8pm-Mm-5gY" id="BqK-vS-Bcf"/>
+                        <outlet property="timesheetsTable" destination="GGg-Eu-d1h" id="f9M-v5-a5p"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVk-6g-ELr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2545,7 +2556,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="gpT-PM-z4d">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="oCq-bj-xkj" kind="modal" id="6Lh-UM-wfX"/>
+                                                <segue destination="oCq-bj-xkj" kind="modal" identifier="TimesheetList" id="6Lh-UM-wfX"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Reset" id="1SO-TE-RGO">
@@ -2704,7 +2715,19 @@
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="actionButton" destination="f72-Va-IWC" id="b5L-po-NCh"/>
+                        <outlet property="endButton" destination="aPs-6e-JAR" id="5nY-JE-eT2"/>
+                        <outlet property="endLabel" destination="MD5-EP-73o" id="Gk2-T8-tZ8"/>
+                        <outlet property="endTimeDownButton" destination="rb5-JP-Rkj" id="Jzh-ID-oiT"/>
+                        <outlet property="endTimeLabel" destination="vnO-id-xfp" id="hib-4y-ok1"/>
+                        <outlet property="endTimeUpButton" destination="ofM-dA-mv3" id="hVc-EB-tC2"/>
                         <outlet property="recapTextView" destination="P8o-32-LWQ" id="K6M-hI-A3n"/>
+                        <outlet property="resetButton" destination="1SO-TE-RGO" id="tcA-EN-Yba"/>
+                        <outlet property="startButton" destination="M8d-gQ-4bf" id="wGK-zn-nM8"/>
+                        <outlet property="startLabel" destination="Tnh-ZR-0Ko" id="6Zw-ml-KHa"/>
+                        <outlet property="startTimeDownButton" destination="5wz-kt-Uvv" id="bok-ni-fqV"/>
+                        <outlet property="startTimeLabel" destination="PHV-e5-rrT" id="cYg-8D-Ajx"/>
+                        <outlet property="startTimeUpButton" destination="pfa-SI-Z0q" id="6eD-nu-MCQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UMA-zC-gYB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4297,13 +4320,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ULM-sc-5ME"/>
-        <segue reference="AiH-ud-SHk"/>
+        <segue reference="MjI-OQ-Q29"/>
         <segue reference="AqG-9j-HaY"/>
+        <segue reference="6Lh-UM-wfX"/>
         <segue reference="vLg-fS-Yjj"/>
-        <segue reference="zPS-ub-T9w"/>
         <segue reference="nvb-CW-OFv"/>
-        <segue reference="R0C-4K-CJL"/>
-        <segue reference="cdo-K6-RT6"/>
+        <segue reference="BB7-U1-jl7"/>
+        <segue reference="liK-Jx-jnx"/>
+        <segue reference="zPS-ub-T9w"/>
     </inferredMetricsTieBreakers>
 </document>

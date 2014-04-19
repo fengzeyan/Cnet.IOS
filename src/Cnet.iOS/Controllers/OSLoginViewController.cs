@@ -85,25 +85,15 @@ namespace Cnet.iOS
 		#region Private Methods
 		private void ShowError(CntResponseException exception, string defaultMessage = null)
 		{
-			string userMessage = defaultMessage ?? "Unknown error. Contact your CNT office for information.";
 			switch (exception.HttpStatusCode) {
 			case HttpStatusCode.Unauthorized:
-				userMessage = "Unable to log in. Either Username or Password is incorrect.";
+				defaultMessage = "Unable to log in. Either Username or Password is incorrect.";
 				break;
 			case HttpStatusCode.Forbidden:
-				userMessage = "Unable to log in. Contact your CNT office for information.";
+				defaultMessage = "Unable to log in. Contact your CNT office for information.";
 				break;
 			}
-			var view = new UIAlertView ("Error", userMessage, null, "Ok", "Details");
-			view.Clicked += (object sender, UIButtonEventArgs e) => ShowErrorDetail (e, exception.Message);
-			view.Show ();
-		}
-
-		private void ShowErrorDetail(UIButtonEventArgs e, string message)
-		{
-			if (e.ButtonIndex == 1) {
-				new UIAlertView ("Error Details", message, null, "Ok", null).Show();
-			}
+			Utility.ShowError (exception, defaultMessage);
 		}
 		#endregion
 	}

@@ -12,9 +12,23 @@ namespace Cnet.iOS
 	[Register ("OSTimesheetViewController")]
 	partial class OSTimesheetViewController
 	{
+		[Outlet]
+		MonoTouch.UIKit.UILabel currentPayPeriodLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITableView timesheetsTable { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (currentPayPeriodLabel != null) {
+				currentPayPeriodLabel.Dispose ();
+				currentPayPeriodLabel = null;
+			}
+
+			if (timesheetsTable != null) {
+				timesheetsTable.Dispose ();
+				timesheetsTable = null;
+			}
 		}
 	}
 }

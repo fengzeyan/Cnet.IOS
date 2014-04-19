@@ -5,6 +5,8 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Cnt.API.Models;
 using Cnt.Web.API.Models;
+using Cnt.API.Exceptions;
+using System.Net;
 
 namespace Cnet.iOS
 {
@@ -12,6 +14,7 @@ namespace Cnet.iOS
 	{
 		#region Static Settings
 		public static int AppId = 0; // TODO: Figure out App ID.
+		public static UIColor DefaultTextColor = UIColor.FromRGB (77, 77, 77);
 		public static UIColor CanceledBackgroundColor = UIColor.FromRGB (255, 0, 87);
 		public static UIColor CanceledTextColor = UIColor.FromRGB (134, 15, 56);
 		public static UIColor CanceledStatusTextColor = UIColor.FromRGB (255, 0, 67);
@@ -58,6 +61,25 @@ namespace Cnet.iOS
 		public static bool RateApp ()
 		{
 			return OpenUrl(String.Format("itms-apps://itunes.apple.com/app/id{0}", AppId));
+		}
+
+		public static void ShowError(CntResponseException exception, string defaultMessage = null)
+		{
+			string userMessage = defaultMessage ?? "Unknown error. Contact your CNT office for information.";
+			var view = new UIAlertView ("Error", userMessage, null, "Ok", "Details");
+			view.Clicked += (object sender, UIButtonEventArgs e) => ShowErrorDetail (e, exception);
+			view.Show ();
+		}
+
+		private static void ShowErrorDetail(UIButtonEventArgs e, CntResponseException exception)
+		{
+			string message = String.Empty;
+			foreach (ApiError error in exception.Errors) {
+				message += error.Message + "\n\n";
+			}
+			if (e.ButtonIndex == 1) {
+				new UIAlertView ("Error Details", message, null, "Ok", null).Show();
+			}
 		}
 		#endregion
 
@@ -185,6 +207,12 @@ namespace Cnet.iOS
 			}
 
 			return String.Format("{0}yo {1}mo", ageInYears, ageInMonths);
+		}
+
+		public static string ToDurationString(this Timesheet timesheet)
+		{
+			TimeSpan duration = timesheet.End.Subtract (timesheet.Start);
+			return String.Format("{0:%h} hrs {0:%m} min", duration);
 		}
 		#endregion
 	}

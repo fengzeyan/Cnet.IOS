@@ -75,6 +75,7 @@ namespace Cnet.iOS
 				cell.PhoneLabel.Text = office.Phone;
 				cell.FaxLabel.Text = office.Fax;
 				cell.EmailLabel.Text = office.Email;
+				// TODO: Handle click events on phone and email.
 
 				return cell;
 			}

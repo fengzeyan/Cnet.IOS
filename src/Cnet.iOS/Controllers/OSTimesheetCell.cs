@@ -12,5 +12,13 @@ namespace Cnet.iOS
 		public OSTimesheetCell (IntPtr handle) : base (handle)
 		{
 		}
+
+		public UILabel FamilyNameLable { get { return familyNameLabel; } set { familyNameLabel = value; } }
+		public UILabel MonthLabel { get { return monthLabel; } set { monthLabel = value; } }
+		public UILabel DayLabel { get { return dayLabel; } set { dayLabel = value; } }
+		public UIImageView IconClockImage { get { return iconClockImage; } set { iconClockImage = value; } }
+		public UILabel TimesLabel { get { return timesLabel; } set { timesLabel = value; } }
+		public UIImageView ProfileImage { get { return profileImage; } set { profileImage = value; } }
+		public UIImageView CheckImage { get { return checkImage; } set { checkImage = value; } }
 	}
 }
