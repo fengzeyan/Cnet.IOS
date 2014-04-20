@@ -2917,14 +2917,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marshall, MN 55555" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PY6-ZE-1Zm">
-                                                <rect key="frame" x="20" y="111" width="138" height="17"/>
+                                                <rect key="frame" x="20" y="111" width="280" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="612-555-1212" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sJz-ml-yEo">
-                                                <rect key="frame" x="20" y="128" width="138" height="17"/>
+                                                <rect key="frame" x="20" y="128" width="280" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2933,7 +2933,7 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 unconfirmed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wwG-i0-ZhJ">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 unconfirmed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="wwG-i0-ZhJ">
                                         <rect key="frame" x="5" y="173" width="114" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2961,14 +2961,14 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 due" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MJ8-d9-vtE">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 due" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="MJ8-d9-vtE">
                                         <rect key="frame" x="138" y="173" width="44" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="onB-js-rCZ">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="onB-js-rCZ">
                                         <rect key="frame" x="229" y="173" width="71" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2989,6 +2989,9 @@
                                         <state key="normal" image="btn-edit.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="K9n-z9-POF" kind="modal" id="WM5-Ue-Plj"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wgF-eq-BKZ">
                                         <rect key="frame" x="61" y="223" width="33" height="33"/>
@@ -3015,7 +3018,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="K9n-z9-POF" kind="modal" id="Ih6-Dy-5ZS"/>
+                                            <segue destination="vXZ-lx-hvc" kind="modal" identifier="LogOut" id="5yI-0g-ZpK"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -3025,7 +3028,13 @@
                     </view>
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
+                        <outlet property="addressLabel" destination="PY6-ZE-1Zm" id="N26-Ia-7jE"/>
+                        <outlet property="assignmentsLabel" destination="wwG-i0-ZhJ" id="kA1-jU-LKi"/>
+                        <outlet property="nameLabel" destination="7Ik-Nl-sHA" id="6gO-Xm-vcN"/>
+                        <outlet property="nextAssignmentLabel" destination="onB-js-rCZ" id="oJN-cf-lDE"/>
+                        <outlet property="phoneLabel" destination="sJz-ml-yEo" id="x7s-NI-AgN"/>
                         <outlet property="profileTable" destination="Kyb-Hc-qSC" id="nJG-TY-smD"/>
+                        <outlet property="timesheetsLabel" destination="MJ8-d9-vtE" id="V01-Bk-XAf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDd-Sm-fxx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4320,13 +4329,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="gOG-ci-hMN"/>
         <segue reference="MjI-OQ-Q29"/>
-        <segue reference="AqG-9j-HaY"/>
-        <segue reference="6Lh-UM-wfX"/>
-        <segue reference="vLg-fS-Yjj"/>
-        <segue reference="nvb-CW-OFv"/>
+        <segue reference="VQD-HR-0IB"/>
+        <segue reference="a7x-Aj-C7h"/>
+        <segue reference="CRV-nh-p12"/>
         <segue reference="BB7-U1-jl7"/>
         <segue reference="liK-Jx-jnx"/>
-        <segue reference="zPS-ub-T9w"/>
+        <segue reference="vLg-fS-Yjj"/>
     </inferredMetricsTieBreakers>
 </document>

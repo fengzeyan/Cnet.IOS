@@ -73,11 +73,13 @@ namespace Cnet.iOS
 
 		private static void ShowErrorDetail(UIButtonEventArgs e, CntResponseException exception)
 		{
-			string message = String.Empty;
-			foreach (ApiError error in exception.Errors) {
-				message += error.Message + "\n\n";
-			}
 			if (e.ButtonIndex == 1) {
+				string message = exception.Message;
+				if (exception.Errors != null) {
+					foreach (ApiError error in exception.Errors) {
+						message += "\n\n" + error.Message;
+					}
+				}
 				new UIAlertView ("Error Details", message, null, "Ok", null).Show();
 			}
 		}
@@ -134,6 +136,14 @@ namespace Cnet.iOS
 		{
 			DateTime end = assignment.Start.AddSeconds (assignment.Duration);
 			return assignment.Start.ToString ("h:mmtt").ToLower() + " - " + end.ToString ("h:mmtt").ToLower();
+		}
+
+		public static string ToTimeUntilString(this Assignment assignment)
+		{
+			TimeSpan timeUntil = assignment.Start.Subtract (DateTime.Now);
+			if (timeUntil.Days > 0)
+				return timeUntil.Days + " days";
+			return timeUntil.Hours + " hours";
 		}
 
 		public static UIImage GetInfoImage(this AssignmentStatus assignmentStatus)
@@ -213,6 +223,20 @@ namespace Cnet.iOS
 		{
 			TimeSpan duration = timesheet.End.Subtract (timesheet.Start);
 			return String.Format("{0:%h} hrs {0:%m} min", duration);
+		}
+
+		public static string ToNameString(this User user)
+		{
+			List<string> nameParts = new List<string> ();
+			if (!String.IsNullOrWhiteSpace (user.FirstName))
+				nameParts.Add(user.FirstName);
+			if (!String.IsNullOrWhiteSpace (user.MiddleName))
+				nameParts.Add(user.MiddleName);
+			if (!String.IsNullOrWhiteSpace (user.PreferredName))
+				nameParts.Add("(" + user.PreferredName + ")");
+			if (!String.IsNullOrWhiteSpace (user.LastName))
+				nameParts.Add(user.LastName);
+			return String.Join(" ", nameParts);
 		}
 		#endregion
 	}
