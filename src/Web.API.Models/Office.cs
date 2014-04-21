@@ -6,7 +6,10 @@ namespace Cnt.Web.API.Models
     public class Office
     {
         /// <summary>Gets or sets the ID of the office.</summary>
-        public int Id { get; set; }
+		public int Id { get; set; }
+
+		/// <summary>Gets or sets the name of the office.</summary>
+		public string Name { get; set; }
 
         /// <summary>Gets or sets a value indicating if the office requires a recap when entering timesheets.</summary>
         public bool TimesheetRecap { get; set; }

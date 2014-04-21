@@ -22,10 +22,8 @@ namespace Cnt.API.Services.NTMobile
 		/// Gets all upcoming assignments for the current user for the current week.
 		/// </summary>
 		/// <returns>All upcoming assignments for the current user for the current week.</returns>
-		public IEnumerable<Assignment> GetUpcomingAssignments()
+		public IEnumerable<Assignment> GetUpcomingAssignments(DateTime startDate, DateTime endDate)
 		{
-			DateTime startDate = DateTime.Today;
-			DateTime endDate = DateTime.Today.AddDays(7);
 			return GetAssignments(AssignmentType.Upcoming, startDate, endDate);
 		}
 
@@ -33,11 +31,19 @@ namespace Cnt.API.Services.NTMobile
 		/// Gets all completed assignments for the current user for the current week.
 		/// </summary>
 		/// <returns>All completed assignments for the current user for the current week.</returns>
-		public IEnumerable<Assignment> GetCompletedAssignments()
+		public IEnumerable<Assignment> GetCompletedAssignments(DateTime startDate, DateTime endDate)
 		{
-			DateTime startDate = DateTime.Today;
-			DateTime endDate = DateTime.Today.AddDays(7);
 			return GetAssignments(AssignmentType.Completed, startDate, endDate);
+		}
+
+		/// <summary>
+		/// Gets the all assignments for the given placement.
+		/// </summary>
+		/// <param name="placementId">Placement identifier.</param>
+		/// <returns>All assignments for the given placement.</returns>
+		public IEnumerable<Assignment> GetAssignments(Placement placement, DateTime startDate, DateTime endDate)
+		{
+			return GetAssignments (placement, (AssignmentType.Completed | AssignmentType.Upcoming), startDate, endDate);
 		}
 
 		/// <summary>
@@ -92,14 +98,14 @@ namespace Cnt.API.Services.NTMobile
 		#region Private
 
 		/// <summary>
-		/// Gets all assignments from a list of placements for the specified week.
+		/// Gets all assignments from a list of placements for the specified dates.
 		/// </summary>
 		/// <param name="placements">The placements.</param>
 		/// <param name="type">The type of assignments to load.</param>
-		/// <param name="startDate">The start of week.</param>
-		/// <param name="endDate">The end of week.</param>
-		/// <returns>All assignments for the specified week</returns>
-		private IEnumerable<Assignment> GetAssignments(AssignmentType type, DateTime startDate, DateTime endDate)
+		/// <param name="startDate">The start date.</param>
+		/// <param name="endDate">The end date.</param>
+		/// <returns>All assignments for the specified week.</returns>
+		private IList<Assignment> GetAssignments(AssignmentType type, DateTime startDate, DateTime endDate)
 		{
 			string query = String.Format("Start < {0} AND End > {1}", startDate.ToShortDateString(), endDate.ToShortDateString());
 			IEnumerable<Placement> placements = GetPlacements(query);
@@ -107,67 +113,82 @@ namespace Cnt.API.Services.NTMobile
 			List<Assignment> assignments = new List<Assignment>();
 			foreach (Placement placement in placements)
 			{
-				foreach (Schedule schedule in placement.Schedules)
-				{
-					AdvanceSchedule advSchedule = new AdvanceSchedule(schedule);
-					DateTime? nextOccurrence = advSchedule.NextOccurrence(startDate.AddDays(-1));
-					while (nextOccurrence.HasValue && nextOccurrence.Value < endDate.AddDays(1))
-					{
-						// Determine if the assignment is canceled.
-						bool isCanceled = placement.IsCanceled || schedule.IsCanceled;
-						foreach (DateRange cancelDate in placement.CancelDates)
-						{
-							isCanceled = isCanceled || (nextOccurrence.Value >= cancelDate.Start && nextOccurrence.Value <= cancelDate.End);
-						}
-
-						// Save the start time and get the next occurrence now so we can continue if we need to.
-						DateTime start = nextOccurrence.Value.AddSeconds(schedule.Time.Start);
-						nextOccurrence = advSchedule.NextOccurrence(nextOccurrence.Value);
-
-						// If we are only loading completed assignments and the assignment is not completed, skip it.
-						bool isCompleted = start.AddSeconds(schedule.Time.Duration) < DateTime.Now;
-						if (type == AssignmentType.Completed && !isCompleted)
-							continue;
-
-						// If a "break off" of the new assignment is already in our assignments list, skip this assignment (it is the parent and the "break off" has priority).
-						Assignment child = assignments.FirstOrDefault(a => a.ScheduleParentId == schedule.Id && a.Start.Date == start.Date);
-						if (child != null)
-						{
-							// If the "break off" is canceled, remove it so it can be replaced by the parent.
-							if (child.IsCanceled)
-								assignments.Remove(child);
-							else
-								continue;
-						}
-
-						// If we have a "break off" assignment and the parent is already in our assignments list, remove the parent so it can be replaced with the "break off" one.
-						Assignment parent = assignments.FirstOrDefault(a => a.ScheduleId == schedule.ParentId && a.Start.Date == start.Date && !isCanceled);
-						if (parent != null)
-							assignments.Remove(parent);
-
-						assignments.Add(new Assignment()
-						{
-							Start = start,
-							Duration = schedule.Time.Duration,
-							IsCanceled = isCanceled,
-							Placement = placement,
-							ScheduleId = schedule.Id,
-							ScheduleParentId = schedule.ParentId
-						});
-					}
-				}
+				assignments.AddRange(GetAssignments(placement, type, startDate, endDate));
 			}
 
 			// Order "New" (subtype category and unconfirmed) status first, then order by date descending.
-			assignments.OrderBy(a => a.Placement.SubServiceCategory == 1 && !a.Placement.IsConfirmed).ThenByDescending(a => a.Start);
+			return assignments.OrderByDescending(a => a.Placement.SubServiceCategory == 1 && !a.Placement.IsConfirmed).ThenBy(a => a.Start).ToList();
+		}
 
+		/// <summary>
+		/// Gets all assignments from a placement for the specified dates.
+		/// </summary>
+		/// <param name="placement">The placement.</param>
+		/// <param name="type">The type of assignments to load.</param>
+		/// <param name="startDate">The start date.</param>
+		/// <param name="endDate">The end date.</param>
+		/// <returns>All assignments from the placement for the specified week.</returns>
+		private IList<Assignment> GetAssignments(Placement placement, AssignmentType type, DateTime startDate, DateTime endDate)
+		{
+			List<Assignment> assignments = new List<Assignment> ();
+			foreach (Schedule schedule in placement.Schedules)
+			{
+				AdvanceSchedule advSchedule = new AdvanceSchedule (schedule);
+				DateTime? nextOccurrence = advSchedule.NextOccurrence (startDate.AddDays (-1));
+				while (nextOccurrence.HasValue && nextOccurrence.Value < endDate.AddDays (1)) 
+				{
+					// Determine if the assignment is canceled.
+					bool isCanceled = placement.IsCanceled || schedule.IsCanceled;
+					foreach (DateRange cancelDate in placement.CancelDates) 
+					{
+						isCanceled = isCanceled || (nextOccurrence.Value >= cancelDate.Start && nextOccurrence.Value <= cancelDate.End);
+					}
+
+					// Save the start time and get the next occurrence now so we can continue if we need to.
+					DateTime start = nextOccurrence.Value.AddSeconds (schedule.Time.Start);
+					nextOccurrence = advSchedule.NextOccurrence (nextOccurrence.Value);
+
+					// If we are only loading completed assignments and the assignment is not completed, skip it.
+					bool isCompleted = start.AddSeconds (schedule.Time.Duration) < DateTime.Now;
+					if (!(type.HasFlag(AssignmentType.Completed) && isCompleted) && 
+						!(type.HasFlag(AssignmentType.Upcoming) && !isCompleted))
+						continue;
+
+					// If a "break off" of the new assignment is already in our assignments list, skip this assignment (it is the parent and the "break off" has priority).
+					Assignment child = assignments.FirstOrDefault (a => a.ScheduleParentId == schedule.Id && a.Start.Date == start.Date);
+					if (child != null) 
+					{
+						// If the "break off" is canceled, remove it so it can be replaced by the parent.
+						if (child.IsCanceled)
+							assignments.Remove (child);
+						else
+							continue;
+					}
+
+					// If we have a "break off" assignment and the parent is already in our assignments list, remove the parent so it can be replaced with the "break off" one.
+					Assignment parent = assignments.FirstOrDefault (a => a.ScheduleId == schedule.ParentId && a.Start.Date == start.Date && !isCanceled);
+					if (parent != null)
+						assignments.Remove (parent);
+
+					assignments.Add (new Assignment () 
+					{
+						Start = start,
+						Duration = schedule.Time.Duration,
+						IsCanceled = isCanceled,
+						Placement = placement,
+						ScheduleId = schedule.Id,
+						ScheduleParentId = schedule.ParentId
+					});
+				}
+			}
 			return assignments;
 		}
 
+		[Flags]
 		private enum AssignmentType
-		{ 
-			Upcoming,
-			Completed
+		{
+			Completed = 1,
+			Upcoming = 2
 		}
 
 		#endregion

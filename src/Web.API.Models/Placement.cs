@@ -12,6 +12,9 @@ namespace Cnt.Web.API.Models
         /// <summary>Gets or sets the ID of the user the placement is associated with.</summary>
         public int UserId { get; set; }
 
+		/// <summary>Gets or sets the ID of the office the placement is associated with.</summary>
+		public int OfficeId { get; set; }
+
         /// <summary>Gets or sets the date of the first occurrence of the placement.</summary>
         public DateTime Start { get; set; }
 
@@ -46,7 +49,10 @@ namespace Cnt.Web.API.Models
         public string Service { get; set; }
 
         /// <summary>Gets or sets the sub-service of the placement.</summary>
-        public string SubService { get; set; }
+		public string SubService { get; set; }
+
+		/// <summary>Gets or sets the sub-service abbreviation of the placement.</summary>
+		public string SubServiceAbbreviation { get; set; }
 
 		/// <summary>Gets or sets the sub service category (None = 0, NannyOnCall = 1, NannyPlacement = 2, TutorNoChildLeftBehind = 3, Tutor = 4, Administrative = 5).</summary>
 		public int SubServiceCategory { get; set; }
