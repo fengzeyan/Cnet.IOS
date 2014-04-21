@@ -585,6 +585,10 @@
                                                     <rect key="frame" x="10" y="14" width="61" height="61"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo-container.png" id="bZM-Re-anE">
+                                                    <rect key="frame" x="10" y="14" width="61" height="61"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-check.png" id="ZNa-S3-hIM">
                                                     <rect key="frame" x="48" y="6" width="27" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -728,7 +732,7 @@
                                                     <rect key="frame" x="5" y="9" width="61" height="61"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-photo-container.png" id="QNa-Jk-4wG">
+                                                <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo-container.png" id="QNa-Jk-4wG">
                                                     <rect key="frame" x="5" y="9" width="61" height="61"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -2466,6 +2470,10 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-no-image.png" id="4Jf-Ss-Kfj">
+                                                    <rect key="frame" x="220" y="2" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo-container.png" id="Tdh-m6-EyY">
                                                     <rect key="frame" x="220" y="2" width="55" height="55"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
@@ -4314,9 +4322,10 @@
         <image name="logo-tag.png" width="162" height="39"/>
         <image name="logo.png" width="132" height="21"/>
         <image name="notepad.png" width="13" height="14"/>
+        <image name="photo-container.png" width="62" height="62"/>
         <image name="profile-fields-gray.png" width="281" height="43"/>
         <image name="profile-fields.png" width="281" height="43"/>
-        <image name="profile-photo-container.png" width="105" height="105"/>
+        <image name="profile-photo-container.png" width="107" height="107"/>
         <image name="purple-button.png" width="253" height="43"/>
         <image name="right-arrow-grey.png" width="6" height="8"/>
         <image name="thin-right-arrow.png" width="28" height="90"/>
@@ -4329,13 +4338,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gOG-ci-hMN"/>
-        <segue reference="MjI-OQ-Q29"/>
-        <segue reference="VQD-HR-0IB"/>
-        <segue reference="a7x-Aj-C7h"/>
+        <segue reference="akE-8B-aPz"/>
         <segue reference="CRV-nh-p12"/>
-        <segue reference="BB7-U1-jl7"/>
-        <segue reference="liK-Jx-jnx"/>
+        <segue reference="MjI-OQ-Q29"/>
+        <segue reference="gOG-ci-hMN"/>
+        <segue reference="KNr-Zu-PCL"/>
         <segue reference="vLg-fS-Yjj"/>
+        <segue reference="liK-Jx-jnx"/>
+        <segue reference="BB7-U1-jl7"/>
     </inferredMetricsTieBreakers>
 </document>
