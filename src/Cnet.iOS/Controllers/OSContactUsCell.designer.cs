@@ -9,37 +9,26 @@ using System.CodeDom.Compiler;
 
 namespace Cnet.iOS
 {
-	[Register ("OSProfileViewController")]
-	partial class OSProfileViewController
+	[Register ("OSContactUsCell")]
+	partial class OSContactUsCell
 	{
 		[Outlet]
 		MonoTouch.UIKit.UILabel addressLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel assignmentsLabel { get; set; }
+		MonoTouch.UIKit.UILabel emailLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel faxLabel { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel nameLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel nextAssignmentLabel { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UILabel phoneLabel { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UITableView profileTable { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UILabel timesheetsLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (profileTable != null) {
-				profileTable.Dispose ();
-				profileTable = null;
-			}
-
 			if (nameLabel != null) {
 				nameLabel.Dispose ();
 				nameLabel = null;
@@ -55,19 +44,14 @@ namespace Cnet.iOS
 				phoneLabel = null;
 			}
 
-			if (assignmentsLabel != null) {
-				assignmentsLabel.Dispose ();
-				assignmentsLabel = null;
+			if (faxLabel != null) {
+				faxLabel.Dispose ();
+				faxLabel = null;
 			}
 
-			if (timesheetsLabel != null) {
-				timesheetsLabel.Dispose ();
-				timesheetsLabel = null;
-			}
-
-			if (nextAssignmentLabel != null) {
-				nextAssignmentLabel.Dispose ();
-				nextAssignmentLabel = null;
+			if (emailLabel != null) {
+				emailLabel.Dispose ();
+				emailLabel = null;
 			}
 		}
 	}

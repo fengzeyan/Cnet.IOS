@@ -12,5 +12,7 @@ namespace Cnet.iOS
 		public OSLocationCell (IntPtr handle) : base (handle)
 		{
 		}
+
+		public UILabel LocationLabel { get { return locationLabel; } set { locationLabel = value; } }
 	}
 }

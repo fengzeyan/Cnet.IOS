@@ -12,5 +12,7 @@ namespace Cnet.iOS
 		public OSChildrenCell (IntPtr handle) : base (handle)
 		{
 		}
+
+		public UILabel ChildrenLabel { get { return childrenLabel; } set { childrenLabel = value; } }
 	}
 }

@@ -12,9 +12,15 @@ namespace Cnet.iOS
 	[Register ("OSInfoCell")]
 	partial class OSInfoCell
 	{
+		[Outlet]
+		MonoTouch.UIKit.UILabel infoLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (infoLabel != null) {
+				infoLabel.Dispose ();
+				infoLabel = null;
+			}
 		}
 	}
 }

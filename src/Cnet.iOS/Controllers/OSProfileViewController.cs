@@ -7,49 +7,152 @@ using MonoTouch.UIKit;
 using Cnt.API;
 using Cnt.Web.API.Models;
 using MonoTouch.Foundation;
+using Cnt.API.Models;
 
 namespace Cnet.iOS
 {
 	public partial class OSProfileViewController : UIViewController
 	{
-		List<User> users;
+		#region Private Members
+		private static NSString LogOutSegueName = new NSString ("LogOut");
+		private User user;
+		private Assignment nextAssignment;
+		private List<Assignment> completedAssignments;
+		private List<Assignment> upcomingAssignments;
+		#endregion
 
 		public OSProfileViewController (IntPtr handle) : base (handle)
 		{
 		}
 
+		#region Pubic Methods
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			Client client = AuthenticationHelper.GetClient ();
-			users = new List<User> {client.UserService.GetUser(1)};
-			//users.Add(client.UserService.GetUser(0)); // (client.PlacementService.GetPlacements ());
-			this.profileTable.Source = new OSProfileTableSource (users);
+			LoadUser ();
+			RenderUser ();
 		}
 
-		public class OSProfileTableSource : UITableViewSource
+		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
 		{
-			private List<User> tableItems;
-			static NSString OSProfileTableViewCellId = new NSString ("ProfileCellIdentifier");
+			base.PrepareForSegue (segue, sender);
+			if (segue.Identifier == LogOutSegueName)
+				AuthenticationHelper.LogOut ();
+		}
+		#endregion
 
-			public OSProfileTableSource(List<User> items) : base()
+		#region Private Methods
+		private void LoadUser()
+		{
+			Client client = AuthenticationHelper.GetClient ();
+			user = client.UserService.GetUser(AuthenticationHelper.UserData.UserId);
+
+			DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
+			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value, currentPayPeriod.End.Value));
+			upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (DateTime.Today, DateTime.Today.AddDays(7)));
+
+			// Next Assignment
+			if (upcomingAssignments.Any(a => a.GetStatus() == AssignmentStatus.Confirmed))
+				nextAssignment = upcomingAssignments.Where(a => a.GetStatus() == AssignmentStatus.Confirmed).OrderBy (a => a.Start).First ();
+		}
+
+		private void RenderUser()
+		{
+			nameLabel.Text = user.ToNameString ();
+			addressLabel.Text = user.AddressCurrent.ToLocationString ("{2}, {3} {4}");
+			phoneLabel.Text = String.IsNullOrWhiteSpace (user.MobilePhone) ? user.HomePhone : user.MobilePhone;
+
+			assignmentsLabel.Text = upcomingAssignments.Where(a => a.GetStatus() == AssignmentStatus.New).Count() + " unconfirmed";
+			timesheetsLabel.Text = completedAssignments.Where(a => a.GetStatus() == AssignmentStatus.TimesheetRequired).Count() + " due";
+			if (nextAssignment != null)
+				nextAssignmentLabel.Text = nextAssignment.ToTimeUntilString ();
+			else
+				nextAssignmentLabel.Hidden = true;
+
+			profileTable.Source = new OSProfileTableSource (this);
+		}
+		#endregion
+
+		private class OSProfileTableSource : UITableViewSource
+		{
+			private List<OSProfileCellData> tableData;
+			private static NSString OSProfileTableViewCellId = new NSString ("ProfileCellIdentifier");
+
+			public OSProfileTableSource(OSProfileViewController parent) : base()
 			{
-				tableItems = items;
+				LoadRows(parent);
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
 			{
-				return tableItems.Count;
+				return tableData.Count;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
 				OSProfileCell cell = (OSProfileCell)tableView.DequeueReusableCell (OSProfileTableViewCellId, indexPath);
-				cell.ProfileLabel.Text = "jennifersmith@gmail.com";
-				cell.IconImage.Image = new UIImage ("icon-mail.png");
-				cell.PhoneIconImage.Image = new UIImage ("icon-mobile-nocircle.png");
-
+				cell.ProfileLabel.Text = tableData[indexPath.Row].Label;
+				if (tableData [indexPath.Row].Label == "Emergency Contact" && cell.ProfileLabel.Frame.X != 20)
+					cell.ProfileLabel.AdjustFrame (-39, 0, 39, 0);
+				cell.IconImage.Image =  tableData[indexPath.Row].Icon;
+				cell.PhoneIconImage.Image =  tableData[indexPath.Row].PhoneIcon;
 				return cell;
+			}
+
+			private void LoadRows (OSProfileViewController controller)
+			{
+				tableData = new List<OSProfileCellData> ();
+				if (!String.IsNullOrWhiteSpace (controller.user.Email))
+					tableData.Add (new OSProfileCellData () { 
+						Label = controller.user.Email,
+						Icon = new UIImage ("icon-mail.png"),
+						PhoneIcon = new UIImage ()
+					});
+				if (!String.IsNullOrWhiteSpace (controller.user.MobilePhone))
+					tableData.Add (new OSProfileCellData () { 
+						Label = controller.user.MobilePhone,
+						Icon = new UIImage ("icon-phone.png"),
+						PhoneIcon = new UIImage ("icon-mobile-nocircle.png")
+					});
+				if (!String.IsNullOrWhiteSpace (controller.user.HomePhone))
+					tableData.Add (new OSProfileCellData () { 
+						Label = controller.user.HomePhone,
+						Icon = new UIImage ("icon-phone.png"),
+						PhoneIcon = new UIImage ("icon-home.png")
+					});
+				if (!String.IsNullOrWhiteSpace (controller.user.AddressCurrent.Line1))
+					tableData.Add (new OSProfileCellData () { 
+						Label = controller.user.AddressCurrent.Line1,
+						Icon = new UIImage ("icon-street.png"),
+						PhoneIcon = new UIImage ()
+					});
+				if (!String.IsNullOrWhiteSpace (controller.user.AddressCurrent.ToLocationString ("{2}{3}{4}")))
+					tableData.Add (new OSProfileCellData () { 
+						Label = controller.user.AddressCurrent.ToLocationString ("{2}, {3} {4}"),
+						Icon = new UIImage ("icon-city.png"),
+						PhoneIcon = new UIImage ()
+					});
+				tableData.Add(new OSProfileCellData(){
+					Label = "Emergency Contact"
+				});
+				tableData.Add (new OSProfileCellData () { 
+					Label = String.IsNullOrWhiteSpace (controller.user.EmergencyContactName) ? "We need your help! Please provide emergency contact." : controller.user.EmergencyContactName,
+					Icon = new UIImage ("icon-user.png"),
+					PhoneIcon = new UIImage ()
+				});
+				if (!String.IsNullOrWhiteSpace (controller.user.EmergencyContactPhone))
+					tableData.Add (new OSProfileCellData () { 
+						Label = controller.user.EmergencyContactPhone,
+						Icon = new UIImage ("icon-phone.png"),
+						PhoneIcon = new UIImage ("icon-home.png")
+					});
+			}
+
+			private class OSProfileCellData
+			{
+				public string Label { get; set; }
+				public UIImage Icon { get; set; }
+				public UIImage PhoneIcon { get; set; }
 			}
 		}
 	}

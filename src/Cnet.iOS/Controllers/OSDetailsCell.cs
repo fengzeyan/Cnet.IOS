@@ -12,5 +12,10 @@ namespace Cnet.iOS
 		public OSDetailsCell (IntPtr handle) : base (handle)
 		{
 		}
+
+		public UILabel OrderNotesHeaderLabel { get { return orderNotesHeaderLabel; } set { orderNotesHeaderLabel = value; } }
+		public UILabel OrderNotesLabel { get { return orderNotesLabel; } set { orderNotesLabel = value; } }
+		public UILabel ImportantDetailsHeaderLabel { get { return importantDetailsHeaderLabel; } set { importantDetailsHeaderLabel = value; } }
+		public UILabel ImportantDetailsLabel { get { return importantDetailsLabel; } set { importantDetailsLabel = value; } }
 	}
 }

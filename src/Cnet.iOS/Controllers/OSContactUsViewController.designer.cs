@@ -9,25 +9,25 @@ using System.CodeDom.Compiler;
 
 namespace Cnet.iOS
 {
-	[Register ("OSStartEndCell")]
-	partial class OSStartEndCell
+	[Register ("OSContactUsViewController")]
+	partial class OSContactUsViewController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel endLabel { get; set; }
+		MonoTouch.UIKit.UITableView officesTable { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel startLabel { get; set; }
+		MonoTouch.UIKit.UIButton visitWebsiteButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (startLabel != null) {
-				startLabel.Dispose ();
-				startLabel = null;
+			if (officesTable != null) {
+				officesTable.Dispose ();
+				officesTable = null;
 			}
 
-			if (endLabel != null) {
-				endLabel.Dispose ();
-				endLabel = null;
+			if (visitWebsiteButton != null) {
+				visitWebsiteButton.Dispose ();
+				visitWebsiteButton = null;
 			}
 		}
 	}

@@ -12,5 +12,7 @@ namespace Cnet.iOS
 		public OSTimesCell (IntPtr handle) : base (handle)
 		{
 		}
+
+		public UILabel TimesLabel { get { return timesLabel; } set { timesLabel = value; } }
 	}
 }

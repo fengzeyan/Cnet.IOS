@@ -13,6 +13,12 @@ namespace Cnet.iOS
 	partial class OSLoginViewController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIButton forgotPasswordButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton signUpButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextField tbxPassword { get; set; }
 
 		[Outlet]
@@ -23,14 +29,24 @@ namespace Cnet.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (tbxPassword != null) {
+				tbxPassword.Dispose ();
+				tbxPassword = null;
+			}
+
 			if (tbxUsername != null) {
 				tbxUsername.Dispose ();
 				tbxUsername = null;
 			}
 
-			if (tbxPassword != null) {
-				tbxPassword.Dispose ();
-				tbxPassword = null;
+			if (forgotPasswordButton != null) {
+				forgotPasswordButton.Dispose ();
+				forgotPasswordButton = null;
+			}
+
+			if (signUpButton != null) {
+				signUpButton.Dispose ();
+				signUpButton = null;
 			}
 		}
 	}

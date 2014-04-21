@@ -12,9 +12,15 @@ namespace Cnet.iOS
 	[Register ("OSTimesCell")]
 	partial class OSTimesCell
 	{
+		[Outlet]
+		MonoTouch.UIKit.UILabel timesLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (timesLabel != null) {
+				timesLabel.Dispose ();
+				timesLabel = null;
+			}
 		}
 	}
 }
