@@ -11,7 +11,7 @@ namespace Cnet.iOS
 {
 	// TODO: Figure out timezone stuff.
 	// TODO: Properly wire up time up and down buttons.
-	// TODO: Add mobile-side validation.
+	// TODO: Wire up reset button.
 	public partial class OSNewTimesheetViewController : UIViewController
 	{
 		#region Private Members

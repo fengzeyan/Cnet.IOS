@@ -18,9 +18,9 @@ namespace Cnt.API.Services.NTMobile
 		/// </summary>
 		/// <param name="deviceId">The device identifier.</param>
 		/// <returns>The user's application load data.</returns>
-		public NTMobileAppLoadData Authenticate(string deviceId)
+		public NTMobileAppLoadData Authenticate(string deviceId, string deviceType)
 		{
-			return CntRestHelper.Request<NTMobileAppLoadData>(Constants.NTMOBILE_BASEURL + "/authenticate?d=" + deviceId, _Client.UserName, _Client.Password).Data;
+			return CntRestHelper.Request<NTMobileAppLoadData>(Constants.NTMOBILE_BASEURL + "/authenticate?d=" + deviceId + "&t=" + deviceType, _Client.UserName, _Client.Password).Data;
 		}
 
 		/// <summary>

@@ -22,16 +22,7 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UITextField cityTextField { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITextField ecPhoneTextField { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIScrollView editProfileScrollView { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UITextField emailTextField { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UITextField emergencyContactTextField { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UITextField firstNameTextField { get; set; }
@@ -50,11 +41,6 @@ namespace Cnet.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (editProfileScrollView != null) {
-				editProfileScrollView.Dispose ();
-				editProfileScrollView = null;
-			}
-
 			if (firstNameTextField != null) {
 				firstNameTextField.Dispose ();
 				firstNameTextField = null;
@@ -98,16 +84,6 @@ namespace Cnet.iOS
 			if (zipCodeTextField != null) {
 				zipCodeTextField.Dispose ();
 				zipCodeTextField = null;
-			}
-
-			if (emergencyContactTextField != null) {
-				emergencyContactTextField.Dispose ();
-				emergencyContactTextField = null;
-			}
-
-			if (ecPhoneTextField != null) {
-				ecPhoneTextField.Dispose ();
-				ecPhoneTextField = null;
 			}
 		}
 	}

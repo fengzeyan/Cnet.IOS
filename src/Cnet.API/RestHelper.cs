@@ -96,10 +96,9 @@ namespace Cnt.API
 								message = "Multiple errors occurred, see ApiErrors for details.";
 							else
 								message = ApiErrors.FirstOrDefault().Message;
+							throw new CntResponseException(message, ApiErrors);
 						}
-						else
-							message = String.Format("The web request returned {0} {1}.", (int)HttpStatusCode, HttpStatusCode.ToString());
-						throw new CntResponseException(message, ApiErrors);
+						throw new CntResponseException(((HttpWebResponse)response).StatusDescription, HttpStatusCode);
 					}
 				}
 			}
@@ -114,11 +113,6 @@ namespace Cnt.API
 
 		public static CntResponse Request(string requestUri, string userName, string password, Dictionary<string, string> requestData = null, RequestMethod requestMethod = RequestMethod.GET)
 		{
-			if (String.IsNullOrEmpty(userName))
-				throw new ArgumentNullException("userName");
-			if (String.IsNullOrEmpty(password))
-				throw new ArgumentNullException("password");
-
 			requestData = requestData ?? new Dictionary<string, string>();
 
 			HttpWebRequest request;
