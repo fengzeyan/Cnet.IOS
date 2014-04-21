@@ -70,7 +70,9 @@ namespace Cnet.iOS
 
 		private Timesheet GetTimesheet(Assignment assignment)
 		{
-			return timesheets.FirstOrDefault (t => assignment.Placement.Id == t.PlacementId && assignment.Start.Date >= t.Start && assignment.Start <= t.End);
+			return timesheets.FirstOrDefault (t => assignment.Placement.Id == t.PlacementId && 
+				assignment.Start == t.Start && 
+				assignment.Start.AddSeconds((double)assignment.Duration) == t.End);
 		}
 		#endregion
 

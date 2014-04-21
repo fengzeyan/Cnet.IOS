@@ -10,8 +10,8 @@ using Cnt.Web.API.Models;
 namespace Cnet.iOS
 {
 	// TODO: Figure out timezone stuff.
-	// TODO: Properly wire up time up and down buttons.
 	// TODO: Wire up reset button.
+	// TODO: Add outlet for start and end time to wire up pickers to.
 	public partial class OSNewTimesheetViewController : UIViewController
 	{
 		#region Private Members
@@ -57,28 +57,34 @@ namespace Cnet.iOS
 			ShowDatePicker (timesheet.End, UIDatePickerMode.Date, (object s, EventArgs ev) => {
 				DateTime date = DateTime.SpecifyKind ((s as UIDatePicker).Date, DateTimeKind.Unspecified);
 				timesheet.End = date;
-				endLabel.Text = date.ToLocalTime().ToString (dateFormat);
+				endLabel.Text = date.ToString (dateFormat);
+			});
+		}
+
+		private void EndTimeClicked (object sender, EventArgs e)
+		{
+			ShowDatePicker (timesheet.End, UIDatePickerMode.Time, (object s, EventArgs ev) => {
+				DateTime date = DateTime.SpecifyKind ((s as UIDatePicker).Date, DateTimeKind.Unspecified);
+				TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
+				timesheet.End = timesheet.End.Date + time;
+				endTimeLabel.Text = date.ToString (timeFormat);
 			});
 		}
 
 		private void EndTimeDownClicked (object sender, EventArgs e)
 		{
-			ShowDatePicker (timesheet.End, UIDatePickerMode.Time, (object s, EventArgs ev) => {
-				DateTime date = DateTime.SpecifyKind ((s as UIDatePicker).Date, DateTimeKind.Unspecified);
-				TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
-				timesheet.End = timesheet.End.Date + time;
-				endTimeLabel.Text = date.ToLocalTime().ToString (timeFormat);
-			});
+			DateTime date = DateTime.ParseExact (endTimeLabel.Text, timeFormat, null).AddMinutes (-15);
+			TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
+			timesheet.End = timesheet.End.Date + time;
+			endTimeLabel.Text = date.ToString (timeFormat);
 		}
 
 		private void EndTimeUpClicked (object sender, EventArgs e)
 		{
-			ShowDatePicker (timesheet.End, UIDatePickerMode.Time, (object s, EventArgs ev) => {
-				DateTime date = DateTime.SpecifyKind ((s as UIDatePicker).Date, DateTimeKind.Unspecified);
-				TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
-				timesheet.End = timesheet.End.Date + time;
-				endTimeLabel.Text = date.ToLocalTime().ToString (timeFormat);
-			});
+			DateTime date = DateTime.ParseExact (endTimeLabel.Text, timeFormat, null).AddMinutes (15);
+			TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
+			timesheet.End = timesheet.End.Date + time;
+			endTimeLabel.Text = date.ToString (timeFormat);
 		}
 
 		private void ResetButtonClicked (object sender, EventArgs e)
@@ -91,28 +97,34 @@ namespace Cnet.iOS
 			ShowDatePicker (timesheet.Start, UIDatePickerMode.Date, (object s, EventArgs ev) => {
 				DateTime date = DateTime.SpecifyKind ((s as UIDatePicker).Date, DateTimeKind.Unspecified);
 				timesheet.Start = date;
-				startLabel.Text = date.ToLocalTime().ToString (dateFormat);
+				startLabel.Text = date.ToString (dateFormat);
+			});
+		}
+
+		private void StartTimeClicked (object sender, EventArgs e)
+		{
+			ShowDatePicker (timesheet.Start, UIDatePickerMode.Time, (object s, EventArgs ev) => {
+				DateTime date = DateTime.SpecifyKind ((s as UIDatePicker).Date, DateTimeKind.Unspecified);
+				TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
+				timesheet.Start = timesheet.Start.Date + time;
+				startTimeLabel.Text = date.ToString (timeFormat);
 			});
 		}
 
 		private void StartTimeDownClicked (object sender, EventArgs e)
 		{
-			ShowDatePicker (timesheet.Start, UIDatePickerMode.Time, (object s, EventArgs ev) => {
-				DateTime date = DateTime.SpecifyKind ((s as UIDatePicker).Date, DateTimeKind.Unspecified);
-				TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
-				timesheet.Start = timesheet.Start.Date + time;
-				startTimeLabel.Text = date.ToLocalTime().ToString (timeFormat);
-			});
+			DateTime date = DateTime.ParseExact (startTimeLabel.Text, timeFormat, null).AddMinutes (-15);
+			TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
+			timesheet.Start = timesheet.Start.Date + time;
+			startTimeLabel.Text = date.ToString (timeFormat);
 		}
 
 		private void StartTimeUpClicked (object sender, EventArgs e)
 		{
-			ShowDatePicker (timesheet.Start, UIDatePickerMode.Time, (object s, EventArgs ev) => {
-				DateTime date = DateTime.SpecifyKind ((s as UIDatePicker).Date, DateTimeKind.Unspecified);
-				TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
-				timesheet.Start = timesheet.Start.Date + time;
-				startTimeLabel.Text = date.ToLocalTime().ToString (timeFormat);
-			});
+			DateTime date = DateTime.ParseExact (startTimeLabel.Text, timeFormat, null).AddMinutes (15);
+			TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
+			timesheet.Start = timesheet.Start.Date + time;
+			startTimeLabel.Text = date.ToString (timeFormat);
 		}
 		#endregion
 
@@ -120,15 +132,18 @@ namespace Cnet.iOS
 		private void LoadTimesheet ()
 		{
 			Client client = AuthenticationHelper.GetClient ();
+			//placement = client.PlacementService.GetPlacement (PlacementId);
 			if (TimesheetId > 0)
 				timesheet = client.TimesheetService.GetTimesheet (TimesheetId);
-			else
+			else {
+				DateTime startTime = DateTime.Now.RoundToNearest (TimeSpan.FromMinutes (15));
 				timesheet = new Timesheet () { 
 					Created = DateTime.Now,
-					Start = DateTime.Now,
-					End = DateTime.Now.AddHours (1),
+					Start = startTime,
+					End = startTime.AddHours (1),
 					PlacementId = PlacementId
 				};
+			}
 		}
 
 		private void RenderTimesheet ()
@@ -136,12 +151,13 @@ namespace Cnet.iOS
 			resetButton.Clicked += ResetButtonClicked;
 			actionButton.TouchUpInside += ActionButtonClicked;
 
-			DateTime localStart = timesheet.Start.ToLocalTime ();
-			DateTime localEnd = timesheet.End.ToLocalTime ();
+			DateTime localStart = timesheet.Start;
+			DateTime localEnd = timesheet.End;
 			startLabel.Text = localStart.ToString (dateFormat);
 			endLabel.Text = localEnd.ToString (dateFormat);
 			startTimeLabel.Text = localStart.ToString (timeFormat);
 			endTimeLabel.Text = localEnd.ToString (timeFormat);
+			recapTextView.Text = timesheet.Description;
 
 			startButton.TouchUpInside += StartButtonClicked;
 			endButton.TouchUpInside += EndButtonClicked;
@@ -149,6 +165,11 @@ namespace Cnet.iOS
 			startTimeDownButton.TouchUpInside += StartTimeDownClicked;
 			endTimeUpButton.TouchUpInside += EndTimeUpClicked;
 			endTimeDownButton.TouchUpInside += EndTimeDownClicked;
+			recapTextView.Started += (object sender, EventArgs e) => {
+				if (recapTextView.Text == "Tap to add recap...")
+					recapTextView.Text = String.Empty;
+			};
+			recapTextView.Changed += (object sender, EventArgs e) => timesheet.Description = recapTextView.Text;
 		}
 
 		private void ResetForm ()

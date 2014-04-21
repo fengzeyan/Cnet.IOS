@@ -25,8 +25,9 @@ namespace Cnet.iOS
 				lastNameTextField,
 				emailTextField,
 				phoneTextField,
-				emergencyContactTextField,
-				ecPhoneTextField};
+				//emergencyContactTextField,
+				//ecPhoneTextField
+			};
 
 			List<String> imageNameList = new List<String> {
 				"icon-user.png",
