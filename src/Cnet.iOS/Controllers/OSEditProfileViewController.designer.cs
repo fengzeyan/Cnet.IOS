@@ -52,10 +52,22 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UITextField lastNameTextField { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIImageView phoneCarrierArrowImage { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel phoneCarrierLabel { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextField phoneTextField { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIImageView profileImage { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextField stateTextField { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UISwitch textMessageSwitch { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UITextField zipCodeTextField { get; set; }
@@ -68,6 +80,31 @@ namespace Cnet.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (textMessageSwitch != null) {
+				textMessageSwitch.Dispose ();
+				textMessageSwitch = null;
+			}
+
+			if (profileImage != null) {
+				profileImage.Dispose ();
+				profileImage = null;
+			}
+
+			if (addAddressButton != null) {
+				addAddressButton.Dispose ();
+				addAddressButton = null;
+			}
+
+			if (addPhoneButton != null) {
+				addPhoneButton.Dispose ();
+				addPhoneButton = null;
+			}
+
+			if (addressLabel != null) {
+				addressLabel.Dispose ();
+				addressLabel = null;
+			}
+
 			if (addressLine2TextField != null) {
 				addressLine2TextField.Dispose ();
 				addressLine2TextField = null;
@@ -96,6 +133,11 @@ namespace Cnet.iOS
 			if (emailTextField != null) {
 				emailTextField.Dispose ();
 				emailTextField = null;
+			}
+
+			if (emergencyContactLabel != null) {
+				emergencyContactLabel.Dispose ();
+				emergencyContactLabel = null;
 			}
 
 			if (emergencyContactTextField != null) {
@@ -128,24 +170,14 @@ namespace Cnet.iOS
 				zipCodeTextField = null;
 			}
 
-			if (addressLabel != null) {
-				addressLabel.Dispose ();
-				addressLabel = null;
+			if (phoneCarrierArrowImage != null) {
+				phoneCarrierArrowImage.Dispose ();
+				phoneCarrierArrowImage = null;
 			}
 
-			if (emergencyContactLabel != null) {
-				emergencyContactLabel.Dispose ();
-				emergencyContactLabel = null;
-			}
-
-			if (addPhoneButton != null) {
-				addPhoneButton.Dispose ();
-				addPhoneButton = null;
-			}
-
-			if (addAddressButton != null) {
-				addAddressButton.Dispose ();
-				addAddressButton = null;
+			if (phoneCarrierLabel != null) {
+				phoneCarrierLabel.Dispose ();
+				phoneCarrierLabel = null;
 			}
 		}
 	}

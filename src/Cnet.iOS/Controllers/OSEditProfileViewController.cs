@@ -6,49 +6,31 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.Collections.Generic;
 using System.Drawing;
+using Cnt.Web.API.Models;
+using Cnt.API;
 
 namespace Cnet.iOS
 {
 	public partial class OSEditProfileViewController : UIViewController
 	{
+		#region Private Members
+		private User user;
+		#endregion
+
 		public OSEditProfileViewController (IntPtr handle) : base (handle)
 		{
 		}
 
+		#region Public Methods
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
-			// Indent text/set image in text views here
-			List<UITextField> textFieldList = new List<UITextField> {
-				firstNameTextField,
-				lastNameTextField,
-				emailTextField,
-				phoneTextField,
-				//emergencyContactTextField,
-				//ecPhoneTextField
-			};
-
-			List<String> imageNameList = new List<String> {
-				"icon-user.png",
-				"icon-user.png",
-				"icon-mail.png",
-				"icon-mobile.png",
-				"icon-user.png",
-				"icon-phone.png"};
-
-			for (int i = 0; i < textFieldList.Count; i++)
-			{
-				UITextField tempTextField = textFieldList[i];
-				UIImageView spacerView = new UIImageView (new RectangleF (0, 0, 40, 24));
-
-				tempTextField.LeftViewMode = UITextFieldViewMode.Always;
-				spacerView.Image = new UIImage (imageNameList [i]);
-				spacerView.ContentMode = UIViewContentMode.Center;
-				textFieldList [i].LeftView = spacerView;
-			}
+			LoadUser ();
+			RenderUser ();
 		}
+		#endregion
 
+		#region Event Delegates
 		partial void addNewPhonePressed (NSObject sender)
 		{
 			float frameAdjustment = 161.0f;
@@ -89,5 +71,78 @@ namespace Cnet.iOS
 			scrollViewContent.Height += frameAdjustment;
 			editProfileScrollView.ContentSize = scrollViewContent;
 		}
+		#endregion
+
+		#region Private Methods
+		private void LoadUser()
+		{
+			Client client = AuthenticationHelper.GetClient ();
+			user = client.UserService.GetUser (AuthenticationHelper.UserData.UserId);
+		}
+
+		private void RenderUser()
+		{
+			List<UITextField> textFieldList = new List<UITextField> {
+				firstNameTextField,
+				lastNameTextField,
+				emailTextField,
+				phoneTextField,
+				emergencyContactTextField,
+				ecPhoneTextField
+			};
+			List<UITextField> addressFieldList = new List<UITextField> {
+				addressTextField,
+				addressLine2TextField,
+				cityTextField, 
+				stateTextField,
+				zipCodeTextField
+			};
+
+			List<String> imageNameList = new List<String> {
+				"icon-user.png",
+				"icon-user.png",
+				"icon-mail.png",
+				"icon-mobile.png",
+				"icon-user.png",
+				"icon-phone.png"
+			};
+
+			// Indent text/set image in text views here
+			for (int i = 0; i < textFieldList.Count; i++) {
+				UITextField tempTextField = textFieldList [i];
+				UIImageView spacerView = new UIImageView (new RectangleF (0, 0, 40, 24));
+
+				tempTextField.LeftViewMode = UITextFieldViewMode.Always;
+				spacerView.Image = new UIImage (imageNameList [i]);
+				spacerView.ContentMode = UIViewContentMode.Center;
+				textFieldList [i].LeftView = spacerView;
+			}
+
+			for (int i = 0; i < addressFieldList.Count; i++) {
+				UITextField tempTextField = addressFieldList [i];
+				UIImageView spacerView = new UIImageView (new RectangleF (0, 0, 10, 24));
+
+				tempTextField.LeftViewMode = UITextFieldViewMode.Always;
+				spacerView.ContentMode = UIViewContentMode.Center;
+				addressFieldList [i].LeftView = spacerView;
+			}
+
+			profileImage.Image = user.GetProfileImage ();
+
+			firstNameTextField.Text = user.FirstName;
+			lastNameTextField.Text = user.LastName;
+			emailTextField.Text = user.Email;
+			phoneTextField.Text = user.MobilePhone;
+
+			addressTextField.Text = user.AddressCurrent.Line1;
+			addressLine2TextField.Text = user.AddressCurrent.Line2;
+			cityTextField.Text = user.AddressCurrent.City;
+			stateTextField.Text = user.AddressCurrent.State;
+			zipCodeTextField.Text = user.AddressCurrent.Zip;
+
+			emergencyContactTextField.Text = user.EmergencyContactName;
+			ecPhoneTextField.Text = user.EmergencyContactPhone;
+		}
+		#endregion
 	}
 }

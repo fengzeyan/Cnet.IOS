@@ -190,6 +190,14 @@ namespace Cnet.iOS
 			return UIImageFromUrl (placement.ClientPhoto);
 		}
 
+		public static UIImage GetProfileImage(this User user)
+		{
+			if (String.IsNullOrWhiteSpace (user.Photo))
+				return new UIImage ("icon-no-image.png");
+
+			return UIImageFromUrl(user.Photo);
+		}
+
 		public static string ToFamilyNameString(this Placement placement)
 		{
 			string clientName = placement.ClientName;

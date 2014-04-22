@@ -3130,7 +3130,7 @@
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" minimumFontSize="17" background="profile-fields.png" id="mSC-aw-ghD">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" clearsOnBeginEditing="YES" minimumFontSize="17" background="profile-fields.png" id="mSC-aw-ghD">
                                         <rect key="frame" x="20" y="519" width="281" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -3200,6 +3200,10 @@
                                         <rect key="frame" x="28" y="347" width="24" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn-drop-menu.png" id="ScF-NB-kKw">
+                                        <rect key="frame" x="249" y="354" width="19" height="10"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verizon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ruV-LK-cjD">
                                         <rect key="frame" x="60" y="348" width="50" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3255,12 +3259,12 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="onTintColor" red="0.52941176470588236" green="0.77647058823529413" blue="0.33725490196078434" alpha="1" colorSpace="calibratedRGB"/>
                                     </switch>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-photo-container.png" id="rC8-Mm-nOc">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-no-image.png" id="PHm-y2-EEU">
                                         <rect key="frame" x="108" y="17" width="105" height="108"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn-drop-menu.png" id="ScF-NB-kKw">
-                                        <rect key="frame" x="249" y="354" width="19" height="10"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-photo-container.png" id="rC8-Mm-nOc">
+                                        <rect key="frame" x="108" y="17" width="105" height="108"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
@@ -3297,8 +3301,12 @@
                         <outlet property="emergencyContactTextField" destination="ZBX-RI-Qf5" id="joU-sh-jz9"/>
                         <outlet property="firstNameTextField" destination="TqZ-zv-lfg" id="KAL-Ii-Apk"/>
                         <outlet property="lastNameTextField" destination="YSW-kc-Pck" id="1L5-Hc-eD8"/>
+                        <outlet property="phoneCarrierArrowImage" destination="ScF-NB-kKw" id="JbY-Ai-pAo"/>
+                        <outlet property="phoneCarrierLabel" destination="ruV-LK-cjD" id="F05-FN-ifa"/>
                         <outlet property="phoneTextField" destination="7Sq-Ku-8lx" id="f7Z-UQ-zrs"/>
+                        <outlet property="profileImage" destination="PHm-y2-EEU" id="AF2-OL-fL6"/>
                         <outlet property="stateTextField" destination="dEM-RU-ge5" id="aaJ-kl-0hC"/>
+                        <outlet property="textMessageSwitch" destination="GP7-WS-nSo" id="9lA-H9-GV4"/>
                         <outlet property="zipCodeTextField" destination="INS-Va-ZOO" id="YNb-wK-a9C"/>
                     </connections>
                 </viewController>
