@@ -2704,6 +2704,20 @@
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SCc-U0-Jgy">
+                                <rect key="frame" x="65" y="219" width="191" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Wye-XG-07F">
+                                <rect key="frame" x="65" y="303" width="191" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PHV-e5-rrT">
                                 <rect key="frame" x="115" y="232" width="90" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2726,6 +2740,7 @@
                         <outlet property="actionButton" destination="f72-Va-IWC" id="b5L-po-NCh"/>
                         <outlet property="endButton" destination="aPs-6e-JAR" id="5nY-JE-eT2"/>
                         <outlet property="endLabel" destination="MD5-EP-73o" id="Gk2-T8-tZ8"/>
+                        <outlet property="endTimeButton" destination="Wye-XG-07F" id="GnB-WY-TRW"/>
                         <outlet property="endTimeDownButton" destination="rb5-JP-Rkj" id="Jzh-ID-oiT"/>
                         <outlet property="endTimeLabel" destination="vnO-id-xfp" id="hib-4y-ok1"/>
                         <outlet property="endTimeUpButton" destination="ofM-dA-mv3" id="hVc-EB-tC2"/>
@@ -2733,6 +2748,7 @@
                         <outlet property="resetButton" destination="1SO-TE-RGO" id="tcA-EN-Yba"/>
                         <outlet property="startButton" destination="M8d-gQ-4bf" id="wGK-zn-nM8"/>
                         <outlet property="startLabel" destination="Tnh-ZR-0Ko" id="6Zw-ml-KHa"/>
+                        <outlet property="startTimeButton" destination="SCc-U0-Jgy" id="I9c-Zm-8uU"/>
                         <outlet property="startTimeDownButton" destination="5wz-kt-Uvv" id="bok-ni-fqV"/>
                         <outlet property="startTimeLabel" destination="PHV-e5-rrT" id="cYg-8D-Ajx"/>
                         <outlet property="startTimeUpButton" destination="pfa-SI-Z0q" id="6eD-nu-MCQ"/>

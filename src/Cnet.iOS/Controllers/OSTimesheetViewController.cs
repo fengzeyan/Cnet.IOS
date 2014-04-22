@@ -42,8 +42,12 @@ namespace Cnet.iOS
 				var selectedTimesheet = GetTimesheet (selectedAssignment);
 				var view = (OSNewTimesheetViewController)segue.DestinationViewController;
 				view.PlacementId = selectedAssignment.Placement.Id;
-				if (selectedTimesheet != null)
+				view.Start = selectedAssignment.Start;
+				view.End = selectedAssignment.Start.AddSeconds (selectedAssignment.Duration);
+				if (selectedTimesheet != null) {
 					view.TimesheetId = selectedTimesheet.Id;
+					view.Remarks = selectedTimesheet.Description;
+				}
 			}
 		}
 		#endregion

@@ -10,8 +10,6 @@ using Cnt.Web.API.Models;
 namespace Cnet.iOS
 {
 	// TODO: Figure out timezone stuff.
-	// TODO: Wire up reset button.
-	// TODO: Add outlet for start and end time to wire up pickers to.
 	public partial class OSNewTimesheetViewController : UIViewController
 	{
 		#region Private Members
@@ -22,6 +20,9 @@ namespace Cnet.iOS
 		private bool hasErrors;
 		#endregion
 
+		public DateTime Start { get; set; }
+		public DateTime End { get; set; }
+		public string Remarks { get; set; }
 		public int PlacementId { get; set; }
 		public int TimesheetId{ get; set; }
 
@@ -29,10 +30,12 @@ namespace Cnet.iOS
 		{
 		}
 
+		#region Public Methods
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 			LoadTimesheet ();
+			WireUpView ();
 			RenderTimesheet ();
 		}
 
@@ -43,6 +46,7 @@ namespace Cnet.iOS
 
 			return base.ShouldPerformSegue (segueIdentifier, sender);
 		}
+		#endregion
 
 		#region Event Delegates
 		private void ActionButtonClicked (object sender, EventArgs e)
@@ -132,15 +136,14 @@ namespace Cnet.iOS
 		private void LoadTimesheet ()
 		{
 			Client client = AuthenticationHelper.GetClient ();
-			//placement = client.PlacementService.GetPlacement (PlacementId);
 			if (TimesheetId > 0)
 				timesheet = client.TimesheetService.GetTimesheet (TimesheetId);
 			else {
-				DateTime startTime = DateTime.Now.RoundToNearest (TimeSpan.FromMinutes (15));
 				timesheet = new Timesheet () { 
 					Created = DateTime.Now,
-					Start = startTime,
-					End = startTime.AddHours (1),
+					Start =  Start.RoundToNearest (TimeSpan.FromMinutes (15)),
+					End = End.RoundToNearest (TimeSpan.FromMinutes (15)),
+					Description = Remarks,
 					PlacementId = PlacementId
 				};
 			}
@@ -148,9 +151,6 @@ namespace Cnet.iOS
 
 		private void RenderTimesheet ()
 		{
-			resetButton.Clicked += ResetButtonClicked;
-			actionButton.TouchUpInside += ActionButtonClicked;
-
 			DateTime localStart = timesheet.Start;
 			DateTime localEnd = timesheet.End;
 			startLabel.Text = localStart.ToString (dateFormat);
@@ -158,23 +158,14 @@ namespace Cnet.iOS
 			startTimeLabel.Text = localStart.ToString (timeFormat);
 			endTimeLabel.Text = localEnd.ToString (timeFormat);
 			recapTextView.Text = timesheet.Description;
-
-			startButton.TouchUpInside += StartButtonClicked;
-			endButton.TouchUpInside += EndButtonClicked;
-			startTimeUpButton.TouchUpInside += StartTimeUpClicked;
-			startTimeDownButton.TouchUpInside += StartTimeDownClicked;
-			endTimeUpButton.TouchUpInside += EndTimeUpClicked;
-			endTimeDownButton.TouchUpInside += EndTimeDownClicked;
-			recapTextView.Started += (object sender, EventArgs e) => {
-				if (recapTextView.Text == "Tap to add recap...")
-					recapTextView.Text = String.Empty;
-			};
-			recapTextView.Changed += (object sender, EventArgs e) => timesheet.Description = recapTextView.Text;
 		}
 
 		private void ResetForm ()
 		{
-			// TODO: Reset form logic.
+			timesheet.Start = Start.RoundToNearest (TimeSpan.FromMinutes (15));
+			timesheet.End = End.RoundToNearest (TimeSpan.FromMinutes (15));
+			timesheet.Description = Remarks;
+			RenderTimesheet ();
 		}
 
 		private void ShowDatePicker(DateTime date, UIDatePickerMode mode, EventHandler valueChangedHandler)
@@ -200,6 +191,28 @@ namespace Cnet.iOS
 				hasErrors = true;
 				Utility.ShowError (ex);
 			}
+		}
+
+		private void WireUpView ()
+		{
+			resetButton.Clicked += ResetButtonClicked;
+			actionButton.TouchUpInside += ActionButtonClicked;
+
+			startButton.TouchUpInside += StartButtonClicked;
+			endButton.TouchUpInside += EndButtonClicked;
+
+			//startTimeButton.TouchUpInside += StartTimeClicked; // Doesn't work because of timezone issues.
+			startTimeUpButton.TouchUpInside += StartTimeUpClicked;
+			startTimeDownButton.TouchUpInside += StartTimeDownClicked;
+			//endTimeButton.TouchUpInside += EndTimeClicked; // Doesn't work because of timezone issues.
+			endTimeUpButton.TouchUpInside += EndTimeUpClicked;
+			endTimeDownButton.TouchUpInside += EndTimeDownClicked;
+
+			recapTextView.Started += (object sender, EventArgs e) => {
+				if (recapTextView.Text == "Tap to add recap...")
+					recapTextView.Text = String.Empty;
+			};
+			recapTextView.Changed += (object sender, EventArgs e) => timesheet.Description = recapTextView.Text;
 		}
 		#endregion
 	}

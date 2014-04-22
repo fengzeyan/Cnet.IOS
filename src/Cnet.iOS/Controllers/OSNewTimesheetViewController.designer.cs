@@ -22,6 +22,9 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UILabel endLabel { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton endTimeButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton endTimeDownButton { get; set; }
 
 		[Outlet]
@@ -43,6 +46,9 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UILabel startLabel { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton startTimeButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton startTimeDownButton { get; set; }
 
 		[Outlet]
@@ -53,6 +59,51 @@ namespace Cnet.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (startTimeButton != null) {
+				startTimeButton.Dispose ();
+				startTimeButton = null;
+			}
+
+			if (endTimeButton != null) {
+				endTimeButton.Dispose ();
+				endTimeButton = null;
+			}
+
+			if (actionButton != null) {
+				actionButton.Dispose ();
+				actionButton = null;
+			}
+
+			if (endButton != null) {
+				endButton.Dispose ();
+				endButton = null;
+			}
+
+			if (endLabel != null) {
+				endLabel.Dispose ();
+				endLabel = null;
+			}
+
+			if (endTimeDownButton != null) {
+				endTimeDownButton.Dispose ();
+				endTimeDownButton = null;
+			}
+
+			if (endTimeLabel != null) {
+				endTimeLabel.Dispose ();
+				endTimeLabel = null;
+			}
+
+			if (endTimeUpButton != null) {
+				endTimeUpButton.Dispose ();
+				endTimeUpButton = null;
+			}
+
+			if (recapTextView != null) {
+				recapTextView.Dispose ();
+				recapTextView = null;
+			}
+
 			if (resetButton != null) {
 				resetButton.Dispose ();
 				resetButton = null;
@@ -68,26 +119,6 @@ namespace Cnet.iOS
 				startLabel = null;
 			}
 
-			if (endButton != null) {
-				endButton.Dispose ();
-				endButton = null;
-			}
-
-			if (endLabel != null) {
-				endLabel.Dispose ();
-				endLabel = null;
-			}
-
-			if (recapTextView != null) {
-				recapTextView.Dispose ();
-				recapTextView = null;
-			}
-
-			if (startTimeUpButton != null) {
-				startTimeUpButton.Dispose ();
-				startTimeUpButton = null;
-			}
-
 			if (startTimeDownButton != null) {
 				startTimeDownButton.Dispose ();
 				startTimeDownButton = null;
@@ -98,24 +129,9 @@ namespace Cnet.iOS
 				startTimeLabel = null;
 			}
 
-			if (endTimeUpButton != null) {
-				endTimeUpButton.Dispose ();
-				endTimeUpButton = null;
-			}
-
-			if (endTimeDownButton != null) {
-				endTimeDownButton.Dispose ();
-				endTimeDownButton = null;
-			}
-
-			if (endTimeLabel != null) {
-				endTimeLabel.Dispose ();
-				endTimeLabel = null;
-			}
-
-			if (actionButton != null) {
-				actionButton.Dispose ();
-				actionButton = null;
+			if (startTimeUpButton != null) {
+				startTimeUpButton.Dispose ();
+				startTimeUpButton = null;
 			}
 		}
 	}
