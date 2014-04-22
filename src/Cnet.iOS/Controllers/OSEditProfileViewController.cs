@@ -8,12 +8,16 @@ using System.Collections.Generic;
 using System.Drawing;
 using Cnt.Web.API.Models;
 using Cnt.API;
+using Cnt.API.Exceptions;
 
 namespace Cnet.iOS
 {
 	public partial class OSEditProfileViewController : UIViewController
 	{
 		#region Private Members
+		private NSString DoneSegueName = new NSString("Profile");
+		private bool hasErrors;
+		private List<string> mobileCarriers;
 		private User user;
 		#endregion
 
@@ -27,6 +31,21 @@ namespace Cnet.iOS
 			base.ViewDidLoad ();
 			LoadUser ();
 			RenderUser ();
+		}
+
+		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
+		{
+			if (segue.Identifier == DoneSegueName)
+				SubmitForm ();
+			base.PrepareForSegue (segue, sender);
+		}
+
+		public override bool ShouldPerformSegue (string segueIdentifier, NSObject sender)
+		{
+			if (segueIdentifier == DoneSegueName)
+				return !hasErrors;
+
+			return base.ShouldPerformSegue (segueIdentifier, sender);
 		}
 		#endregion
 
@@ -71,12 +90,18 @@ namespace Cnet.iOS
 			scrollViewContent.Height += frameAdjustment;
 			editProfileScrollView.ContentSize = scrollViewContent;
 		}
+			
+		private void PhoneCarrierClick (object sender, EventArgs e)
+		{
+			ShowCarrierPicker ();
+		}
 		#endregion
 
 		#region Private Methods
 		private void LoadUser()
 		{
 			Client client = AuthenticationHelper.GetClient ();
+			mobileCarriers = new List<string>(client.MobileCarrierService.GetMobileCarriers ());
 			user = client.UserService.GetUser (AuthenticationHelper.UserData.UserId);
 		}
 
@@ -109,22 +134,11 @@ namespace Cnet.iOS
 
 			// Indent text/set image in text views here
 			for (int i = 0; i < textFieldList.Count; i++) {
-				UITextField tempTextField = textFieldList [i];
-				UIImageView spacerView = new UIImageView (new RectangleF (0, 0, 40, 24));
-
-				tempTextField.LeftViewMode = UITextFieldViewMode.Always;
-				spacerView.Image = new UIImage (imageNameList [i]);
-				spacerView.ContentMode = UIViewContentMode.Center;
-				textFieldList [i].LeftView = spacerView;
+				textFieldList [i].AddPadding (40, 24, new UIImage(imageNameList [i]));
 			}
 
 			for (int i = 0; i < addressFieldList.Count; i++) {
-				UITextField tempTextField = addressFieldList [i];
-				UIImageView spacerView = new UIImageView (new RectangleF (0, 0, 10, 24));
-
-				tempTextField.LeftViewMode = UITextFieldViewMode.Always;
-				spacerView.ContentMode = UIViewContentMode.Center;
-				addressFieldList [i].LeftView = spacerView;
+				addressFieldList [i].AddPadding (10, 24);
 			}
 
 			profileImage.Image = user.GetProfileImage ();
@@ -142,6 +156,46 @@ namespace Cnet.iOS
 
 			emergencyContactTextField.Text = user.EmergencyContactName;
 			ecPhoneTextField.Text = user.EmergencyContactPhone;
+		}
+
+		private void ShowCarrierPicker()
+		{
+			var actionSheetCarrierPicker = new ActionSheetListPicker (this.View);
+			var pickerDataModel = new ListPickerViewModel<string> (mobileCarriers);
+			actionSheetCarrierPicker.ListPicker.Source = pickerDataModel;
+			pickerDataModel.ValueChanged += (object sender, EventArgs e) => phoneCarrierLabel.Text= (sender as ListPickerViewModel<string>).SelectedItem;
+			actionSheetCarrierPicker.Show ();
+		}
+
+		private void SubmitForm()
+		{
+			user.FirstName = firstNameTextField.Text;
+			user.LastName = lastNameTextField.Text;
+			user.Email = emailTextField.Text;
+			user.MobilePhone = phoneTextField.Text;
+
+			user.AddressCurrent.Line1 = addressTextField.Text;
+			user.AddressCurrent.Line2 = addressLine2TextField.Text;
+			user.AddressCurrent.City = cityTextField.Text;
+			user.AddressCurrent.State = stateTextField.Text;
+			user.AddressCurrent.Zip = zipCodeTextField.Text;
+
+			user.EmergencyContactName = emergencyContactTextField.Text;
+			user.EmergencyContactPhone = ecPhoneTextField.Text;
+
+			try {
+				Client client = AuthenticationHelper.GetClient ();
+				client.UserService.UpdateUser(user);
+				hasErrors = false;
+			} catch (CntResponseException ex) {
+				hasErrors = true;
+				Utility.ShowError (ex);
+			}
+		}
+
+		private void WireUpView()
+		{
+			phoneCarrierButton.TouchUpInside += PhoneCarrierClick;
 		}
 		#endregion
 	}

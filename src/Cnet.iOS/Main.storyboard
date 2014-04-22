@@ -3146,7 +3146,7 @@
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" clearsOnBeginEditing="YES" minimumFontSize="17" background="profile-fields.png" id="mSC-aw-ghD">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" minimumFontSize="17" background="profile-fields.png" id="mSC-aw-ghD">
                                         <rect key="frame" x="20" y="519" width="281" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -3216,10 +3216,13 @@
                                         <rect key="frame" x="28" y="347" width="24" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn-drop-menu.png" id="ScF-NB-kKw">
-                                        <rect key="frame" x="249" y="354" width="19" height="10"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qEo-e8-opu">
+                                        <rect key="frame" x="264" y="354" width="19" height="10"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
+                                        <state key="normal" title="Button" image="btn-drop-menu.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verizon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ruV-LK-cjD">
                                         <rect key="frame" x="60" y="348" width="50" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3317,7 +3320,7 @@
                         <outlet property="emergencyContactTextField" destination="ZBX-RI-Qf5" id="joU-sh-jz9"/>
                         <outlet property="firstNameTextField" destination="TqZ-zv-lfg" id="KAL-Ii-Apk"/>
                         <outlet property="lastNameTextField" destination="YSW-kc-Pck" id="1L5-Hc-eD8"/>
-                        <outlet property="phoneCarrierArrowImage" destination="ScF-NB-kKw" id="JbY-Ai-pAo"/>
+                        <outlet property="phoneCarrierButton" destination="qEo-e8-opu" id="ANL-wK-9GP"/>
                         <outlet property="phoneCarrierLabel" destination="ruV-LK-cjD" id="F05-FN-ifa"/>
                         <outlet property="phoneTextField" destination="7Sq-Ku-8lx" id="f7Z-UQ-zrs"/>
                         <outlet property="profileImage" destination="PHm-y2-EEU" id="AF2-OL-fL6"/>
@@ -4382,11 +4385,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="VQD-HR-0IB"/>
-        <segue reference="MjI-OQ-Q29"/>
-        <segue reference="CRV-nh-p12"/>
-        <segue reference="a7x-Aj-C7h"/>
         <segue reference="gOG-ci-hMN"/>
+        <segue reference="AiH-ud-SHk"/>
+        <segue reference="a7x-Aj-C7h"/>
+        <segue reference="VQD-HR-0IB"/>
+        <segue reference="CRV-nh-p12"/>
         <segue reference="vLg-fS-Yjj"/>
         <segue reference="liK-Jx-jnx"/>
         <segue reference="BB7-U1-jl7"/>

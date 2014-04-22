@@ -7,6 +7,7 @@ using Cnt.API.Models;
 using Cnt.Web.API.Models;
 using Cnt.API.Exceptions;
 using System.Net;
+using System.Drawing;
 
 namespace Cnet.iOS
 {
@@ -86,26 +87,6 @@ namespace Cnet.iOS
 		#endregion
 
 		#region Extension Methods
-		public static DateTime RoundUp(this DateTime dt, TimeSpan d)
-		{
-			var delta = (d.Ticks - (dt.Ticks % d.Ticks)) % d.Ticks;
-			return new DateTime(dt.Ticks + delta);
-		}
-
-		public static DateTime RoundDown(this DateTime dt, TimeSpan d)
-		{
-			var delta = dt.Ticks % d.Ticks;
-			return new DateTime(dt.Ticks - delta);
-		}
-
-		public static DateTime RoundToNearest(this DateTime dt, TimeSpan d)
-		{
-			var delta = dt.Ticks % d.Ticks;
-			bool roundUp = delta > d.Ticks / 2;
-
-			return roundUp ? dt.RoundUp(d) : dt.RoundDown(d);
-		}
-
 		public static void AdjustFrame(this UIView view, float x, float y, float width, float height)
 		{
 			var frame = view.Frame;
@@ -114,56 +95,17 @@ namespace Cnet.iOS
 			frame.Width += width;
 			frame.Height += height;
 			view.Frame = frame;
-		}
+   		}
 
-		public static AssignmentStatus GetStatus (this List<Assignment> assignments)
+		public static void AddPadding (this UITextField textField, float width, float height, UIImage image = null)
 		{
-			// Default to the lowest priority status.
-			AssignmentStatus status = AssignmentStatus.NoTimesheetRequired;
-			foreach (Assignment assignment in assignments) {
-				AssignmentStatus currentStatus = assignment.GetStatus ();
-				if ((int)currentStatus < (int)status)
-					status = currentStatus;
+			UIImageView paddingView = new UIImageView (new RectangleF (0, 0, width, height));
+			if (image != null) {
+				paddingView.Image = image;
+				paddingView.ContentMode = UIViewContentMode.Center;
 			}
-			return status;
-		}
-
-		public static AssignmentStatus GetStatus (this Assignment assignment)
-		{
-			AssignmentStatus status;
-			if (assignment.Start.AddSeconds (assignment.Duration) >= DateTime.Now) {
-				if (assignment.IsCanceled)
-					status = AssignmentStatus.Canceled;
-				else if (assignment.Placement.SubServiceCategory == 1 && !assignment.Placement.IsConfirmed)
-					status = AssignmentStatus.New;
-				else
-					status = AssignmentStatus.Confirmed;
-			} else {
-				if (assignment.Placement.HasTimesheets)
-					status = AssignmentStatus.NoTimesheetRequired;
-				else 
-					status = AssignmentStatus.TimesheetRequired;
-			}
-			return status;
-		}
-
-		public static string ToStartString(this Assignment assignment)
-		{
-			return assignment.Start.ToString("ddd d MMM");
-		}
-
-		public static string ToTimesString(this Assignment assignment)
-		{
-			DateTime end = assignment.Start.AddSeconds (assignment.Duration);
-			return assignment.Start.ToString ("h:mmtt").ToLower() + " - " + end.ToString ("h:mmtt").ToLower();
-		}
-
-		public static string ToTimeUntilString(this Assignment assignment)
-		{
-			TimeSpan timeUntil = assignment.Start.Subtract (DateTime.Now);
-			if (timeUntil.Days > 0)
-				return timeUntil.Days + " days";
-			return timeUntil.Hours + " hours";
+			textField.LeftView = paddingView;
+			textField.LeftViewMode = UITextFieldViewMode.Always;
 		}
 
 		public static UIImage GetInfoImage(this AssignmentStatus assignmentStatus)
@@ -198,17 +140,55 @@ namespace Cnet.iOS
 			return UIImageFromUrl(user.Photo);
 		}
 
-		public static string ToFamilyNameString(this Placement placement)
+		public static AssignmentStatus GetStatus (this Assignment assignment)
 		{
-			string clientName = placement.ClientName;
-			return clientName.Substring (clientName.LastIndexOf (" ") + 1) + " Family";
+			AssignmentStatus status;
+			if (assignment.Start.AddSeconds (assignment.Duration) >= DateTime.Now) {
+				if (assignment.IsCanceled)
+					status = AssignmentStatus.Canceled;
+				else if (assignment.Placement.SubServiceCategory == 1 && !assignment.Placement.IsConfirmed)
+					status = AssignmentStatus.New;
+				else
+					status = AssignmentStatus.Confirmed;
+			} else {
+				if (assignment.Placement.HasTimesheets)
+					status = AssignmentStatus.NoTimesheetRequired;
+				else
+					status = AssignmentStatus.TimesheetRequired;
+			}
+			return status;
 		}
 
-		public static string ToLocationString(this Address location, string format)
+		public static AssignmentStatus GetStatus (this List<Assignment> assignments)
 		{
-			if (location == null)
-				return String.Empty;
-			return String.Format(format, location.Line1, location.Line2, location.City, location.State, location.Zip);
+			// Default to the lowest priority status.
+			AssignmentStatus status = AssignmentStatus.NoTimesheetRequired;
+			foreach (Assignment assignment in assignments) {
+				AssignmentStatus currentStatus = assignment.GetStatus ();
+				if ((int)currentStatus < (int)status)
+					status = currentStatus;
+			}
+			return status;
+		}
+
+		public static DateTime RoundDown(this DateTime dt, TimeSpan d)
+		{
+			var delta = dt.Ticks % d.Ticks;
+			return new DateTime(dt.Ticks - delta);
+		}
+
+		public static DateTime RoundToNearest(this DateTime dt, TimeSpan d)
+		{
+			var delta = dt.Ticks % d.Ticks;
+			bool roundUp = delta > d.Ticks / 2;
+
+			return roundUp ? dt.RoundUp(d) : dt.RoundDown(d);
+		}
+
+		public static DateTime RoundUp(this DateTime dt, TimeSpan d)
+		{
+			var delta = (d.Ticks - (dt.Ticks % d.Ticks)) % d.Ticks;
+			return new DateTime(dt.Ticks + delta);
 		}
 
 		public static string ToAgeString(this Student child)
@@ -253,6 +233,19 @@ namespace Cnet.iOS
 			return String.Format("{0:%h} hrs {0:%m} min", duration);
 		}
 
+		public static string ToFamilyNameString(this Placement placement)
+		{
+			string clientName = placement.ClientName;
+			return clientName.Substring (clientName.LastIndexOf (" ") + 1) + " Family";
+		}
+
+		public static string ToLocationString(this Address location, string format)
+		{
+			if (location == null)
+				return String.Empty;
+			return String.Format(format, location.Line1, location.Line2, location.City, location.State, location.Zip);
+		}
+
 		public static string ToNameString(this User user)
 		{
 			List<string> nameParts = new List<string> ();
@@ -265,6 +258,25 @@ namespace Cnet.iOS
 			if (!String.IsNullOrWhiteSpace (user.LastName))
 				nameParts.Add(user.LastName);
 			return String.Join(" ", nameParts);
+		}
+
+		public static string ToStartString(this Assignment assignment)
+		{
+			return assignment.Start.ToString("ddd d MMM");
+		}
+
+		public static string ToTimesString(this Assignment assignment)
+		{
+			DateTime end = assignment.Start.AddSeconds (assignment.Duration);
+			return assignment.Start.ToString ("h:mmtt").ToLower() + " - " + end.ToString ("h:mmtt").ToLower();
+		}
+
+		public static string ToTimeUntilString(this Assignment assignment)
+		{
+			TimeSpan timeUntil = assignment.Start.Subtract (DateTime.Now);
+			if (timeUntil.Days > 0)
+				return timeUntil.Days + " days";
+			return timeUntil.Hours + " hours";
 		}
 		#endregion
 	}

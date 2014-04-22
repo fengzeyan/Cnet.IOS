@@ -52,7 +52,7 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UITextField lastNameTextField { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView phoneCarrierArrowImage { get; set; }
+		MonoTouch.UIKit.UIButton phoneCarrierButton { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel phoneCarrierLabel { get; set; }
@@ -170,9 +170,9 @@ namespace Cnet.iOS
 				zipCodeTextField = null;
 			}
 
-			if (phoneCarrierArrowImage != null) {
-				phoneCarrierArrowImage.Dispose ();
-				phoneCarrierArrowImage = null;
+			if (phoneCarrierButton != null) {
+				phoneCarrierButton.Dispose ();
+				phoneCarrierButton = null;
 			}
 
 			if (phoneCarrierLabel != null) {

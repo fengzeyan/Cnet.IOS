@@ -572,6 +572,8 @@
     <Compile Include="Helpers\AuthenticationHelper.cs" />
     <Compile Include="Helpers\KeychainHelpers.cs" />
     <Compile Include="Helpers\ActionSheetDatePicker.cs" />
+    <Compile Include="Helpers\ListPickerViewModel.cs" />
+    <Compile Include="Helpers\ActionSheetListPicker.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
