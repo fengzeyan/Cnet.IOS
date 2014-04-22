@@ -77,6 +77,7 @@ namespace Cnet.iOS
 		{
 			private List<OSProfileCellData> tableData;
 			private static NSString OSProfileTableViewCellId = new NSString ("ProfileCellIdentifier");
+			private static NSString OSSignOutCellId = new NSString ("SignOutCellIdentifier");
 
 			public OSProfileTableSource(OSProfileViewController parent) : base()
 			{
@@ -90,13 +91,32 @@ namespace Cnet.iOS
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
-				OSProfileCell cell = (OSProfileCell)tableView.DequeueReusableCell (OSProfileTableViewCellId, indexPath);
-				cell.ProfileLabel.Text = tableData[indexPath.Row].Label;
-				if (tableData [indexPath.Row].Label == "Emergency Contact" && cell.ProfileLabel.Frame.X != 20)
-					cell.ProfileLabel.AdjustFrame (-39, 0, 39, 0);
-				cell.IconImage.Image =  tableData[indexPath.Row].Icon;
-				cell.PhoneIconImage.Image =  tableData[indexPath.Row].PhoneIcon;
-				return cell;
+				if (indexPath.Row == tableData.Count - 1)
+				{
+					UITableViewCell cell = tableView.DequeueReusableCell (OSSignOutCellId, indexPath);
+					cell.AdjustFrame (0, 0, 0, 20);
+					return cell;
+				}
+				else
+				{
+					OSProfileCell cell = (OSProfileCell)tableView.DequeueReusableCell (OSProfileTableViewCellId, indexPath);
+					cell.ProfileLabel.Text = tableData [indexPath.Row].Label;
+					if (tableData [indexPath.Row].Label == "Emergency Contact" && cell.ProfileLabel.Frame.X != 20)
+						cell.ProfileLabel.AdjustFrame (-39, 0, 39, 0);
+					cell.IconImage.Image = tableData [indexPath.Row].Icon;
+					cell.PhoneIconImage.Image = tableData [indexPath.Row].PhoneIcon;
+					return cell;
+				}
+			}
+
+			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+			{
+				float cellHeight = 44.0f;
+
+				if (indexPath.Row == tableData.Count - 1)
+					cellHeight = 60.0f;
+
+				return cellHeight;
 			}
 
 			private void LoadRows (OSProfileViewController controller)

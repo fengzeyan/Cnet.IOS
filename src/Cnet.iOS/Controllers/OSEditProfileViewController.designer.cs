@@ -13,6 +13,15 @@ namespace Cnet.iOS
 	partial class OSEditProfileViewController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIButton addAddressButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton addPhoneButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel addressLabel { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextField addressLine2TextField { get; set; }
 
 		[Outlet]
@@ -22,7 +31,19 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UITextField cityTextField { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UITextField ecPhoneTextField { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIScrollView editProfileScrollView { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextField emailTextField { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel emergencyContactLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField emergencyContactTextField { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UITextField firstNameTextField { get; set; }
@@ -38,9 +59,50 @@ namespace Cnet.iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UITextField zipCodeTextField { get; set; }
+
+		[Action ("addAlternateAddressPressed:")]
+		partial void addAlternateAddressPressed (MonoTouch.Foundation.NSObject sender);
+
+		[Action ("addNewPhonePressed:")]
+		partial void addNewPhonePressed (MonoTouch.Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (addressLine2TextField != null) {
+				addressLine2TextField.Dispose ();
+				addressLine2TextField = null;
+			}
+
+			if (addressTextField != null) {
+				addressTextField.Dispose ();
+				addressTextField = null;
+			}
+
+			if (cityTextField != null) {
+				cityTextField.Dispose ();
+				cityTextField = null;
+			}
+
+			if (ecPhoneTextField != null) {
+				ecPhoneTextField.Dispose ();
+				ecPhoneTextField = null;
+			}
+
+			if (editProfileScrollView != null) {
+				editProfileScrollView.Dispose ();
+				editProfileScrollView = null;
+			}
+
+			if (emailTextField != null) {
+				emailTextField.Dispose ();
+				emailTextField = null;
+			}
+
+			if (emergencyContactTextField != null) {
+				emergencyContactTextField.Dispose ();
+				emergencyContactTextField = null;
+			}
+
 			if (firstNameTextField != null) {
 				firstNameTextField.Dispose ();
 				firstNameTextField = null;
@@ -51,29 +113,9 @@ namespace Cnet.iOS
 				lastNameTextField = null;
 			}
 
-			if (emailTextField != null) {
-				emailTextField.Dispose ();
-				emailTextField = null;
-			}
-
 			if (phoneTextField != null) {
 				phoneTextField.Dispose ();
 				phoneTextField = null;
-			}
-
-			if (addressTextField != null) {
-				addressTextField.Dispose ();
-				addressTextField = null;
-			}
-
-			if (addressLine2TextField != null) {
-				addressLine2TextField.Dispose ();
-				addressLine2TextField = null;
-			}
-
-			if (cityTextField != null) {
-				cityTextField.Dispose ();
-				cityTextField = null;
 			}
 
 			if (stateTextField != null) {
@@ -84,6 +126,26 @@ namespace Cnet.iOS
 			if (zipCodeTextField != null) {
 				zipCodeTextField.Dispose ();
 				zipCodeTextField = null;
+			}
+
+			if (addressLabel != null) {
+				addressLabel.Dispose ();
+				addressLabel = null;
+			}
+
+			if (emergencyContactLabel != null) {
+				emergencyContactLabel.Dispose ();
+				emergencyContactLabel = null;
+			}
+
+			if (addPhoneButton != null) {
+				addPhoneButton.Dispose ();
+				addPhoneButton = null;
+			}
+
+			if (addAddressButton != null) {
+				addAddressButton.Dispose ();
+				addAddressButton = null;
 			}
 		}
 	}

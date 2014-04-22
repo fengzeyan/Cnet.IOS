@@ -48,5 +48,46 @@ namespace Cnet.iOS
 				textFieldList [i].LeftView = spacerView;
 			}
 		}
+
+		partial void addNewPhonePressed (NSObject sender)
+		{
+			float frameAdjustment = 161.0f;
+			List<UIView> adjustedViewsList = new List<UIView>{
+				addPhoneButton, addressLabel, addressTextField, addressLine2TextField,
+				cityTextField, stateTextField, zipCodeTextField, addAddressButton,
+				emergencyContactLabel, emergencyContactTextField, ecPhoneTextField };
+
+			foreach (UIView view in adjustedViewsList)
+			{
+				view.AdjustFrame(0, frameAdjustment, 0 ,0);
+			}
+
+			// Adjust content size, not frame for scroll view
+			SizeF scrollViewContent = editProfileScrollView.ContentSize;
+			scrollViewContent.Height += frameAdjustment;
+			editProfileScrollView.ContentSize = scrollViewContent;
+
+			// Add new ui elements for phone
+			UITextField newPhoneTextField = new UITextField (addPhoneButton.Frame);
+			newPhoneTextField.AdjustFrame(0, (-1 * frameAdjustment), 0 ,0);
+			UIButton newPhoneCarrierField = new UIButton (newPhoneTextField.Frame);
+			newPhoneCarrierField.AdjustFrame(0, 51, 0, 0);
+		}
+
+		partial void addAlternateAddressPressed (NSObject sender)
+		{
+			float frameAdjustment = 241.0f;
+			List<UIView> adjustedViewsList = new List<UIView>{ addAddressButton, emergencyContactLabel, emergencyContactTextField, ecPhoneTextField };
+
+			foreach (UIView view in adjustedViewsList)
+			{
+				view.AdjustFrame(0, frameAdjustment, 0 ,0);
+			}
+
+			// Adjust content size, not frame for scroll view
+			SizeF scrollViewContent = editProfileScrollView.ContentSize;
+			scrollViewContent.Height += frameAdjustment;
+			editProfileScrollView.ContentSize = scrollViewContent;
+		}
 	}
 }

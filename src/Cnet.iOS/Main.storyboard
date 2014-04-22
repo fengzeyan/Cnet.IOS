@@ -2872,9 +2872,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Kyb-Hc-qSC">
-                                        <rect key="frame" x="0.0" y="264" width="320" height="146"/>
+                                        <rect key="frame" x="0.0" y="264" width="320" height="197"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileCellIdentifier" rowHeight="44" id="dEr-Y3-Rbb" customClass="OSProfileCell">
                                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -2901,11 +2902,35 @@
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.96589872262773724" alpha="1" colorSpace="calibratedWhite"/>
+                                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <connections>
                                                     <outlet property="iconImage" destination="jdQ-c7-nNO" id="zIW-46-ypu"/>
                                                     <outlet property="phoneIconImage" destination="QAQ-f8-906" id="ax3-MR-AVE"/>
                                                     <outlet property="profileLabel" destination="sXG-In-SGu" id="9xe-UZ-Qkj"/>
                                                 </connections>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SignOutCellIdentifier" rowHeight="60" id="Ul2-tT-naB">
+                                                <rect key="frame" x="0.0" y="66" width="320" height="60"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ul2-tT-naB" id="KdY-N3-3F1">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kiG-HB-AP3">
+                                                            <rect key="frame" x="72" y="8" width="177" height="43"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                                            <state key="normal" title="Sign Out" backgroundImage="purple-button.png">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <segue destination="vXZ-lx-hvc" kind="modal" identifier="LogOut" id="5yI-0g-ZpK"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
@@ -3018,17 +3043,6 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kiG-HB-AP3">
-                                        <rect key="frame" x="72" y="418" width="177" height="43"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Sign Out" backgroundImage="purple-button.png">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="vXZ-lx-hvc" kind="modal" identifier="LogOut" id="5yI-0g-ZpK"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -3089,28 +3103,28 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" background="profile-fields.png" id="TqZ-zv-lfg">
-                                        <rect key="frame" x="20" y="133" width="281" height="30"/>
+                                        <rect key="frame" x="20" y="133" width="281" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" minimumFontSize="17" background="profile-fields.png" id="YSW-kc-Pck">
-                                        <rect key="frame" x="20" y="184" width="281" height="30"/>
+                                        <rect key="frame" x="20" y="184" width="281" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" minimumFontSize="17" background="profile-fields.png" id="RPP-EU-L9o">
-                                        <rect key="frame" x="20" y="235" width="281" height="30"/>
+                                        <rect key="frame" x="20" y="235" width="281" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone #" minimumFontSize="17" background="profile-fields.png" id="7Sq-Ku-8lx">
-                                        <rect key="frame" x="20" y="286" width="281" height="30"/>
+                                        <rect key="frame" x="20" y="286" width="281" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -3151,6 +3165,33 @@
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8de-BC-uZt">
+                                        <rect key="frame" x="17" y="439" width="281" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="  Add another phone" image="additional.png" backgroundImage="profile-fields-gray.png">
+                                            <color key="titleColor" red="0.68627450980392157" green="0.70196078431372544" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addNewPhonePressed:" destination="K9n-z9-POF" eventType="touchUpInside" id="e26-5X-Tx8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="c9F-Ph-A6A">
+                                        <rect key="frame" x="20" y="723" width="281" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="  Add alternate address" image="additional.png" backgroundImage="profile-fields-gray.png">
+                                            <color key="titleColor" red="0.68627450980000004" green="0.70196078429999997" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addAlternateAddressPressed:" destination="K9n-z9-POF" eventType="touchUpInside" id="Eea-55-t7p"/>
+                                            <action selector="addNewPhonePressed:" destination="K9n-z9-POF" eventType="touchUpInside" id="4Ll-k6-BG5"/>
+                                        </connections>
+                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-fields.png" id="5LP-9e-knm">
                                         <rect key="frame" x="20" y="337" width="281" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3164,36 +3205,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-fields-gray.png" id="YzJ-dL-qDF">
-                                        <rect key="frame" x="20" y="439" width="281" height="43"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="additional.png" id="KLA-HO-vkn">
-                                        <rect key="frame" x="28" y="449" width="24" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add another phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WIA-q9-m0X">
-                                        <rect key="frame" x="60" y="450" width="135" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.68627450980392157" green="0.70196078431372544" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-fields-gray.png" id="pfX-SE-888">
-                                        <rect key="frame" x="20" y="723" width="281" height="43"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="additional.png" id="Wit-7s-DFP">
-                                        <rect key="frame" x="28" y="733" width="24" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add alternate address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y7A-cz-y50">
-                                        <rect key="frame" x="60" y="734" width="152" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.68627450980000004" green="0.70196078429999997" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-fields.png" id="aSy-bm-OKp">
@@ -3273,12 +3284,16 @@
                     </view>
                     <size key="freeformSize" width="320" height="984"/>
                     <connections>
+                        <outlet property="addAddressButton" destination="c9F-Ph-A6A" id="Jz1-6q-La4"/>
+                        <outlet property="addPhoneButton" destination="8de-BC-uZt" id="9sR-9N-Psb"/>
+                        <outlet property="addressLabel" destination="bOq-IB-BJ8" id="6AZ-yW-wGc"/>
                         <outlet property="addressLine2TextField" destination="rAj-Is-LIq" id="WdM-op-dUZ"/>
                         <outlet property="addressTextField" destination="mSC-aw-ghD" id="y0z-YV-Rb6"/>
                         <outlet property="cityTextField" destination="shr-FR-GbN" id="50B-4o-bkk"/>
                         <outlet property="ecPhoneTextField" destination="s9l-DE-lCe" id="c1U-41-Py1"/>
                         <outlet property="editProfileScrollView" destination="nbZ-j4-Fb6" id="mgb-iQ-cwt"/>
                         <outlet property="emailTextField" destination="RPP-EU-L9o" id="Vc0-xl-9HL"/>
+                        <outlet property="emergencyContactLabel" destination="vPj-TK-Jtk" id="nrH-u2-7CA"/>
                         <outlet property="emergencyContactTextField" destination="ZBX-RI-Qf5" id="joU-sh-jz9"/>
                         <outlet property="firstNameTextField" destination="TqZ-zv-lfg" id="KAL-Ii-Apk"/>
                         <outlet property="lastNameTextField" destination="YSW-kc-Pck" id="1L5-Hc-eD8"/>
@@ -4343,12 +4358,12 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="akE-8B-aPz"/>
-        <segue reference="6Lh-UM-wfX"/>
-        <segue reference="KNr-Zu-PCL"/>
-        <segue reference="vLg-fS-Yjj"/>
-        <segue reference="gOG-ci-hMN"/>
+        <segue reference="VQD-HR-0IB"/>
         <segue reference="MjI-OQ-Q29"/>
+        <segue reference="CRV-nh-p12"/>
+        <segue reference="a7x-Aj-C7h"/>
+        <segue reference="gOG-ci-hMN"/>
+        <segue reference="vLg-fS-Yjj"/>
         <segue reference="liK-Jx-jnx"/>
         <segue reference="BB7-U1-jl7"/>
     </inferredMetricsTieBreakers>
