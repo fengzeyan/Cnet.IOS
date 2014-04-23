@@ -1225,7 +1225,7 @@
                                         <connections>
                                             <outlet property="dateLabel" destination="X0Y-FN-yMv" id="Vcr-2p-IUn"/>
                                             <outlet property="timeLabel" destination="RG8-Ho-99Q" id="SWf-0y-SOa"/>
-                                            <segue destination="DbE-Tk-nz4" kind="modal" identifier="Availability" id="kXX-zC-UhM"/>
+                                            <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" id="ToG-H1-P28"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AppointmentCellIdentifier" rowHeight="50" id="t0I-Fx-zaK" customClass="OSCalendarAppointmentCell">
@@ -1263,15 +1263,23 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-no-image.png" id="IMp-sE-0zR">
+                                                    <rect key="frame" x="230" y="2" width="45" height="45"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo-container.png" id="LKB-6B-Mlc">
+                                                    <rect key="frame" x="230" y="2" width="45" height="45"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bronson Family" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SZk-zk-PJf">
-                                                    <rect key="frame" x="81" y="4" width="200" height="21"/>
+                                                    <rect key="frame" x="81" y="4" width="149" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unconfirmed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yvz-8f-tfJ">
-                                                    <rect key="frame" x="100" y="27" width="158" height="16"/>
+                                                    <rect key="frame" x="100" y="27" width="130" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1293,6 +1301,8 @@
                                             <outlet property="endTimePmLabel" destination="b7Z-JB-dVI" id="0f3-Kx-Z8M"/>
                                             <outlet property="familyNameLabel" destination="SZk-zk-PJf" id="nSP-og-PGX"/>
                                             <outlet property="flagImage" destination="cpW-de-pZQ" id="fkq-Rh-P42"/>
+                                            <outlet property="profileBorderImage" destination="LKB-6B-Mlc" id="bsk-fa-5eE"/>
+                                            <outlet property="profileImage" destination="IMp-sE-0zR" id="jSM-qf-7we"/>
                                             <outlet property="startTimeLabel" destination="iCK-Ju-ub1" id="PBs-A6-IEm"/>
                                             <outlet property="startTimePmLabel" destination="FGx-3V-lJO" id="Xsp-QW-M6C"/>
                                             <outlet property="statusImage" destination="XaK-7P-IIp" id="G0y-Q1-g9x"/>
@@ -1314,7 +1324,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="DbE-Tk-nz4" kind="modal" identifier="Availability" id="1uv-Dv-ZEg"/>
+                                    <segue destination="DbE-Tk-nz4" kind="modal" identifier="AvailabilityBlockList" id="1uv-Dv-ZEg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3746,7 +3756,7 @@
                                                                 <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
-                                                                <segue destination="1aZ-Bh-vCu" kind="modal" id="po8-eR-gv3"/>
+                                                                <segue destination="1aZ-Bh-vCu" kind="modal" identifier="EditAvailability" id="po8-eR-gv3"/>
                                                             </connections>
                                                         </button>
                                                         <view contentMode="scaleToFill" id="sOi-xe-SGr">
@@ -3754,7 +3764,7 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aug 20 - Oct 31" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rFh-RV-rPh">
-                                                                    <rect key="frame" x="20" y="4" width="161" height="21"/>
+                                                                    <rect key="frame" x="20" y="4" width="230" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -3793,6 +3803,12 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="closeButton" destination="Sjt-qU-45j" id="2vo-df-j2U"/>
+                                            <outlet property="datesLabel" destination="rFh-RV-rPh" id="o2B-fl-PW3"/>
+                                            <outlet property="daysOfWeekLabel" destination="7Ya-fq-dZW" id="mRQ-kp-45D"/>
+                                            <outlet property="timesLabel" destination="cge-w1-XLl" id="f8E-L7-aA7"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddAvailabilityCellIdentifier" rowHeight="50" id="Hs0-HO-RGv" customClass="OSAddAvailabilityCell">
                                         <rect key="frame" x="0.0" y="187" width="320" height="50"/>
@@ -3827,6 +3843,9 @@
                         <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="availabilityTable" destination="9el-es-Uqg" id="jfn-OV-UFO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Fl-fp-mNc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3856,7 +3875,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="E0D-sC-WIg">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="DbE-Tk-nz4" kind="modal" id="vLg-fS-Yjj"/>
+                                                <segue destination="DbE-Tk-nz4" kind="modal" identifier="AvailabilityBlockList" id="vLg-fS-Yjj"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -4060,7 +4079,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Thu">
-                                    <color key="titleColor" red="0.41568627953529358" green="0.25490197539329529" blue="0.51372551918029785" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -4086,6 +4105,27 @@
                         <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="actionButton" destination="QCQ-L4-cUt" id="ICk-WF-vTU"/>
+                        <outlet property="addTimeBlockButton" destination="CTu-Cd-3Th" id="2yw-HL-XlP"/>
+                        <outlet property="endButton" destination="ak1-FO-5p0" id="A4k-Cs-L0m"/>
+                        <outlet property="endLabel" destination="Ze9-j9-HHh" id="4NA-JD-4eT"/>
+                        <outlet property="endTimeDownButton" destination="eX6-xZ-Cft" id="WdR-pU-uL0"/>
+                        <outlet property="endTimeLabel" destination="5OF-2n-iW8" id="v1o-DX-GGq"/>
+                        <outlet property="endTimeUpButton" destination="IHb-cG-8Yd" id="6aJ-st-bYq"/>
+                        <outlet property="fridayButton" destination="N9N-W7-Yv4" id="kMM-gS-2L9"/>
+                        <outlet property="mondayButton" destination="UpW-um-8Oh" id="WFk-AE-TOe"/>
+                        <outlet property="saturdayButton" destination="EuF-Ak-OS2" id="iVS-VF-IoX"/>
+                        <outlet property="startButton" destination="PkN-Fx-9Th" id="USk-GA-6K8"/>
+                        <outlet property="startLabel" destination="TpZ-fg-wQL" id="iff-Zi-U6x"/>
+                        <outlet property="startTimeDownButton" destination="KK9-Nn-Tch" id="FPt-Jw-kK5"/>
+                        <outlet property="startTimeLabel" destination="i2E-hd-TVx" id="39H-NI-E6M"/>
+                        <outlet property="startTimeUpButton" destination="5jn-pZ-dzg" id="EkT-zS-67Q"/>
+                        <outlet property="sundayButton" destination="Fio-Wa-OIu" id="Exm-Ng-f60"/>
+                        <outlet property="thursdayButton" destination="rff-XX-unT" id="lF5-XU-08e"/>
+                        <outlet property="tuesdayButton" destination="o7M-cg-B4J" id="CIV-vY-bVV"/>
+                        <outlet property="wednesdayButton" destination="7Dh-TC-G7R" id="WPi-h0-PCw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jhy-EX-Dwg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4115,7 +4155,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="h9v-cU-x9I">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="DbE-Tk-nz4" kind="modal" id="mgO-P9-xEY"/>
+                                                <segue destination="DbE-Tk-nz4" kind="modal" identifier="AvailabilityBlockList" id="mgO-P9-xEY"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Edit" id="6yF-GS-usx">
@@ -4332,7 +4372,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Thu">
-                                    <color key="titleColor" red="0.41568627949999998" green="0.25490197539999998" blue="0.51372551919999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -4358,6 +4398,29 @@
                         <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="actionButton" destination="kwl-nn-dep" id="74v-TB-Yih"/>
+                        <outlet property="addTimeBlockButton" destination="fhW-Te-2FN" id="r6k-Zl-dhk"/>
+                        <outlet property="deleteButton" destination="X5S-kL-LTu" id="W8w-b9-WyB"/>
+                        <outlet property="editButton" destination="6yF-GS-usx" id="Dak-QW-QSy"/>
+                        <outlet property="endButton" destination="b3y-hu-VgQ" id="6hJ-8V-P7Q"/>
+                        <outlet property="endLabel" destination="xo5-4s-jgq" id="baR-zG-ILW"/>
+                        <outlet property="endTimeDownButton" destination="oce-Ba-MBo" id="Sfq-8T-4ss"/>
+                        <outlet property="endTimeLabel" destination="aP9-uu-Nf3" id="ew9-JO-X6u"/>
+                        <outlet property="endTimeUpButton" destination="8Kb-HJ-iLk" id="bLZ-to-X5m"/>
+                        <outlet property="fridayButton" destination="fAu-a7-Ct8" id="xHs-FM-TH6"/>
+                        <outlet property="mondayButton" destination="tlV-z0-X3w" id="q9D-Xp-nzR"/>
+                        <outlet property="saturdayButton" destination="4if-NA-Vb2" id="QLI-4B-g3k"/>
+                        <outlet property="startButton" destination="if9-gP-GpJ" id="oMA-zp-SEv"/>
+                        <outlet property="startLabel" destination="m40-rq-Ekf" id="Fbl-9v-MR3"/>
+                        <outlet property="startTimeDownButton" destination="yIL-7j-tLI" id="Prc-4v-jma"/>
+                        <outlet property="startTimeLabel" destination="wtX-7q-Il7" id="yUs-ud-6ql"/>
+                        <outlet property="startTimeUpButton" destination="4gR-mV-wWQ" id="cDw-pw-siT"/>
+                        <outlet property="sundayButton" destination="hSg-GU-ZiB" id="RqU-aT-mno"/>
+                        <outlet property="thursdayButton" destination="nWf-8j-ULw" id="fyh-lJ-4q5"/>
+                        <outlet property="tuesdayButton" destination="Mma-e3-mtF" id="4mH-Qp-MbV"/>
+                        <outlet property="wednesdayButton" destination="HPm-yk-SNR" id="1ta-vy-yPW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="njw-Da-dEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4442,11 +4505,12 @@
     <inferredMetricsTieBreakers>
         <segue reference="gOG-ci-hMN"/>
         <segue reference="sGH-Kp-aOs"/>
-        <segue reference="zPS-ub-T9w"/>
-        <segue reference="F5g-1m-IVQ"/>
-        <segue reference="1uv-Dv-ZEg"/>
+        <segue reference="KNr-Zu-PCL"/>
         <segue reference="xUc-TM-EUX"/>
         <segue reference="d83-zT-diI"/>
+        <segue reference="ToG-H1-P28"/>
+        <segue reference="F5g-1m-IVQ"/>
+        <segue reference="vLg-fS-Yjj"/>
         <segue reference="liK-Jx-jnx"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -19,6 +19,8 @@ namespace Cnet.iOS
 		public UILabel EndTimeLabel { get { return endTimeLabel; } set { endTimeLabel = value; } }
 		public UILabel EndTimePmLabel { get { return endTimePmLabel; } set { endTimePmLabel = value; } }
 		public UILabel StatusLabel { get { return statusLabel; } set { statusLabel = value; } }
+		public UIImageView ProfileImage { get { return profileImage; } set { profileImage = value; } }
+		public UIImageView ProfileBorderImage { get { return profileBorderImage; } set { profileBorderImage = value; } }
 		public UIImageView FlagImage { get { return flagImage; } set { flagImage = value; } }
 		public UIImageView StatusImage { get { return statusImage; } set { statusImage = value; } }
 	}

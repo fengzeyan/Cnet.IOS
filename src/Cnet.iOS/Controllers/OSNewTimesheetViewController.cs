@@ -24,7 +24,7 @@ namespace Cnet.iOS
 		public DateTime End { get; set; }
 		public string Remarks { get; set; }
 		public int PlacementId { get; set; }
-		public int TimesheetId{ get; set; }
+		public int TimesheetId { get; set; }
 
 		public OSNewTimesheetViewController (IntPtr handle) : base (handle)
 		{

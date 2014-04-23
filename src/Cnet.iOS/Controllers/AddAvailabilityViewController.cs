@@ -4,13 +4,54 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
 	public partial class AddAvailabilityViewController : UIViewController
 	{
+		#region Private Members
+		private static NSString AvailabilityBlockListSegueName = new NSString ("AvailabilityBlockList");
+		private const string dateFormat = "ddd, MMM d, yyyy";
+		private const string timeFormat = "h:mm tt";
+		private AvailabilityBlock availabilityBlock;
+		private bool hasErrors;
+		#endregion
+
+		public DateTime Start { get; set; }
+		public DateTime End { get; set; }
+
 		public AddAvailabilityViewController (IntPtr handle) : base (handle)
 		{
 		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			LoadAvailabilityBlock ();
+			WireUpView ();
+			RenderAvailabilityBlock ();
+		}
+
+		#region Private Methods
+		private void LoadAvailabilityBlock ()
+		{
+			availabilityBlock = new AvailabilityBlock () {
+				UserId = AuthenticationHelper.UserData.UserId,
+				Start = Start.Date,
+				End = End.Date
+			};
+		}
+
+		void RenderAvailabilityBlock ()
+		{
+
+		}
+
+		void WireUpView ()
+		{
+
+		}
+		#endregion
 	}
 }
