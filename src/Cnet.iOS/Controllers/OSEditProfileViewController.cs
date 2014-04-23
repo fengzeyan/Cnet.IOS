@@ -72,10 +72,25 @@ namespace Cnet.iOS
 			editProfileScrollView.ContentSize = scrollViewContent;
 
 			// Add new ui elements for phone
-			UITextField newPhoneTextField = new UITextField (addPhoneButton.Frame);
-			newPhoneTextField.AdjustFrame(0, (-1 * frameAdjustment), 0 ,0);
-			UIButton newPhoneCarrierField = new UIButton (newPhoneTextField.Frame);
-			newPhoneCarrierField.AdjustFrame(0, 51, 0, 0);
+			var frame = new RectangleF(addPhoneButton.Frame.X, (addPhoneButton.Frame.Y - frameAdjustment), addPhoneButton.Frame.Width, addPhoneButton.Frame.Height);
+			UITextField newPhoneTextField = new UITextField (frame);
+			newPhoneTextField.Background = new UIImage ("profile-fields.png");
+			newPhoneTextField.AddPadding (40, 24, new UIImage("icon-mobile.png"));
+			newPhoneTextField.Placeholder = "Phone #";
+			newPhoneTextField.Font = UIFont.FromName("HelveticaNeue", 15f);
+			newPhoneTextField.TextColor = UIColor.DarkGray;
+
+			UIButton newPhoneCarrierButton = new UIButton (newPhoneTextField.Frame);
+			newPhoneCarrierButton.AdjustFrame(0, 51, 0, 0);
+			newPhoneCarrierButton.SetBackgroundImage(new UIImage ("profile-fields.png"), UIControlState.Normal);
+
+			UIImageView newPhoneSMSImage = new UIImageView (newPhoneCarrierButton.Frame);
+			newPhoneSMSImage.AdjustFrame(0, 51, 0, 0);
+			newPhoneSMSImage.Image = new UIImage ("profile-fields.png");
+
+			editProfileScrollView.AddSubview(newPhoneTextField);
+			editProfileScrollView.AddSubview(newPhoneCarrierButton);
+			editProfileScrollView.AddSubview(newPhoneSMSImage);
 		}
 
 		partial void addAlternateAddressPressed (NSObject sender)
