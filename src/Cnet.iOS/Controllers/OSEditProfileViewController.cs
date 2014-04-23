@@ -81,10 +81,13 @@ namespace Cnet.iOS
 			newPhoneTextField.TextColor = UIColor.DarkGray;
 
 			UIButton newPhoneCarrierButton = new UIButton (newPhoneTextField.Frame);
+			UILabel newPhoneCarrierLabel = new UILabel (phoneCarrierLabel.Frame);
 			newPhoneCarrierButton.AdjustFrame(0, 51, 0, 0);
-			newPhoneCarrierButton.SetBackgroundImage(new UIImage ("profile-fields.png"), UIControlState.Normal);
+			newPhoneCarrierLabel.AdjustFrame(0, 51, 0, 0);
+			newPhoneCarrierButton.SetBackgroundImage(new UIImage ("profile-carrier.png"), UIControlState.Normal);
 
 			UIImageView newPhoneSMSImage = new UIImageView (newPhoneCarrierButton.Frame);
+			UIImageView smsIcon = new UIImageView (new RectangleF(28, 0, 24, 24); // change 0 to actual
 			newPhoneSMSImage.AdjustFrame(0, 51, 0, 0);
 			newPhoneSMSImage.Image = new UIImage ("profile-fields.png");
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -3273,28 +3273,6 @@
                                             <action selector="addNewPhonePressed:" destination="K9n-z9-POF" eventType="touchUpInside" id="4Ll-k6-BG5"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-fields.png" id="5LP-9e-knm">
-                                        <rect key="frame" x="20" y="337" width="281" height="43"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-carrier.png" id="Co4-tJ-iLd">
-                                        <rect key="frame" x="28" y="347" width="24" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qEo-e8-opu">
-                                        <rect key="frame" x="264" y="354" width="19" height="10"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button" image="btn-drop-menu.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verizon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ruV-LK-cjD">
-                                        <rect key="frame" x="60" y="348" width="200" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-fields.png" id="aSy-bm-OKp">
                                         <rect key="frame" x="20" y="388" width="281" height="43"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3351,6 +3329,20 @@
                                         <rect key="frame" x="108" y="17" width="105" height="108"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TTj-Ht-zY5">
+                                        <rect key="frame" x="20" y="337" width="281" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" backgroundImage="profile-carrier.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verizon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ruV-LK-cjD">
+                                        <rect key="frame" x="60" y="348" width="200" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.8784313725490196" green="0.90980392156862744" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                 <userDefinedRuntimeAttributes>
@@ -3385,7 +3377,7 @@
                         <outlet property="emergencyContactTextField" destination="ZBX-RI-Qf5" id="joU-sh-jz9"/>
                         <outlet property="firstNameTextField" destination="TqZ-zv-lfg" id="KAL-Ii-Apk"/>
                         <outlet property="lastNameTextField" destination="YSW-kc-Pck" id="1L5-Hc-eD8"/>
-                        <outlet property="phoneCarrierButton" destination="qEo-e8-opu" id="ANL-wK-9GP"/>
+                        <outlet property="phoneCarrierButton" destination="TTj-Ht-zY5" id="lkU-in-dUF"/>
                         <outlet property="phoneCarrierLabel" destination="ruV-LK-cjD" id="F05-FN-ifa"/>
                         <outlet property="phoneTextField" destination="7Sq-Ku-8lx" id="f7Z-UQ-zrs"/>
                         <outlet property="profileImage" destination="PHm-y2-EEU" id="AF2-OL-fL6"/>
@@ -4437,7 +4429,6 @@
         <image name="additional.png" width="24" height="24"/>
         <image name="btn-calendar.png" width="33" height="33"/>
         <image name="btn-call.png" width="39" height="39"/>
-        <image name="btn-drop-menu.png" width="19" height="10"/>
         <image name="btn-edit.png" width="33" height="33"/>
         <image name="btn-settings.png" width="33" height="33"/>
         <image name="cal-icon.png" width="14" height="13"/>
@@ -4463,7 +4454,6 @@
         <image name="icon-calendar-assign.png" width="11" height="11"/>
         <image name="icon-calendar-on.png" width="45" height="37"/>
         <image name="icon-calendar.png" width="45" height="37"/>
-        <image name="icon-carrier.png" width="24" height="24"/>
         <image name="icon-check-off.png" width="17" height="17"/>
         <image name="icon-check.png" width="27" height="27"/>
         <image name="icon-clock-off.png" width="12" height="12"/>
@@ -4488,6 +4478,7 @@
         <image name="logo.png" width="132" height="21"/>
         <image name="notepad.png" width="13" height="14"/>
         <image name="photo-container.png" width="62" height="62"/>
+        <image name="profile-carrier.png" width="281" height="43"/>
         <image name="profile-fields-gray.png" width="281" height="43"/>
         <image name="profile-fields.png" width="281" height="43"/>
         <image name="profile-photo-container.png" width="107" height="107"/>
@@ -4503,14 +4494,14 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="MjI-OQ-Q29"/>
         <segue reference="gOG-ci-hMN"/>
-        <segue reference="sGH-Kp-aOs"/>
+        <segue reference="liK-Jx-jnx"/>
+        <segue reference="F5g-1m-IVQ"/>
         <segue reference="KNr-Zu-PCL"/>
         <segue reference="xUc-TM-EUX"/>
-        <segue reference="d83-zT-diI"/>
         <segue reference="ToG-H1-P28"/>
-        <segue reference="F5g-1m-IVQ"/>
+        <segue reference="d83-zT-diI"/>
         <segue reference="vLg-fS-Yjj"/>
-        <segue reference="liK-Jx-jnx"/>
     </inferredMetricsTieBreakers>
 </document>
