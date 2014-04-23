@@ -1,5 +1,7 @@
 ﻿using Cnt.Web.API.Models;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace Cnt.API.Services.NTMobile
 {
@@ -15,12 +17,31 @@ namespace Cnt.API.Services.NTMobile
 		}
 
 		/// <summary>
+		/// Gets all availability days for the current user for the given dates.
+		/// </summary>
+		/// <returns>All availability days for the current user for the given dates.</returns>
+		public IEnumerable<UserAvailabilityDay> GetAvailability(DateTime startDate, DateTime endDate)
+		{
+			string query = String.Format("Date <= {0} AND Date >= {1}", startDate.ToShortDateString(), endDate.ToShortDateString());
+			return GetAvailability (query);
+		}
+
+		/// <summary>
+		/// Gets all availability days for the current user.
+		/// </summary>
+		/// <returns>All availability days for the current user.</returns>
+		public IEnumerable<UserAvailabilityDay> GetAvailability(string query)
+		{
+			return CntRestHelper.Request<IEnumerable<UserAvailability>>(Constants.NTMOBILE_BASEURL + "/availability?q=" + query, _Client.UserName, _Client.Password).Data.SelectMany(a => a.Availability);
+		}
+
+		/// <summary>
 		/// Gets all availability blocks for the current user.
 		/// </summary>
 		/// <returns>All availability blocks for the current user.</returns>
-		public IEnumerable<UserAvailability> GetAvailability()
+		public IEnumerable<AvailabilityBlock> GetAvailabilityBlocks()
 		{
-			return CntRestHelper.Request<IEnumerable<UserAvailability>>(Constants.NTMOBILE_BASEURL + "/availability", _Client.UserName, _Client.Password).Data;
+			return CntRestHelper.Request<IEnumerable<AvailabilityBlock>>(Constants.NTMOBILE_BASEURL + "/availability-blocks", _Client.UserName, _Client.Password).Data;
 		}
 
 		/// <summary>

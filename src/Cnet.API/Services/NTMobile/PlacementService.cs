@@ -107,7 +107,7 @@ namespace Cnt.API.Services.NTMobile
 		/// <returns>All assignments for the specified week.</returns>
 		private IList<Assignment> GetAssignments(AssignmentType type, DateTime startDate, DateTime endDate)
 		{
-			string query = String.Format("Start < {0} AND End > {1}", startDate.ToShortDateString(), endDate.ToShortDateString());
+			string query = String.Format("Start <= {0} AND End >= {1}", startDate.ToShortDateString(), endDate.ToShortDateString());
 			IEnumerable<Placement> placements = GetPlacements(query);
 
 			List<Assignment> assignments = new List<Assignment>();
