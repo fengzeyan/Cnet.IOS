@@ -22,6 +22,12 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UILabel nameLabel { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton newAssignmentsButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton nextAssignmentButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel nextAssignmentLabel { get; set; }
 
 		[Outlet]
@@ -31,28 +37,16 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UITableView profileTable { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton timesheetsDueButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel timesheetsLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (profileTable != null) {
-				profileTable.Dispose ();
-				profileTable = null;
-			}
-
-			if (nameLabel != null) {
-				nameLabel.Dispose ();
-				nameLabel = null;
-			}
-
 			if (addressLabel != null) {
 				addressLabel.Dispose ();
 				addressLabel = null;
-			}
-
-			if (phoneLabel != null) {
-				phoneLabel.Dispose ();
-				phoneLabel = null;
 			}
 
 			if (assignmentsLabel != null) {
@@ -60,14 +54,44 @@ namespace Cnet.iOS
 				assignmentsLabel = null;
 			}
 
-			if (timesheetsLabel != null) {
-				timesheetsLabel.Dispose ();
-				timesheetsLabel = null;
+			if (nameLabel != null) {
+				nameLabel.Dispose ();
+				nameLabel = null;
 			}
 
 			if (nextAssignmentLabel != null) {
 				nextAssignmentLabel.Dispose ();
 				nextAssignmentLabel = null;
+			}
+
+			if (phoneLabel != null) {
+				phoneLabel.Dispose ();
+				phoneLabel = null;
+			}
+
+			if (profileTable != null) {
+				profileTable.Dispose ();
+				profileTable = null;
+			}
+
+			if (timesheetsLabel != null) {
+				timesheetsLabel.Dispose ();
+				timesheetsLabel = null;
+			}
+
+			if (newAssignmentsButton != null) {
+				newAssignmentsButton.Dispose ();
+				newAssignmentsButton = null;
+			}
+
+			if (timesheetsDueButton != null) {
+				timesheetsDueButton.Dispose ();
+				timesheetsDueButton = null;
+			}
+
+			if (nextAssignmentButton != null) {
+				nextAssignmentButton.Dispose ();
+				nextAssignmentButton = null;
 			}
 		}
 	}

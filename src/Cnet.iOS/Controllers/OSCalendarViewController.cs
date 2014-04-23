@@ -2,31 +2,76 @@
 
 using System;
 
-using TimesSquare.iOS;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using MonoTouch.CoreGraphics;
-using Cnt.API;
-using Cnt.API.Models;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using MonoTouch.CoreGraphics;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using TimesSquare.iOS;
+using Cnt.API;
+using Cnt.API.Models;
+using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
 	public partial class OSCalendarViewController : UIViewController
 	{
-		List<Assignment> calendarEvents;
+		#region Private Methods
+		private static NSString AssignmentDetailSegueName = new NSString("AssignmentDetail");
+		private static NSString AvailabilitySegueName = new NSString ("Availability");
+		private DateTime selectedDate;
+		private List<Assignment> assignments;
+		private List<UserAvailability> userAvailability;
+		private List<UserAvailabilityDay> userAvailabilityDays;
+		#endregion
 
 		public OSCalendarViewController (IntPtr handle) : base (handle)
 		{
 		}
 
+		#region Public Methods
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+			LoadCalendar ();
+			LoadEvents ();
+			RenderEvents ();
+		}
+
+		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
+		{
+			base.PrepareForSegue (segue, sender);
+			if (segue.Identifier == AssignmentDetailSegueName) {
+				var indexPath = calendarTable.IndexPathForSelectedRow;
+				var selectedAssignment = assignments [indexPath.Row - 1];
+				var view = (OSUnconfirmedAssignmentViewController)segue.DestinationViewController;
+				view.PlacementId = selectedAssignment.Placement.Id;
+			} else if (segue.Identifier == AvailabilitySegueName) {
+			
+			}
+		}
+		#endregion
+
+		#region Event Delegates
+		private void ViewEvents (object sender, TSQCalendarViewDelegateAEventArgs e)
+		{
+			selectedDate = (DateTime)e.Date;
+			LoadEvents ();
+			RenderEvents ();
+		}
+		#endregion
+
+		#region Private Methods
+		private void LoadCalendar()
+		{
+			Client client = AuthenticationHelper.GetClient ();
+			userAvailability = new List<UserAvailability> (client.AvailabilityService.GetAvailability ());
+
+			selectedDate = DateTime.Today;
 
 			// Load calendar view
-			var calendarView = new TSQCalendarView (new RectangleF (0, 57, 320, 330)) // x, y, width, height
+			var calendarView = new TSQCalendarView (new RectangleF (0, 57, 320, 285)) // x, y, width, height
 			{
 				Calendar = new NSCalendar (NSCalendarType.Gregorian),
 				FirstDate = NSDate.Now,
@@ -35,56 +80,100 @@ namespace Cnet.iOS
 				PagingEnabled = true
 			};
 
-			calendarView.DidSelectDate += (sender, e) => {
-				var netDate = (DateTime) e.Date;
-				new UIAlertView ("You selected", netDate.ToLongDateString(), null, "Ok", null).Show ();
-			};
+			calendarView.DidSelectDate += ViewEvents;
 
 			View.Add (calendarView);
 
 			// Populate list for calendar
-			Client client = AuthenticationHelper.GetClient ();
-			DateTime startDate = new DateTime (DateTime.Now.Year, DateTime.Now.Month, 1);
-			DateTime endDate = new DateTime (DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth (DateTime.Now.Year, DateTime.Now.Month));
-
-			calendarEvents = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (startDate, endDate));
-			this.calendarTable.Source = new OSCalendarTableSource (calendarEvents);
-
+			calendarTable.Source = new OSCalendarTableSource (this);
 		}
 
-		public class OSCalendarTableSource : UITableViewSource
+		private void LoadEvents()
 		{
-			private List<Assignment> tableItems;
-			static NSString CalendarInfoCellId = new NSString ("CalendarInfoCellIdentifier");
-			static NSString CalendarAppointmentCellId = new NSString ("AppointmentCellIdentifier");
+			Client client = AuthenticationHelper.GetClient ();
+			// TODO: Figure out availability.
+			userAvailabilityDays = new List<UserAvailabilityDay> (userAvailability.SelectMany (ua => ua.Availability).Where (a => a.Date == selectedDate));
+			assignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (selectedDate, selectedDate));
+		}
 
-			public OSCalendarTableSource(List<Assignment> items) : base()
+		private void RenderEvents()
+		{
+			calendarTable.ReloadData ();
+		}
+		#endregion
+
+		private class OSCalendarTableSource : UITableViewSource
+		{
+			#region Private Members
+			private OSCalendarViewController controller;
+			private static NSString CalendarInfoCellId = new NSString ("CalendarInfoCellIdentifier");
+			private static NSString CalendarAppointmentCellId = new NSString ("AppointmentCellIdentifier");
+			#endregion
+
+			#region Constructors
+			public OSCalendarTableSource(OSCalendarViewController parent) : base()
 			{
-				tableItems = items;
+				controller = parent;
 			}
+			#endregion
 
+			#region Public Methods
 			public override int RowsInSection (UITableView tableview, int section)
 			{
-				return tableItems.Count;
+				if (controller.assignments == null)
+					return 1;
+				return controller.assignments.Count + 1;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
-				OSCalendarInfoCell infoCell;
-				OSCalendarAppointmentCell appointmentCell;
+				UITableViewCell cell = new UITableViewCell ();
+				switch (indexPath.Row) {
+				case 0:
+					cell = tableView.DequeueReusableCell (CalendarInfoCellId, indexPath);
+					RenderInfoCell ((OSCalendarInfoCell)cell);
+					break;
+				default:
+					Assignment assignment = controller.assignments [indexPath.Row - 1];
+					cell = tableView.DequeueReusableCell (CalendarAppointmentCellId, indexPath);
+					RenderAppointmentCell ((OSCalendarAppointmentCell)cell, assignment);
+					break;
+				}
+				return cell;
+			}
+			#endregion
 
-				switch (indexPath.Row)
-				{
-					case 0:
-					infoCell = (OSCalendarInfoCell)tableView.DequeueReusableCell (CalendarInfoCellId, indexPath);
-						return infoCell;
+			#region Private Methods
+			private void RenderAppointmentCell(OSCalendarAppointmentCell cell, Assignment assignment)
+			{
+				DateTime start = assignment.Start;
+				DateTime end = start.AddSeconds (assignment.Duration);
+				cell.StartTimeLabel.Text = start.ToString ("h:mm");
+				cell.StartTimePmLabel.Text = start.ToString ("tt").ToUpper ();
+				cell.EndTimeLabel.Text = end.ToString ("h:mm");
+				cell.EndTimePmLabel.Text = end.ToString ("tt").ToUpper ();
+				cell.FamilyNameLabel.Text = assignment.Placement.ToFamilyNameString ();
+				cell.StatusLabel.Text = assignment.ToStatusString ();
+				cell.FlagImage.Image = assignment.GetStatusFlagImage ();
+				cell.StatusImage.Image = assignment.GetStatusImage ();
+			}
 
-					default:
-						appointmentCell = (OSCalendarAppointmentCell)tableView.DequeueReusableCell (CalendarAppointmentCellId, indexPath);
-						return appointmentCell;
+			private void RenderInfoCell(OSCalendarInfoCell cell)
+			{
+				cell.DateLabel.Text = controller.selectedDate.ToString ("dddd, MMM. d").ToUpper ();
+				if (controller.userAvailabilityDays == null || controller.userAvailabilityDays.Count == 0) {
+					cell.TimeLabel.Text = "No current assignments, are you available?  Please update your schedule.";
+				} else {
+					List<string> timeStrings = new List<string> ();
+					foreach (TimeBlock block in controller.userAvailabilityDays.SelectMany(ua => ua.Availability).OrderBy(a => a.Start)) {
+						timeStrings.Add ("Available from " + block.ToTimesString ());
+					}
+					cell.TimeLabel.Lines = timeStrings.Count;
+					cell.TimeLabel.AdjustFrame (0, 0, 0, 17 * timeStrings.Count);
+					cell.TimeLabel.Text = String.Join ("\n", timeStrings);
 				}
 			}
-		}
-		
+			#endregion
+		}	
 	}
 }

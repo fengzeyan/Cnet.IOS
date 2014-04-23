@@ -12,5 +12,14 @@ namespace Cnet.iOS
 		public OSCalendarAppointmentCell (IntPtr handle) : base (handle)
 		{
 		}
+
+		public UILabel FamilyNameLabel { get { return familyNameLabel; } set { familyNameLabel = value; } }
+		public UILabel StartTimeLabel { get { return startTimeLabel; } set { startTimeLabel = value; } }
+		public UILabel StartTimePmLabel { get { return startTimePmLabel; } set { startTimePmLabel = value; } }
+		public UILabel EndTimeLabel { get { return endTimeLabel; } set { endTimeLabel = value; } }
+		public UILabel EndTimePmLabel { get { return endTimePmLabel; } set { endTimePmLabel = value; } }
+		public UILabel StatusLabel { get { return statusLabel; } set { statusLabel = value; } }
+		public UIImageView FlagImage { get { return flagImage; } set { flagImage = value; } }
+		public UIImageView StatusImage { get { return statusImage; } set { statusImage = value; } }
 	}
 }

@@ -171,6 +171,36 @@ namespace Cnet.iOS
 			return status;
 		}
 
+		public static UIImage GetStatusFlagImage(this Assignment assignment)
+		{
+			switch (assignment.GetStatus ()) {
+			case AssignmentStatus.New:
+				return new UIImage ("pointer-icon-upcoming.png");
+			case AssignmentStatus.Confirmed:
+			case AssignmentStatus.Updated:
+				return new UIImage ("flag-updated.png");
+			case AssignmentStatus.Canceled:
+				return new UIImage ("flag-cancelled.png");
+			default:
+				return new UIImage ();
+			}
+		}
+
+		public static UIImage GetStatusImage(this Assignment assignment)
+		{
+			switch (assignment.GetStatus ()) {
+			case AssignmentStatus.New:
+				return new UIImage ("icon-upcoming.png");
+			case AssignmentStatus.Confirmed:
+			case AssignmentStatus.Updated:
+				return new UIImage ("icon-updated.png");
+			case AssignmentStatus.Canceled:
+				return new UIImage ("cancelled-dot.png");
+			default:
+				return new UIImage ();
+			}
+		}
+
 		public static DateTime RoundDown(this DateTime dt, TimeSpan d)
 		{
 			var delta = dt.Ticks % d.Ticks;
@@ -265,10 +295,31 @@ namespace Cnet.iOS
 			return assignment.Start.ToString("ddd d MMM");
 		}
 
+		public static string ToStatusString(this Assignment assignment)
+		{
+			switch (assignment.GetStatus ()) {
+			case AssignmentStatus.New:
+				return "Unconfirmed";
+			case AssignmentStatus.Canceled:
+				return "Cancelled";
+			default:
+			case AssignmentStatus.Confirmed:
+			case AssignmentStatus.Updated:
+				return assignment.Placement.Location.ToLocationString ("{2}, {3} {4}");
+			}
+		}
+
 		public static string ToTimesString(this Assignment assignment)
 		{
 			DateTime end = assignment.Start.AddSeconds (assignment.Duration);
 			return assignment.Start.ToString ("h:mmtt").ToLower() + " - " + end.ToString ("h:mmtt").ToLower();
+		}
+
+		public static string ToTimesString(this TimeBlock timeBlock)
+		{
+			DateTime start = DateTime.Today + TimeSpan.FromSeconds (timeBlock.Start);
+			DateTime end = start.AddSeconds (timeBlock.Duration);
+			return start.ToString ("h:mmtt").ToLower() + " - " + end.ToString ("h:mmtt").ToLower();
 		}
 
 		public static string ToTimeUntilString(this Assignment assignment)

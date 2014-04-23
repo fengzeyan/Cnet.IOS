@@ -53,7 +53,7 @@ namespace Cnet.iOS
 
 			// Next Assignment
 			if (upcomingAssignments.Any(a => a.GetStatus() == AssignmentStatus.Confirmed))
-				nextAssignment = upcomingAssignments.Where(a => a.GetStatus() == AssignmentStatus.Confirmed).OrderBy (a => a.Start).First ();
+				nextAssignment = upcomingAssignments.Where(a => a.GetStatus() == AssignmentStatus.Confirmed && a.Start > DateTime.Now).OrderBy (a => a.Start).First ();
 		}
 
 		private void RenderUser()
@@ -62,7 +62,7 @@ namespace Cnet.iOS
 			addressLabel.Text = user.AddressCurrent.ToLocationString ("{2}, {3} {4}");
 			phoneLabel.Text = String.IsNullOrWhiteSpace (user.MobilePhone) ? user.HomePhone : user.MobilePhone;
 
-			assignmentsLabel.Text = upcomingAssignments.Where(a => a.GetStatus() == AssignmentStatus.New).Count() + " unconfirmed";
+			assignmentsLabel.Text = upcomingAssignments.Where(a => a.GetStatus() == AssignmentStatus.New).Count() + " new";
 			timesheetsLabel.Text = completedAssignments.Where(a => a.GetStatus() == AssignmentStatus.TimesheetRequired).Count() + " due";
 			if (nextAssignment != null)
 				nextAssignmentLabel.Text = nextAssignment.ToTimeUntilString ();
@@ -86,12 +86,12 @@ namespace Cnet.iOS
 
 			public override int RowsInSection (UITableView tableview, int section)
 			{
-				return tableData.Count;
+				return tableData.Count + 1;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
-				if (indexPath.Row == tableData.Count - 1)
+				if (indexPath.Row == tableData.Count)
 				{
 					UITableViewCell cell = tableView.DequeueReusableCell (OSSignOutCellId, indexPath);
 					cell.AdjustFrame (0, 0, 0, 20);
@@ -113,7 +113,7 @@ namespace Cnet.iOS
 			{
 				float cellHeight = 44.0f;
 
-				if (indexPath.Row == tableData.Count - 1)
+				if (indexPath.Row == tableData.Count)
 					cellHeight = 60.0f;
 
 				return cellHeight;

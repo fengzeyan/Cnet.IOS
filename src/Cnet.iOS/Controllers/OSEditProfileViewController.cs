@@ -2,16 +2,18 @@
 
 using System;
 
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
 using System.Collections.Generic;
 using System.Drawing;
-using Cnt.Web.API.Models;
+using System.Linq;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 using Cnt.API;
 using Cnt.API.Exceptions;
+using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
+	// TODO: Add ability to add phones and addresses.
 	public partial class OSEditProfileViewController : UIViewController
 	{
 		#region Private Members
@@ -30,6 +32,7 @@ namespace Cnet.iOS
 		{
 			base.ViewDidLoad ();
 			LoadUser ();
+			WireUpView ();
 			RenderUser ();
 		}
 
@@ -101,7 +104,7 @@ namespace Cnet.iOS
 		private void LoadUser()
 		{
 			Client client = AuthenticationHelper.GetClient ();
-			mobileCarriers = new List<string>(client.MobileCarrierService.GetMobileCarriers ());
+			mobileCarriers = new List<string>(client.MobileCarrierService.GetMobileCarriers ().OrderBy(c => c));
 			user = client.UserService.GetUser (AuthenticationHelper.UserData.UserId);
 		}
 
@@ -147,6 +150,8 @@ namespace Cnet.iOS
 			lastNameTextField.Text = user.LastName;
 			emailTextField.Text = user.Email;
 			phoneTextField.Text = user.MobilePhone;
+			phoneCarrierLabel.Text = user.MobileCarrier;
+			textMessageSwitch.On = user.AllowTexts;
 
 			addressTextField.Text = user.AddressCurrent.Line1;
 			addressLine2TextField.Text = user.AddressCurrent.Line2;
@@ -163,6 +168,7 @@ namespace Cnet.iOS
 			var actionSheetCarrierPicker = new ActionSheetListPicker (this.View);
 			var pickerDataModel = new ListPickerViewModel<string> (mobileCarriers);
 			actionSheetCarrierPicker.ListPicker.Source = pickerDataModel;
+			actionSheetCarrierPicker.ListPicker.Select (mobileCarriers.IndexOf (phoneCarrierLabel.Text), 0, false);
 			pickerDataModel.ValueChanged += (object sender, EventArgs e) => phoneCarrierLabel.Text= (sender as ListPickerViewModel<string>).SelectedItem;
 			actionSheetCarrierPicker.Show ();
 		}
@@ -173,6 +179,8 @@ namespace Cnet.iOS
 			user.LastName = lastNameTextField.Text;
 			user.Email = emailTextField.Text;
 			user.MobilePhone = phoneTextField.Text;
+			user.MobileCarrier = phoneCarrierLabel.Text;
+			user.AllowTexts = textMessageSwitch.On;
 
 			user.AddressCurrent.Line1 = addressTextField.Text;
 			user.AddressCurrent.Line2 = addressLine2TextField.Text;

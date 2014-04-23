@@ -12,5 +12,8 @@ namespace Cnet.iOS
 		public OSCalendarInfoCell (IntPtr handle) : base (handle)
 		{
 		}
+
+		public UILabel DateLabel { get { return dateLabel; } set { dateLabel = value; } }
+		public UILabel TimeLabel { get { return timeLabel; } set { timeLabel = value; } }
 	}
 }

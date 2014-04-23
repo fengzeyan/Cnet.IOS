@@ -305,6 +305,8 @@
     <BundleResource Include="Resources\DSLCalendarDaySelection%402x.png" />
     <BundleResource Include="Resources\photo-container.png" />
     <BundleResource Include="Resources\photo-container%402x.png" />
+    <BundleResource Include="Resources\btn-drop-menu.png" />
+    <BundleResource Include="Resources\btn-drop-menu%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
