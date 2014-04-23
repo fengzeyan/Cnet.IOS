@@ -4,13 +4,99 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Cnt.API;
+using Cnt.Web.API.Models;
+using System.Collections.Generic;
 
 namespace Cnet.iOS
 {
 	public partial class OSAvailabilityViewController : UIViewController
 	{
+		#region Private Members
+		private List<AvailabilityBlock> availabilityBlocks;
+		#endregion
+
+		#region Public Properties
+		public DateTime SelectedDate { get; set; }
+		#endregion
+
+		#region Constructors
 		public OSAvailabilityViewController (IntPtr handle) : base (handle)
 		{
 		}
+		#endregion
+
+		#region Public Methods
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			LoadAvailability ();
+			RenderAvailabillity ();
+		}
+		#endregion
+
+		#region Private Methods
+		private void LoadAvailability ()
+		{
+			Client client = AuthenticationHelper.GetClient ();
+			availabilityBlocks = new List<AvailabilityBlock> (client.AvailabilityService.GetAvailabilityBlocks ());
+		}
+
+		private void RenderAvailabillity ()
+		{
+
+		}
+		#endregion
+
+		private class OSAvailabilityTableSource : UITableViewSource
+		{
+			#region Private Members
+			private OSAvailabilityViewController controller;
+			private static NSString AvailabilityCellId = new NSString ("AvailabilityCellIdentifier");
+			private static NSString AddAvailabilityCellId = new NSString ("AddAvailabilityCellIdentifier");
+			#endregion
+
+			#region Constructors
+			public OSAvailabilityTableSource(OSAvailabilityViewController parent) : base()
+			{
+				controller = parent;
+			}
+			#endregion
+
+			#region Public Methods
+			public override int RowsInSection (UITableView tableview, int section)
+			{
+				if (controller.availabilityBlocks == null)
+					return 1;
+				return controller.availabilityBlocks.Count + 1;
+			}
+
+			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
+			{
+				UITableViewCell cell = new UITableViewCell ();
+				if (indexPath.Row == controller.availabilityBlocks.Count) {
+					cell = tableView.DequeueReusableCell (AvailabilityCellId, indexPath);
+					RenderAddAvailabilityCell ((OSAddAvailabilityCell)cell);
+				} else {
+					AvailabilityBlock availabilityBlock = controller.availabilityBlocks [indexPath.Row];
+					cell = tableView.DequeueReusableCell (AddAvailabilityCellId, indexPath);
+					RenderAvailabilityCell ((OSAvailabilityCell)cell, availabilityBlock);
+				}
+				return cell;
+			}
+			#endregion
+
+			#region Private Methods
+			private void RenderAvailabilityCell(OSAvailabilityCell cell, AvailabilityBlock availabilityBlock)
+			{
+
+			}
+
+			private void RenderAddAvailabilityCell(OSAddAvailabilityCell cell)
+			{
+				// Do nothing.
+			}
+			#endregion
+		}	
 	}
 }

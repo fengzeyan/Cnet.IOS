@@ -12,9 +12,15 @@ namespace Cnet.iOS
 	[Register ("OSAvailabilityViewController")]
 	partial class OSAvailabilityViewController
 	{
+		[Outlet]
+		MonoTouch.UIKit.UITableView availabilityTable { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (availabilityTable != null) {
+				availabilityTable.Dispose ();
+				availabilityTable = null;
+			}
 		}
 	}
 }

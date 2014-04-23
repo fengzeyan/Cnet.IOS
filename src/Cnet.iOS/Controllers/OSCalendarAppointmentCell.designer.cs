@@ -25,6 +25,12 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UIImageView flagImage { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIImageView profileBorderImage { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView profileImage { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel startTimeLabel { get; set; }
 
 		[Outlet]
@@ -38,14 +44,14 @@ namespace Cnet.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (startTimeLabel != null) {
-				startTimeLabel.Dispose ();
-				startTimeLabel = null;
+			if (profileImage != null) {
+				profileImage.Dispose ();
+				profileImage = null;
 			}
 
-			if (startTimePmLabel != null) {
-				startTimePmLabel.Dispose ();
-				startTimePmLabel = null;
+			if (profileBorderImage != null) {
+				profileBorderImage.Dispose ();
+				profileBorderImage = null;
 			}
 
 			if (endTimeLabel != null) {
@@ -63,19 +69,29 @@ namespace Cnet.iOS
 				familyNameLabel = null;
 			}
 
-			if (statusLabel != null) {
-				statusLabel.Dispose ();
-				statusLabel = null;
-			}
-
 			if (flagImage != null) {
 				flagImage.Dispose ();
 				flagImage = null;
 			}
 
+			if (startTimeLabel != null) {
+				startTimeLabel.Dispose ();
+				startTimeLabel = null;
+			}
+
+			if (startTimePmLabel != null) {
+				startTimePmLabel.Dispose ();
+				startTimePmLabel = null;
+			}
+
 			if (statusImage != null) {
 				statusImage.Dispose ();
 				statusImage = null;
+			}
+
+			if (statusLabel != null) {
+				statusLabel.Dispose ();
+				statusLabel = null;
 			}
 		}
 	}

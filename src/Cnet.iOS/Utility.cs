@@ -15,10 +15,11 @@ namespace Cnet.iOS
 	{
 		#region Static Settings
 		public static int AppId = 0; // TODO: Figure out App ID.
-		public static UIColor DefaultTextColor = UIColor.FromRGB (77, 77, 77);
 		public static UIColor CanceledBackgroundColor = UIColor.FromRGB (255, 0, 87);
 		public static UIColor CanceledTextColor = UIColor.FromRGB (134, 15, 56);
 		public static UIColor CanceledStatusTextColor = UIColor.FromRGB (255, 0, 67);
+		public static UIColor DefaultTextColor = UIColor.FromRGB (77, 77, 77);
+		public static UIColor DisabledTextColor = UIColor.FromRGB (217, 217, 217);
 		public static UIColor NewTextColor = UIColor.FromRGB (106, 65, 131);
 		public static UIColor TimesheetDueTextColor = UIColor.FromRGB (146, 203, 99);
 		public static UIColor UpdatedBackgroundColor = UIColor.FromRGB (254, 221, 3);

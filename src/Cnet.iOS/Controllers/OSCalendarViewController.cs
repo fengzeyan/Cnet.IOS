@@ -18,12 +18,12 @@ namespace Cnet.iOS
 	public partial class OSCalendarViewController : UIViewController
 	{
 		#region Private Methods
-		private static NSString AssignmentDetailSegueName = new NSString("AssignmentDetail");
-		private static NSString AvailabilitySegueName = new NSString ("Availability");
+		private static NSString assignmentDetailSegueName = new NSString("AssignmentDetail");
+		private static NSString availabilityBlockDetailSegueName = new NSString ("AvailabilityBlockDetail");
+		private static NSString availabilityBlocksListSegueName = new NSString ("AvailabilityBlockList");
 		private DateTime selectedDate;
 		private List<Assignment> assignments;
-		private List<UserAvailability> userAvailability;
-		private List<UserAvailabilityDay> userAvailabilityDays;
+		private UserAvailabilityDay userAvailabilityDay;
 		#endregion
 
 		public OSCalendarViewController (IntPtr handle) : base (handle)
@@ -42,13 +42,14 @@ namespace Cnet.iOS
 		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
 		{
 			base.PrepareForSegue (segue, sender);
-			if (segue.Identifier == AssignmentDetailSegueName) {
+			if (segue.Identifier == assignmentDetailSegueName) {
 				var indexPath = calendarTable.IndexPathForSelectedRow;
 				var selectedAssignment = assignments [indexPath.Row - 1];
 				var view = (OSUnconfirmedAssignmentViewController)segue.DestinationViewController;
 				view.PlacementId = selectedAssignment.Placement.Id;
-			} else if (segue.Identifier == AvailabilitySegueName) {
-			
+			} else if (segue.Identifier == availabilityBlockDetailSegueName) {
+				var view = (OSEditAvailabilityViewController)segue.DestinationViewController;
+				view.AvailabilityBlockId = userAvailabilityDay.AvailabilityBlockId;
 			}
 		}
 		#endregion
@@ -65,10 +66,9 @@ namespace Cnet.iOS
 		#region Private Methods
 		private void LoadCalendar()
 		{
-			Client client = AuthenticationHelper.GetClient ();
-			userAvailability = new List<UserAvailability> (client.AvailabilityService.GetAvailability ());
-
+			// Populate list for calendar
 			selectedDate = DateTime.Today;
+			calendarTable.Source = new OSCalendarTableSource (this);
 
 			// Load calendar view
 			var calendarView = new TSQCalendarView (new RectangleF (0, 57, 320, 285)) // x, y, width, height
@@ -83,16 +83,12 @@ namespace Cnet.iOS
 			calendarView.DidSelectDate += ViewEvents;
 
 			View.Add (calendarView);
-
-			// Populate list for calendar
-			calendarTable.Source = new OSCalendarTableSource (this);
 		}
 
 		private void LoadEvents()
 		{
 			Client client = AuthenticationHelper.GetClient ();
-			// TODO: Figure out availability.
-			userAvailabilityDays = new List<UserAvailabilityDay> (userAvailability.SelectMany (ua => ua.Availability).Where (a => a.Date == selectedDate));
+			userAvailabilityDay = client.AvailabilityService.GetAvailability (selectedDate, selectedDate).FirstOrDefault ();
 			assignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (selectedDate, selectedDate));
 		}
 
@@ -154,6 +150,10 @@ namespace Cnet.iOS
 				cell.EndTimePmLabel.Text = end.ToString ("tt").ToUpper ();
 				cell.FamilyNameLabel.Text = assignment.Placement.ToFamilyNameString ();
 				cell.StatusLabel.Text = assignment.ToStatusString ();
+				if (String.IsNullOrWhiteSpace (assignment.Placement.ClientPhoto))
+					cell.ProfileImage.Hidden = cell.ProfileBorderImage.Hidden = true;
+				else
+					cell.ProfileImage.Image = assignment.Placement.GetProfileImage ();
 				cell.FlagImage.Image = assignment.GetStatusFlagImage ();
 				cell.StatusImage.Image = assignment.GetStatusImage ();
 			}
@@ -161,15 +161,17 @@ namespace Cnet.iOS
 			private void RenderInfoCell(OSCalendarInfoCell cell)
 			{
 				cell.DateLabel.Text = controller.selectedDate.ToString ("dddd, MMM. d").ToUpper ();
-				if (controller.userAvailabilityDays == null || controller.userAvailabilityDays.Count == 0) {
+				if (controller.userAvailabilityDay == null) {
 					cell.TimeLabel.Text = "No current assignments, are you available?  Please update your schedule.";
 				} else {
 					List<string> timeStrings = new List<string> ();
-					foreach (TimeBlock block in controller.userAvailabilityDays.SelectMany(ua => ua.Availability).OrderBy(a => a.Start)) {
+					foreach (TimeBlock block in controller.userAvailabilityDay.Availability.OrderBy(a => a.Start)) {
 						timeStrings.Add ("Available from " + block.ToTimesString ());
 					}
 					cell.TimeLabel.Lines = timeStrings.Count;
-					cell.TimeLabel.AdjustFrame (0, 0, 0, 17 * timeStrings.Count);
+					float expectedHeight = 21 * timeStrings.Count;
+					if (cell.TimeLabel.Frame.Height != expectedHeight)
+						cell.TimeLabel.AdjustFrame (0, 0, 0, expectedHeight - cell.TimeLabel.Frame.Height);
 					cell.TimeLabel.Text = String.Join ("\n", timeStrings);
 				}
 			}
