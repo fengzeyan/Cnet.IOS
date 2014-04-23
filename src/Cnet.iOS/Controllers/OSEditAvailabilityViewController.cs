@@ -143,6 +143,7 @@ namespace Cnet.iOS
 				weekDays.Add (weekDay);
 				sender.SetTitleColor (Utility.NewTextColor, UIControlState.Normal);
 			}
+			availabilityBlock.Weekdays = String.Join (", ", weekDays);
 		}
 		#endregion
 
@@ -163,7 +164,11 @@ namespace Cnet.iOS
 		{
 			Client client = AuthenticationHelper.GetClient ();
 			availabilityBlock = client.AvailabilityService.GetAvailabilityBlock (AvailabilityBlockId);
-			weekDays = new List<string> (availabilityBlock.Weekdays.ToLower ().Split (','));
+			string weekDaysString = availabilityBlock.Weekdays
+				.Replace ("Weekdays", "Monday, Tuesday, Wednesday, Thursday, Friday")
+				.Replace ("Weekend", "Sunday, Saturday")
+				.Replace ("All", "Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday");
+			weekDays = new List<string> (Array.ConvertAll (weekDaysString.Split (new char[]{ ',' }, StringSplitOptions.RemoveEmptyEntries), p => p.Trim ()));
 		}
 
 		private void RenderAvailabilityBlock ()
@@ -178,25 +183,25 @@ namespace Cnet.iOS
 
 			foreach (string weekDay in weekDays) {
 				switch (weekDay) {
-				case "sunday":
+				case "Sunday":
 					sundayButton.SetTitleColor (Utility.NewTextColor, UIControlState.Normal);
 					break;
-				case "monday":
+				case "Monday":
 					mondayButton.SetTitleColor (Utility.NewTextColor, UIControlState.Normal);
 					break;
-				case "tuesday":
+				case "Tuesday":
 					tuesdayButton.SetTitleColor (Utility.NewTextColor, UIControlState.Normal);
 					break;
-				case "wednesday":
+				case "Wednesday":
 					wednesdayButton.SetTitleColor (Utility.NewTextColor, UIControlState.Normal);
 					break;
-				case "thursday":
+				case "Thursday":
 					thursdayButton.SetTitleColor (Utility.NewTextColor, UIControlState.Normal);
 					break;
-				case "friday":
+				case "Friday":
 					fridayButton.SetTitleColor (Utility.NewTextColor, UIControlState.Normal);
 					break;
-				case "saturday":
+				case "Saturday":
 					saturdayButton.SetTitleColor (Utility.NewTextColor, UIControlState.Normal);
 					break;
 				}
@@ -240,13 +245,13 @@ namespace Cnet.iOS
 			endTimeUpButton.TouchUpInside += EndTimeUpClicked;
 			endTimeDownButton.TouchUpInside += EndTimeDownClicked;
 
-			sundayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("sunday", (UIButton)sender);
-			mondayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("monday", (UIButton)sender);
-			tuesdayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("tuesday", (UIButton)sender);
-			wednesdayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("wednesday", (UIButton)sender);
-			thursdayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("thursday", (UIButton)sender);
-			fridayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("friday", (UIButton)sender);
-			saturdayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("saturday", (UIButton)sender);
+			sundayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("Sunday", (UIButton)sender);
+			mondayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("Monday", (UIButton)sender);
+			tuesdayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("Tuesday", (UIButton)sender);
+			wednesdayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("Wednesday", (UIButton)sender);
+			thursdayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("Thursday", (UIButton)sender);
+			fridayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("Friday", (UIButton)sender);
+			saturdayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("Saturday", (UIButton)sender);
 		}
 		#endregion
 	}
