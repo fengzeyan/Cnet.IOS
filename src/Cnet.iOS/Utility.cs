@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Net;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Cnt.API.Exceptions;
 using Cnt.API.Models;
 using Cnt.Web.API.Models;
-using Cnt.API.Exceptions;
-using System.Net;
-using System.Drawing;
 
 namespace Cnet.iOS
 {
@@ -141,7 +141,7 @@ namespace Cnet.iOS
 			return UIImageFromUrl(user.Photo);
 		}
 
-		public static AssignmentStatus GetStatus (this Assignment assignment)
+		public static AssignmentStatus GetStatus (this Assignment assignment, bool hasTimesheet = false)
 		{
 			AssignmentStatus status;
 			if (assignment.Start.AddSeconds (assignment.Duration) >= DateTime.Now) {
@@ -152,7 +152,7 @@ namespace Cnet.iOS
 				else
 					status = AssignmentStatus.Confirmed;
 			} else {
-				if (assignment.Placement.HasTimesheets)
+				if (hasTimesheet)
 					status = AssignmentStatus.NoTimesheetRequired;
 				else
 					status = AssignmentStatus.TimesheetRequired;

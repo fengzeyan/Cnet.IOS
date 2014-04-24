@@ -8,15 +8,21 @@ namespace Cnt.API.Exceptions
 	public class CntResponseException : Exception
 	{
 		public HttpStatusCode HttpStatusCode { get; private set; }
+
 		public IEnumerable<ApiError> Errors { get; private set; }
 
-		public CntResponseException(string message, IEnumerable<ApiError> errors)
-			: base(message)
+		public CntResponseException (string message)
+			: base (message)
+		{
+		}
+
+		public CntResponseException (string message, IEnumerable<ApiError> errors)
+			: base (message)
 		{
 			Errors = errors;
 		}
 
-		public CntResponseException(string message, HttpStatusCode httpStatusCode)
+		public CntResponseException (string message, HttpStatusCode httpStatusCode)
 			: base (message)
 		{
 			HttpStatusCode = httpStatusCode;

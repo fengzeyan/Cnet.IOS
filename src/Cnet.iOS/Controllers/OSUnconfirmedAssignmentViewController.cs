@@ -83,7 +83,9 @@ namespace Cnet.iOS
 		{
 			Client client = AuthenticationHelper.GetClient ();
 			placement = client.PlacementService.GetPlacement (PlacementId);
-			assignments = new List<Assignment> (client.PlacementService.GetAssignments (placement, DateTime.Now, DateTime.Now.AddDays(7)));
+			DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
+			DateTime endDate = currentPayPeriod.End.Value > DateTime.Now.AddDays (7) ? currentPayPeriod.End.Value : DateTime.Now.AddDays (7);
+			assignments = new List<Assignment> (client.PlacementService.GetAssignments (placement, currentPayPeriod.Start.Value, endDate));
 			assignmentStatus = assignments.GetStatus ();
 		}
 

@@ -80,6 +80,9 @@ namespace Cnt.API
 				}
 				catch (WebException e) // We get a WebException on everything but 200.
 				{
+					if (e.Response == null)
+						throw new CntResponseException(e.Message);
+
 					using (WebResponse response = e.Response)
 					{
 						ContentType = response.ContentType;
