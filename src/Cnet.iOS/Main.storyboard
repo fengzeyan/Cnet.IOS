@@ -3721,6 +3721,9 @@
                                     <navigationItem title="My Availability" id="UE2-Va-KB1">
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="VA2-qY-uvO">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <segue destination="bAg-ZE-zyG" kind="modal" id="cdv-8V-Tzf"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -3743,7 +3746,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" id="Tbi-9e-2hh">
-                                                    <rect key="frame" x="20" y="10" width="280" height="169"/>
+                                                    <rect key="frame" x="20" y="10" width="280" height="145"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fcH-8O-vLC">
@@ -3756,7 +3759,7 @@
                                                                 <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
-                                                                <segue destination="1aZ-Bh-vCu" kind="modal" identifier="EditAvailability" id="po8-eR-gv3"/>
+                                                                <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" id="po8-eR-gv3"/>
                                                             </connections>
                                                         </button>
                                                         <view contentMode="scaleToFill" id="sOi-xe-SGr">
@@ -3807,7 +3810,9 @@
                                             <outlet property="closeButton" destination="Sjt-qU-45j" id="2vo-df-j2U"/>
                                             <outlet property="datesLabel" destination="rFh-RV-rPh" id="o2B-fl-PW3"/>
                                             <outlet property="daysOfWeekLabel" destination="7Ya-fq-dZW" id="mRQ-kp-45D"/>
+                                            <outlet property="editButton" destination="fcH-8O-vLC" id="Zrp-1G-bom"/>
                                             <outlet property="timesLabel" destination="cge-w1-XLl" id="f8E-L7-aA7"/>
+                                            <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" id="8eF-Po-Blh"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddAvailabilityCellIdentifier" rowHeight="50" id="Hs0-HO-RGv" customClass="OSAddAvailabilityCell">
@@ -4505,12 +4510,12 @@
     <inferredMetricsTieBreakers>
         <segue reference="gOG-ci-hMN"/>
         <segue reference="sGH-Kp-aOs"/>
-        <segue reference="KNr-Zu-PCL"/>
+        <segue reference="cdv-8V-Tzf"/>
+        <segue reference="1uv-Dv-ZEg"/>
+        <segue reference="8eF-Po-Blh"/>
         <segue reference="xUc-TM-EUX"/>
         <segue reference="d83-zT-diI"/>
-        <segue reference="ToG-H1-P28"/>
         <segue reference="F5g-1m-IVQ"/>
-        <segue reference="vLg-fS-Yjj"/>
         <segue reference="liK-Jx-jnx"/>
     </inferredMetricsTieBreakers>
 </document>

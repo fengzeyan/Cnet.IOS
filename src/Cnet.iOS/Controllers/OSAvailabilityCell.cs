@@ -13,9 +13,11 @@ namespace Cnet.iOS
 		{
 		}
 
+		public int RowIndex { get; set; }
 		public UILabel DatesLabel { get { return datesLabel; } set { datesLabel = value; } }
 		public UILabel TimesLabel { get { return timesLabel; } set { timesLabel = value; } }
 		public UILabel DaysOfWeek { get { return daysOfWeekLabel; } set { daysOfWeekLabel = value; } }
+		public UIButton EditButton { get { return editButton; } set { editButton = value; } }
 		public UIButton CloseButton { get { return closeButton; } set { closeButton = value; } }
 	}
 }

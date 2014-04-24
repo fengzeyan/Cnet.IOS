@@ -41,7 +41,7 @@ namespace Cnt.API.Services.NTMobile
 		/// <returns>All availability blocks for the current user.</returns>
 		public IEnumerable<AvailabilityBlock> GetAvailabilityBlocks()
 		{
-			return CntRestHelper.Request<IEnumerable<AvailabilityBlock>>(Constants.NTMOBILE_BASEURL + "/availability-blocks", _Client.UserName, _Client.Password).Data;
+			return CntRestHelper.Request<IEnumerable<AvailabilityBlock>>(Constants.NTMOBILE_BASEURL + "/availability-block", _Client.UserName, _Client.Password).Data;
 		}
 
 		/// <summary>

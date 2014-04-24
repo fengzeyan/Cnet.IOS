@@ -15,7 +15,7 @@ namespace Cnet.iOS
 	public partial class OSEditAvailabilityViewController : UIViewController
 	{
 		#region Private Members
-		private static NSString AvailabilityBlockListSegueName = new NSString ("AvailabilityBlockList");
+		private static NSString availabilityBlockListSegueName = new NSString ("AvailabilityBlockList");
 		private const string dateFormat = "ddd, MMM d, yyyy";
 		private const string timeFormat = "h:mm tt";
 		private AvailabilityBlock availabilityBlock;
@@ -42,12 +42,12 @@ namespace Cnet.iOS
 		{
 			SubmitForm ();
 			if (!hasErrors)
-				PerformSegue (AvailabilityBlockListSegueName, this);
+				PerformSegue (availabilityBlockListSegueName, this);
 		}
 
 		private void DeleteButtonClicked (object sender, EventArgs e)
 		{
-			UIAlertView alert = new UIAlertView ("Delete Availability Block", "Are you sure you want to delete the availability block?", null, "Cancel", "OK");
+			UIAlertView alert = new UIAlertView ("Delete Availability", "Are you sure you want to delete this availability?", null, "Cancel", "Confirm");
 			alert.Clicked += DeleteConfirmClicked;
 			alert.Show ();
 		}
@@ -57,7 +57,7 @@ namespace Cnet.iOS
 			if (e.ButtonIndex == 1) {
 				DeleteAvailabilityBlock ();
 				if (!hasErrors)
-					PerformSegue (AvailabilityBlockListSegueName, this);
+					PerformSegue (availabilityBlockListSegueName, this);
 			}
 		}
 
@@ -123,6 +123,7 @@ namespace Cnet.iOS
 			DateTime date = DateTime.ParseExact (startTimeLabel.Text, timeFormat, null).AddMinutes (-15);
 			TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
 			availabilityBlock.Times.First().Start = (int)time.TotalSeconds;
+			availabilityBlock.Times.First ().Duration += (int)TimeSpan.FromMinutes (15).TotalSeconds;
 			startTimeLabel.Text = date.ToString (timeFormat);
 		}
 
@@ -131,6 +132,7 @@ namespace Cnet.iOS
 			DateTime date = DateTime.ParseExact (startTimeLabel.Text, timeFormat, null).AddMinutes (15);
 			TimeSpan time = new TimeSpan (date.Hour, date.Minute, date.Second);
 			availabilityBlock.Times.First().Start = (int)time.TotalSeconds;
+			availabilityBlock.Times.First ().Duration -= (int)TimeSpan.FromMinutes (15).TotalSeconds;
 			startTimeLabel.Text = date.ToString (timeFormat);
 		}
 
@@ -148,7 +150,7 @@ namespace Cnet.iOS
 		#endregion
 
 		#region Private Methods
-		void DeleteAvailabilityBlock ()
+		private void DeleteAvailabilityBlock ()
 		{
 			try {
 				Client client = AuthenticationHelper.GetClient ();
@@ -169,6 +171,10 @@ namespace Cnet.iOS
 				.Replace ("Weekend", "Sunday, Saturday")
 				.Replace ("All", "Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday");
 			weekDays = new List<string> (Array.ConvertAll (weekDaysString.Split (new char[]{ ',' }, StringSplitOptions.RemoveEmptyEntries), p => p.Trim ()));
+
+			if (availabilityBlock.Times == null || availabilityBlock.Times.Count () == 0) {
+				availabilityBlock.Times = new List<TimeBlock> (new TimeBlock[]{ new TimeBlock () });
+			}
 		}
 
 		private void RenderAvailabilityBlock ()

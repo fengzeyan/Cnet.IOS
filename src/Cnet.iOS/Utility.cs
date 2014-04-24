@@ -258,6 +258,18 @@ namespace Cnet.iOS
 			return String.Format("{0}yo {1}mo", ageInYears, ageInMonths);
 		}
 
+		public static string ToDatesString(this AvailabilityBlock availabilityBlock)
+		{
+			string datesString = availabilityBlock.Start.ToString ("MMM d");
+			if (availabilityBlock.End.HasValue) {
+				if (availabilityBlock.End.Value != availabilityBlock.Start)
+					datesString += " - " + availabilityBlock.End.Value.ToString ("MMM dd");
+			}
+			else
+				datesString += " and After";
+			return datesString;
+		}
+
 		public static string ToDurationString(this Timesheet timesheet)
 		{
 			TimeSpan duration = timesheet.End.Subtract (timesheet.Start);

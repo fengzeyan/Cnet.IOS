@@ -7,13 +7,17 @@ using MonoTouch.UIKit;
 using Cnt.API;
 using Cnt.Web.API.Models;
 using System.Collections.Generic;
+using Cnt.API.Exceptions;
 
 namespace Cnet.iOS
 {
 	public partial class OSAvailabilityViewController : UIViewController
 	{
 		#region Private Members
+		private static NSString availabilityBlockDetailSegueName = new NSString ("AvailabilityBlockDetail");
 		private List<AvailabilityBlock> availabilityBlocks;
+		private int selectedRowIndex;
+		private bool hasErrors;
 		#endregion
 
 		#region Public Properties
@@ -31,20 +35,60 @@ namespace Cnet.iOS
 		{
 			base.ViewDidLoad ();
 			LoadAvailability ();
-			RenderAvailabillity ();
+		}
+
+		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
+		{
+			base.PrepareForSegue (segue, sender);
+			if (segue.Identifier == availabilityBlockDetailSegueName) {
+				var indexPath = availabilityTable.IndexPathForSelectedRow;
+				var selectedAvailabilityBlock = availabilityBlocks [indexPath.Row];
+				//var selectedAvailabilityBlock = availabilityBlocks [selectedRowIndex];
+				var view = (OSEditAvailabilityViewController)segue.DestinationViewController;
+				view.AvailabilityBlockId = selectedAvailabilityBlock.Id;
+			}
+		}
+		#endregion
+
+		#region Event Delegates
+		private void DeleteButtonClicked (object sender, EventArgs e)
+		{
+			UIAlertView alert = new UIAlertView ("Delete Availability", "Are you sure you want to delete this availability?", null, "Cancel", "Confirm");
+			alert.Clicked += DeleteConfirmClicked;
+			alert.Show ();
+		}
+
+		private void DeleteConfirmClicked (object sender, UIButtonEventArgs e)
+		{
+			if (e.ButtonIndex == 1) {
+				DeleteAvailabilityBlock ();
+				if (!hasErrors) {
+					LoadAvailability ();
+					availabilityTable.ReloadData ();
+				}
+			}
 		}
 		#endregion
 
 		#region Private Methods
+		private void DeleteAvailabilityBlock ()
+		{
+			try {
+				var selectedAvailabilityBlock = availabilityBlocks [selectedRowIndex];
+				Client client = AuthenticationHelper.GetClient ();
+				client.AvailabilityService.DeleteAvailabilityBlock (selectedAvailabilityBlock.Id);
+				hasErrors = false;
+			} catch (CntResponseException ex) {
+				hasErrors = true;
+				Utility.ShowError (ex);
+			}
+		}
+
 		private void LoadAvailability ()
 		{
 			Client client = AuthenticationHelper.GetClient ();
 			availabilityBlocks = new List<AvailabilityBlock> (client.AvailabilityService.GetAvailabilityBlocks ());
-		}
-
-		private void RenderAvailabillity ()
-		{
-
+			availabilityTable.Source = new OSAvailabilityTableSource (this);
 		}
 		#endregion
 
@@ -53,7 +97,6 @@ namespace Cnet.iOS
 			#region Private Members
 			private OSAvailabilityViewController controller;
 			private static NSString AvailabilityCellId = new NSString ("AvailabilityCellIdentifier");
-			private static NSString AddAvailabilityCellId = new NSString ("AddAvailabilityCellIdentifier");
 			#endregion
 
 			#region Constructors
@@ -71,30 +114,48 @@ namespace Cnet.iOS
 				return controller.availabilityBlocks.Count + 1;
 			}
 
+			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+			{
+				if (indexPath.Row == (controller.availabilityBlocks.Count))
+					return 50;
+				return 105;//165;
+			}
+
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
 				UITableViewCell cell = new UITableViewCell ();
-				if (indexPath.Row == controller.availabilityBlocks.Count) {
+				int rowIndex = indexPath.Row;
+				if (rowIndex != controller.availabilityBlocks.Count) {
+					AvailabilityBlock availabilityBlock = controller.availabilityBlocks [rowIndex];
 					cell = tableView.DequeueReusableCell (AvailabilityCellId, indexPath);
-					RenderAddAvailabilityCell ((OSAddAvailabilityCell)cell);
-				} else {
-					AvailabilityBlock availabilityBlock = controller.availabilityBlocks [indexPath.Row];
-					cell = tableView.DequeueReusableCell (AddAvailabilityCellId, indexPath);
-					RenderAvailabilityCell ((OSAvailabilityCell)cell, availabilityBlock);
+					RenderAvailabilityCell ((OSAvailabilityCell)cell, rowIndex, availabilityBlock);
 				}
 				return cell;
 			}
 			#endregion
 
 			#region Private Methods
-			private void RenderAvailabilityCell(OSAvailabilityCell cell, AvailabilityBlock availabilityBlock)
+			private void RenderAvailabilityCell(OSAvailabilityCell cell, int row, AvailabilityBlock availabilityBlock)
 			{
-
-			}
-
-			private void RenderAddAvailabilityCell(OSAddAvailabilityCell cell)
-			{
-				// Do nothing.
+				cell.RowIndex = row;
+				cell.DatesLabel.Text = availabilityBlock.ToDatesString ();
+				cell.DaysOfWeek.Text = availabilityBlock.Weekdays;
+				foreach(TimeBlock time in availabilityBlock.Times){
+					cell.TimesLabel.Text = time.ToTimesString ();
+				}
+				cell.CloseButton.Hidden = true;
+				cell.EditButton.Hidden = true;
+				// Remove the event handlers first since this may be a reused cell.
+				//cell.EditButton.TouchDown -= (object sender, EventArgs e) => {
+				//	controller.selectedRowIndex = cell.RowIndex;
+				//	controller.PerformSegue("AvailabilityBlockDetail", this);
+				//};
+				//cell.CloseButton.TouchUpInside -= controller.DeleteButtonClicked;
+				//cell.EditButton.TouchDown += (object sender, EventArgs e) => {
+				//	controller.selectedRowIndex = cell.RowIndex;
+				//	controller.PerformSegue("AvailabilityBlockDetail", this);
+				//};
+				//cell.CloseButton.TouchUpInside += controller.DeleteButtonClicked;
 			}
 			#endregion
 		}	

@@ -22,6 +22,9 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UILabel daysOfWeekLabel { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton editButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel timesLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -29,6 +32,11 @@ namespace Cnet.iOS
 			if (closeButton != null) {
 				closeButton.Dispose ();
 				closeButton = null;
+			}
+
+			if (editButton != null) {
+				editButton.Dispose ();
+				editButton = null;
 			}
 
 			if (datesLabel != null) {
