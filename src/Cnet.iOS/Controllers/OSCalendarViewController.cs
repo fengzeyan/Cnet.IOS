@@ -20,7 +20,6 @@ namespace Cnet.iOS
 		#region Private Methods
 		private static NSString assignmentDetailSegueName = new NSString("AssignmentDetail");
 		private static NSString availabilityBlockDetailSegueName = new NSString ("AvailabilityBlockDetail");
-		private static NSString availabilityBlocksListSegueName = new NSString ("AvailabilityBlockList");
 		private DateTime selectedDate;
 		private List<Assignment> assignments;
 		private UserAvailabilityDay userAvailabilityDay;
@@ -104,6 +103,7 @@ namespace Cnet.iOS
 			private OSCalendarViewController controller;
 			private static NSString CalendarInfoCellId = new NSString ("CalendarInfoCellIdentifier");
 			private static NSString CalendarAppointmentCellId = new NSString ("AppointmentCellIdentifier");
+			private static NSString CalendarNoAppoinetmentCellId = new NSString ("NoAppointmentCellIdentifier");
 			#endregion
 
 			#region Constructors
@@ -116,8 +116,8 @@ namespace Cnet.iOS
 			#region Public Methods
 			public override int RowsInSection (UITableView tableview, int section)
 			{
-				if (controller.assignments == null)
-					return 1;
+				if (controller.assignments == null || controller.assignments.Count == 0)
+					return 2; // Info cell and an empty appointment cell.
 				return controller.assignments.Count + 1;
 			}
 
@@ -130,9 +130,12 @@ namespace Cnet.iOS
 					RenderInfoCell ((OSCalendarInfoCell)cell);
 					break;
 				default:
-					Assignment assignment = controller.assignments [indexPath.Row - 1];
-					cell = tableView.DequeueReusableCell (CalendarAppointmentCellId, indexPath);
-					RenderAppointmentCell ((OSCalendarAppointmentCell)cell, assignment);
+					if (controller.assignments.Count >= indexPath.Row) {
+						Assignment assignment = controller.assignments [indexPath.Row - 1];
+						cell = tableView.DequeueReusableCell (CalendarAppointmentCellId, indexPath);
+						RenderAppointmentCell ((OSCalendarAppointmentCell)cell, assignment);
+					} else
+						cell = tableView.DequeueReusableCell (CalendarNoAppoinetmentCellId, indexPath);
 					break;
 				}
 				return cell;
@@ -162,7 +165,7 @@ namespace Cnet.iOS
 			{
 				cell.DateLabel.Text = controller.selectedDate.ToString ("dddd, MMM. d").ToUpper ();
 				if (controller.userAvailabilityDay == null) {
-					cell.TimeLabel.Text = "No current assignments, are you available?  Please update your schedule.";
+					cell.TimeLabel.Hidden = true;
 				} else {
 					List<string> timeStrings = new List<string> ();
 					foreach (TimeBlock block in controller.userAvailabilityDay.Availability.OrderBy(a => a.Start)) {

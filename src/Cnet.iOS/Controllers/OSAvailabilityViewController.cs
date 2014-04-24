@@ -2,12 +2,12 @@
 
 using System;
 
+using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Cnt.API;
-using Cnt.Web.API.Models;
-using System.Collections.Generic;
 using Cnt.API.Exceptions;
+using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {

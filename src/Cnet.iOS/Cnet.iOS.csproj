@@ -578,6 +578,10 @@
     <Compile Include="Helpers\ActionSheetDatePicker.cs" />
     <Compile Include="Helpers\ListPickerViewModel.cs" />
     <Compile Include="Helpers\ActionSheetListPicker.cs" />
+    <Compile Include="Controllers\OSCalendarNoAppointmentCell.cs" />
+    <Compile Include="Controllers\OSCalendarNoAppointmentCell.designer.cs">
+      <DependentUpon>OSCalendarNoAppointmentCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
