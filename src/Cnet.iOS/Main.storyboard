@@ -31,7 +31,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loginButtonClick:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="y86-4s-lGe"/>
-                                    <segue destination="Z4t-Fv-uPH" kind="modal" identifier="LogIn" animates="NO" id="qMF-x8-UMV"/>
+                                    <segue destination="Z4t-Fv-uPH" kind="modal" identifier="LogIn" modalTransitionStyle="crossDissolve" id="qMF-x8-UMV"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="    Username" minimumFontSize="17" background="fieldTop.png" id="q23-IT-dUz">
@@ -106,7 +106,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="cQF-K4-WJA">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="nVS-3Y-D9Z" kind="modal" id="bje-eN-B6S"/>
+                                                <segue destination="nVS-3Y-D9Z" kind="modal" modalTransitionStyle="crossDissolve" id="bje-eN-B6S"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -183,7 +183,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="6Zk-YW-aHa">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="nVS-3Y-D9Z" kind="modal" id="AqG-9j-HaY"/>
+                                                <segue destination="nVS-3Y-D9Z" kind="modal" modalTransitionStyle="crossDissolve" id="AqG-9j-HaY"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -346,7 +346,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="oCq-bj-xkj" kind="modal" id="cdo-K6-RT6"/>
+                                    <segue destination="oCq-bj-xkj" kind="modal" modalTransitionStyle="crossDissolve" id="cdo-K6-RT6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vcz-a5-IBt">
@@ -358,7 +358,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="OBb-jV-cZQ" kind="modal" id="oQd-yV-efo"/>
+                                    <segue destination="OBb-jV-cZQ" kind="modal" modalTransitionStyle="crossDissolve" id="oQd-yV-efo"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" id="Bmw-PR-Qn9">
@@ -477,7 +477,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="NextAssignmentDetail" id="R0C-4K-CJL"/>
+                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="NextAssignmentDetail" modalTransitionStyle="crossDissolve" id="R0C-4K-CJL"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qHB-Ua-bj3">
@@ -501,7 +501,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="NextAssignmentDetail" id="tsk-sk-Tp6"/>
+                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="NextAssignmentDetail" modalTransitionStyle="crossDissolve" id="tsk-sk-Tp6"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -613,7 +613,7 @@
                                             <outlet property="profileImage" destination="90a-V7-fTi" id="JVX-fb-KHw"/>
                                             <outlet property="purpleInfoLabel" destination="hR7-8N-dcB" id="1WR-yL-bfv"/>
                                             <outlet property="timeLabel" destination="aTs-gv-rim" id="Hx4-bF-uQ4"/>
-                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="AssignmentDetail" id="kLg-Mr-RbM"/>
+                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="AssignmentDetail" modalTransitionStyle="crossDissolve" id="kLg-Mr-RbM"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -705,7 +705,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="Zef-Tb-bKg">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="Z4t-Fv-uPH" kind="modal" id="nvb-CW-OFv"/>
+                                                <segue destination="Z4t-Fv-uPH" kind="modal" modalTransitionStyle="crossDissolve" id="nvb-CW-OFv"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Call Us" id="5EK-a2-cUw">
@@ -1135,7 +1135,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="oCq-bj-xkj" kind="modal" id="xUc-TM-EUX"/>
+                                            <segue destination="oCq-bj-xkj" kind="modal" modalTransitionStyle="crossDissolve" id="xUc-TM-EUX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gtx-Dw-SNj">
@@ -1147,7 +1147,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="OBb-jV-cZQ" kind="modal" id="sGH-Kp-aOs"/>
+                                            <segue destination="OBb-jV-cZQ" kind="modal" modalTransitionStyle="crossDissolve" id="sGH-Kp-aOs"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" id="6sz-c2-0T7">
@@ -1225,7 +1225,7 @@
                                         <connections>
                                             <outlet property="dateLabel" destination="X0Y-FN-yMv" id="Vcr-2p-IUn"/>
                                             <outlet property="timeLabel" destination="RG8-Ho-99Q" id="SWf-0y-SOa"/>
-                                            <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" id="ToG-H1-P28"/>
+                                            <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" modalTransitionStyle="crossDissolve" id="ToG-H1-P28"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AppointmentCellIdentifier" id="t0I-Fx-zaK" customClass="OSCalendarAppointmentCell">
@@ -1307,7 +1307,7 @@
                                             <outlet property="startTimePmLabel" destination="FGx-3V-lJO" id="Xsp-QW-M6C"/>
                                             <outlet property="statusImage" destination="XaK-7P-IIp" id="G0y-Q1-g9x"/>
                                             <outlet property="statusLabel" destination="Yvz-8f-tfJ" id="Ldu-MQ-aKq"/>
-                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="AssignmentDetail" id="d83-zT-diI"/>
+                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="AssignmentDetail" modalTransitionStyle="crossDissolve" id="d83-zT-diI"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoAppointmentCellIdentifier" id="1fz-mu-6Kd" customClass="OSCalendarNoAppointmentCell">
@@ -1342,7 +1342,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="DbE-Tk-nz4" kind="modal" identifier="AvailabilityBlockList" id="1uv-Dv-ZEg"/>
+                                    <segue destination="DbE-Tk-nz4" kind="modal" identifier="AvailabilityBlockList" modalTransitionStyle="crossDissolve" id="1uv-Dv-ZEg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1379,13 +1379,13 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="jAG-zp-hTO">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="iwz-5G-sLE" kind="modal" id="BB7-U1-jl7"/>
+                                                <segue destination="iwz-5G-sLE" kind="modal" modalTransitionStyle="crossDissolve" id="BB7-U1-jl7"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Call Us" id="pQE-UU-uCx">
                                             <color key="tintColor" white="0.40000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
-                                                <segue destination="N8B-vK-3d5" kind="modal" id="ULM-sc-5ME"/>
+                                                <segue destination="N8B-vK-3d5" kind="modal" modalTransitionStyle="crossDissolve" id="ULM-sc-5ME"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -1736,13 +1736,13 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="SPS-t2-8eZ">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="j1o-vY-bf1" kind="modal" id="HdC-Lg-nJc"/>
+                                                <segue destination="j1o-vY-bf1" kind="modal" modalTransitionStyle="crossDissolve" id="HdC-Lg-nJc"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Call Us" id="yaY-IF-ISH">
                                             <color key="tintColor" white="0.40000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
-                                                <segue destination="zvo-tW-93q" kind="modal" id="22x-Oa-s3y"/>
+                                                <segue destination="zvo-tW-93q" kind="modal" modalTransitionStyle="crossDissolve" id="22x-Oa-s3y"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -2068,7 +2068,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="qIn-wy-0xR">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="N8B-vK-3d5" kind="modal" id="liK-Jx-jnx"/>
+                                                <segue destination="N8B-vK-3d5" kind="modal" modalTransitionStyle="crossDissolve" id="liK-Jx-jnx"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Call Us" id="w5F-b0-3kO">
@@ -2412,7 +2412,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Z4t-Fv-uPH" kind="modal" id="akE-8B-aPz"/>
+                                            <segue destination="Z4t-Fv-uPH" kind="modal" modalTransitionStyle="crossDissolve" id="akE-8B-aPz"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QnZ-2k-scu">
@@ -2424,7 +2424,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="bAg-ZE-zyG" kind="modal" id="KNr-Zu-PCL"/>
+                                            <segue destination="bAg-ZE-zyG" kind="modal" modalTransitionStyle="crossDissolve" id="KNr-Zu-PCL"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="B2N-hZ-Jy5">
@@ -2445,7 +2445,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="OBb-jV-cZQ" kind="modal" id="MYp-Yv-fks"/>
+                                            <segue destination="OBb-jV-cZQ" kind="modal" modalTransitionStyle="crossDissolve" id="MYp-Yv-fks"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" id="Wmt-Kb-4HT">
@@ -2566,7 +2566,7 @@
                                             <outlet property="monthLabel" destination="bBu-Rv-wkW" id="GUO-AW-rKh"/>
                                             <outlet property="profileImage" destination="4Jf-Ss-Kfj" id="Lhx-P9-a7P"/>
                                             <outlet property="timesLabel" destination="LOs-uE-YbO" id="5r1-6U-ayZ"/>
-                                            <segue destination="J1O-ty-Y6Y" kind="modal" identifier="TimesheetDetail" id="Idl-dV-zGE"/>
+                                            <segue destination="J1O-ty-Y6Y" kind="modal" identifier="TimesheetDetail" modalTransitionStyle="crossDissolve" id="Idl-dV-zGE"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2611,7 +2611,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="gpT-PM-z4d">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="oCq-bj-xkj" kind="modal" identifier="TimesheetList" id="6Lh-UM-wfX"/>
+                                                <segue destination="oCq-bj-xkj" kind="modal" identifier="TimesheetList" modalTransitionStyle="crossDissolve" id="6Lh-UM-wfX"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Reset" id="1SO-TE-RGO">
@@ -2856,7 +2856,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Z4t-Fv-uPH" kind="modal" id="VQD-HR-0IB"/>
+                                            <segue destination="Z4t-Fv-uPH" kind="modal" modalTransitionStyle="crossDissolve" id="VQD-HR-0IB"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gPl-J8-2iI">
@@ -2868,7 +2868,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="bAg-ZE-zyG" kind="modal" id="a7x-Aj-C7h"/>
+                                            <segue destination="bAg-ZE-zyG" kind="modal" modalTransitionStyle="crossDissolve" id="a7x-Aj-C7h"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="byD-wr-004">
@@ -2880,7 +2880,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="oCq-bj-xkj" kind="modal" id="CRV-nh-p12"/>
+                                            <segue destination="oCq-bj-xkj" kind="modal" modalTransitionStyle="crossDissolve" id="CRV-nh-p12"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jaZ-jt-fdB">
@@ -2987,7 +2987,7 @@
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
-                                                                <segue destination="vXZ-lx-hvc" kind="modal" identifier="LogOut" id="5yI-0g-ZpK"/>
+                                                                <segue destination="vXZ-lx-hvc" kind="modal" identifier="LogOut" modalTransitionStyle="crossDissolve" id="5yI-0g-ZpK"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -3078,7 +3078,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Z4t-Fv-uPH" kind="modal" id="mT4-DL-8vA"/>
+                                            <segue destination="Z4t-Fv-uPH" kind="modal" modalTransitionStyle="crossDissolve" id="mT4-DL-8vA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Nei-BV-eUM">
@@ -3088,7 +3088,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="oCq-bj-xkj" kind="modal" id="hHN-S1-47n"/>
+                                            <segue destination="oCq-bj-xkj" kind="modal" modalTransitionStyle="crossDissolve" id="hHN-S1-47n"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PNN-dM-ncY">
@@ -3098,7 +3098,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Z4t-Fv-uPH" kind="modal" id="l2h-Tt-2bQ"/>
+                                            <segue destination="Z4t-Fv-uPH" kind="modal" modalTransitionStyle="crossDissolve" id="l2h-Tt-2bQ"/>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="h-rule.png" id="EC8-Ra-YJv">
@@ -3116,7 +3116,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="K9n-z9-POF" kind="modal" id="WM5-Ue-Plj"/>
+                                            <segue destination="K9n-z9-POF" kind="modal" modalTransitionStyle="crossDissolve" id="WM5-Ue-Plj"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wgF-eq-BKZ">
@@ -3126,7 +3126,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="nVS-3Y-D9Z" kind="modal" id="gOG-ci-hMN"/>
+                                            <segue destination="nVS-3Y-D9Z" kind="modal" modalTransitionStyle="crossDissolve" id="gOG-ci-hMN"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zab-sA-p8R">
@@ -3136,7 +3136,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="bAg-ZE-zyG" kind="modal" id="cO3-GO-1Pa"/>
+                                            <segue destination="bAg-ZE-zyG" kind="modal" modalTransitionStyle="crossDissolve" id="cO3-GO-1Pa"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -3186,7 +3186,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Done" id="Rcm-rU-EmH">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="OBb-jV-cZQ" kind="modal" identifier="Profile" id="MjI-OQ-Q29"/>
+                                                <segue destination="OBb-jV-cZQ" kind="modal" identifier="Profile" modalTransitionStyle="crossDissolve" id="MjI-OQ-Q29"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -3432,7 +3432,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Done" id="hVU-EA-F4r">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="OBb-jV-cZQ" kind="modal" identifier="Done" id="AiH-ud-SHk"/>
+                                                <segue destination="OBb-jV-cZQ" kind="modal" identifier="Done" modalTransitionStyle="crossDissolve" id="AiH-ud-SHk"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -3596,7 +3596,7 @@
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="9iL-nt-HRs" kind="modal" id="SgG-q3-5tU"/>
+                                                    <segue destination="9iL-nt-HRs" kind="modal" modalTransitionStyle="crossDissolve" id="SgG-q3-5tU"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UFL-db-y3F">
@@ -3608,7 +3608,7 @@
                                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="uXO-y1-zcf" kind="modal" id="DJb-VU-FDC"/>
+                                                    <segue destination="uXO-y1-zcf" kind="modal" modalTransitionStyle="crossDissolve" id="DJb-VU-FDC"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PX8-3t-sWS">
@@ -3732,7 +3732,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="VA2-qY-uvO">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="bAg-ZE-zyG" kind="modal" id="cdv-8V-Tzf"/>
+                                                <segue destination="bAg-ZE-zyG" kind="modal" modalTransitionStyle="crossDissolve" id="cdv-8V-Tzf"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -3769,7 +3769,7 @@
                                                                 <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
-                                                                <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" id="po8-eR-gv3"/>
+                                                                <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" modalTransitionStyle="crossDissolve" id="po8-eR-gv3"/>
                                                             </connections>
                                                         </button>
                                                         <view contentMode="scaleToFill" id="sOi-xe-SGr">
@@ -3822,7 +3822,7 @@
                                             <outlet property="daysOfWeekLabel" destination="7Ya-fq-dZW" id="mRQ-kp-45D"/>
                                             <outlet property="editButton" destination="fcH-8O-vLC" id="Zrp-1G-bom"/>
                                             <outlet property="timesLabel" destination="cge-w1-XLl" id="f8E-L7-aA7"/>
-                                            <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" id="8eF-Po-Blh"/>
+                                            <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" modalTransitionStyle="crossDissolve" id="8eF-Po-Blh"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddAvailabilityCellIdentifier" rowHeight="50" id="Hs0-HO-RGv" customClass="OSAddAvailabilityCell">
@@ -3841,7 +3841,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="5bh-YD-a8B" kind="modal" id="ffn-1S-UiO"/>
+                                                        <segue destination="5bh-YD-a8B" kind="modal" modalTransitionStyle="crossDissolve" id="ffn-1S-UiO"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -3890,7 +3890,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="E0D-sC-WIg">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="DbE-Tk-nz4" kind="modal" identifier="AvailabilityBlockList" id="vLg-fS-Yjj"/>
+                                                <segue destination="DbE-Tk-nz4" kind="modal" identifier="AvailabilityBlockList" modalTransitionStyle="crossDissolve" id="vLg-fS-Yjj"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -4170,7 +4170,7 @@
                                         <barButtonItem key="leftBarButtonItem" image="Back.png" id="h9v-cU-x9I">
                                             <color key="tintColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <segue destination="DbE-Tk-nz4" kind="modal" identifier="AvailabilityBlockList" id="mgO-P9-xEY"/>
+                                                <segue destination="DbE-Tk-nz4" kind="modal" identifier="AvailabilityBlockList" modalTransitionStyle="crossDissolve" id="mgO-P9-xEY"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Edit" id="6yF-GS-usx">
@@ -4517,14 +4517,14 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="MjI-OQ-Q29"/>
-        <segue reference="gOG-ci-hMN"/>
-        <segue reference="liK-Jx-jnx"/>
-        <segue reference="F5g-1m-IVQ"/>
-        <segue reference="KNr-Zu-PCL"/>
-        <segue reference="xUc-TM-EUX"/>
-        <segue reference="ToG-H1-P28"/>
-        <segue reference="d83-zT-diI"/>
+        <segue reference="AqG-9j-HaY"/>
+        <segue reference="AiH-ud-SHk"/>
+        <segue reference="qMF-x8-UMV"/>
+        <segue reference="kLg-Mr-RbM"/>
         <segue reference="vLg-fS-Yjj"/>
+        <segue reference="cdv-8V-Tzf"/>
+        <segue reference="po8-eR-gv3"/>
+        <segue reference="6Lh-UM-wfX"/>
+        <segue reference="liK-Jx-jnx"/>
     </inferredMetricsTieBreakers>
 </document>

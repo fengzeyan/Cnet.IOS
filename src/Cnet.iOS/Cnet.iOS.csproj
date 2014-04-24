@@ -124,7 +124,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\Default-568h%402x.png" />
     <BundleResource Include="Resources\AboutUs.png" />
     <BundleResource Include="Resources\AboutUs%402x.png" />
     <BundleResource Include="Resources\additional.png" />
@@ -289,26 +288,19 @@
     <BundleResource Include="Resources\time-picker%402x.png" />
     <BundleResource Include="Resources\view-map-button.png" />
     <BundleResource Include="Resources\view-map-button%402x.png" />
-    <BundleResource Include="Resources\DSLCalendar-nextMonth.png" />
-    <BundleResource Include="Resources\DSLCalendar-nextMonth%402x.png" />
-    <BundleResource Include="Resources\DSLCalendar-previousMonth.png" />
-    <BundleResource Include="Resources\DSLCalendar-previousMonth%402x.png" />
-    <BundleResource Include="Resources\DSLCalendarDayCallout.png" />
-    <BundleResource Include="Resources\DSLCalendarDayCallout%402x.png" />
-    <BundleResource Include="Resources\DSLCalendarDaySelection-left.png" />
-    <BundleResource Include="Resources\DSLCalendarDaySelection-left%402x.png" />
-    <BundleResource Include="Resources\DSLCalendarDaySelection-middle.png" />
-    <BundleResource Include="Resources\DSLCalendarDaySelection-middle%402x.png" />
-    <BundleResource Include="Resources\DSLCalendarDaySelection-right.png" />
-    <BundleResource Include="Resources\DSLCalendarDaySelection-right%402x.png" />
-    <BundleResource Include="Resources\DSLCalendarDaySelection.png" />
-    <BundleResource Include="Resources\DSLCalendarDaySelection%402x.png" />
     <BundleResource Include="Resources\photo-container.png" />
     <BundleResource Include="Resources\photo-container%402x.png" />
     <BundleResource Include="Resources\btn-drop-menu.png" />
     <BundleResource Include="Resources\btn-drop-menu%402x.png" />
     <BundleResource Include="Resources\profile-carrier%402x.png" />
     <BundleResource Include="Resources\profile-carrier.png" />
+    <BundleResource Include="Resources\Icon-Homescreen-120.png" />
+    <BundleResource Include="Resources\Icon-Homescreen-120%402x.png" />
+    <BundleResource Include="Resources\Icon-Settings-58.png" />
+    <BundleResource Include="Resources\Icon-Settings-58%402x.png" />
+    <BundleResource Include="Resources\Spotlight-Search-80.png" />
+    <BundleResource Include="Resources\Spotlight-Search-80%402x.png" />
+    <BundleResource Include="Resources\Default-568h%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
