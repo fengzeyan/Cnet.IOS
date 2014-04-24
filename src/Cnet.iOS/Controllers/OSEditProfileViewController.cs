@@ -82,15 +82,31 @@ namespace Cnet.iOS
 
 			UIButton newPhoneCarrierButton = new UIButton (newPhoneTextField.Frame);
 			newPhoneCarrierButton.AdjustFrame(0, 51, 0, 0);
-			newPhoneCarrierButton.SetBackgroundImage(new UIImage ("profile-fields.png"), UIControlState.Normal);
+			UILabel newPhoneCarrierLabel = new UILabel (new RectangleF(60, newPhoneCarrierButton.Frame.Y + 11, 120, 21));
+			newPhoneCarrierButton.SetBackgroundImage(new UIImage ("profile-carrier.png"), UIControlState.Normal);
+			newPhoneCarrierLabel.Text = "Choose Carrier...";
+			newPhoneCarrierLabel.Font = UIFont.FromName("HelveticaNeue", 15f);
+			newPhoneCarrierLabel.TextColor = UIColor.DarkGray;
 
 			UIImageView newPhoneSMSImage = new UIImageView (newPhoneCarrierButton.Frame);
 			newPhoneSMSImage.AdjustFrame(0, 51, 0, 0);
+			UILabel smsLabel = new UILabel (new RectangleF(60, newPhoneSMSImage.Frame.Y + 11, 95, 21));
+			UIImageView smsIcon = new UIImageView (new RectangleF(28, newPhoneSMSImage.Frame.Y + 10, 24, 24));
+			UISwitch smsSwitch = new UISwitch (new RectangleF(234, newPhoneSMSImage.Frame.Y + 6, 51, 31));
+			smsLabel.Text = "Text Message";
+			smsLabel.Font = UIFont.FromName("HelveticaNeue", 15f);
+			smsLabel.TextColor = UIColor.DarkGray;
 			newPhoneSMSImage.Image = new UIImage ("profile-fields.png");
+			smsIcon.Image = new UIImage ("icon-text.png");
+			smsSwitch.OnTintColor = UIColor.FromRGB(135, 198, 86);
 
 			editProfileScrollView.AddSubview(newPhoneTextField);
 			editProfileScrollView.AddSubview(newPhoneCarrierButton);
+			editProfileScrollView.AddSubview(newPhoneCarrierLabel);
 			editProfileScrollView.AddSubview(newPhoneSMSImage);
+			editProfileScrollView.AddSubview(smsLabel);
+			editProfileScrollView.AddSubview(smsIcon);
+			editProfileScrollView.AddSubview(smsSwitch);
 		}
 
 		partial void addAlternateAddressPressed (NSObject sender)
