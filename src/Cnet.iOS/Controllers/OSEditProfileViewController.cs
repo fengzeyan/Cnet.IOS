@@ -16,14 +16,16 @@ namespace Cnet.iOS
 	public partial class OSEditProfileViewController : UIViewController
 	{
 		#region Private Members
-		private NSString DoneSegueName = new NSString("Profile");
+
+		private NSString DoneSegueName = new NSString ("Profile");
 		private int addressCount = 1;
+		private int maxAltAddressCount = 5;
 		private UITextField
-		altAddressTextField1, altLine2TextField1, altCity1, altState1, altZipCode1,
-		altAddressTextField2, altLine2TextField2, altCity2, altState2, altZipCode2,
-		altAddressTextField3, altLine2TextField3, altCity3, altState3, altZipCode3,
-		altAddressTextField4, altLine2TextField4, altCity4, altState4, altZipCode4,
-		altAddressTextField5, altLine2TextField5, altCity5, altState5, altZipCode5;
+			altAddressTextField1, altLine2TextField1, altCity1, altState1, altZipCode1,
+			altAddressTextField2, altLine2TextField2, altCity2, altState2, altZipCode2,
+			altAddressTextField3, altLine2TextField3, altCity3, altState3, altZipCode3,
+			altAddressTextField4, altLine2TextField4, altCity4, altState4, altZipCode4,
+			altAddressTextField5, altLine2TextField5, altCity5, altState5, altZipCode5;
 		private bool hasErrors;
 		private List<string> mobileCarriers;
 		private User user;
@@ -62,6 +64,7 @@ namespace Cnet.iOS
 		#endregion
 
 		#region Event Delegates
+
 		/*partial void addNewPhonePressed (NSObject sender)
 		{
 			float frameAdjustment = 161.0f;
@@ -117,8 +120,124 @@ namespace Cnet.iOS
 			editProfileScrollView.AddSubview(smsIcon);
 			editProfileScrollView.AddSubview(smsSwitch);
 		}*/
-
 		partial void addAlternateAddressPressed (NSObject sender)
+		{
+			float frameAdjustment = 241.0f;
+			List<UIView> adjustedViewsList = new List<UIView> {
+				addAddressButton,
+				emergencyContactLabel,
+				emergencyContactTextField,
+				ecPhoneTextField
+			};
+
+			// If we are at our max addresses, no longer show the add address button.
+			if (addressCount >= maxAltAddressCount) {
+				adjustedViewsList.Remove (addAddressButton);
+				addAddressButton.Hidden = true;
+
+				foreach (UIView view in adjustedViewsList) {
+					view.AdjustFrame (0, (frameAdjustment - 51.0f), 0, 0);
+				}
+
+				// Adjust content size, not frame for scroll view
+				SizeF scrollViewContent = editProfileScrollView.ContentSize;
+				scrollViewContent.Height += frameAdjustment - 51.0f;
+				editProfileScrollView.ContentSize = scrollViewContent;
+			}
+			else {
+				foreach (UIView view in adjustedViewsList) {
+					view.AdjustFrame (0, frameAdjustment, 0, 0);
+				}
+
+				// Adjust content size, not frame for scroll view
+				SizeF scrollViewContent = editProfileScrollView.ContentSize;
+				scrollViewContent.Height += frameAdjustment;
+				editProfileScrollView.ContentSize = scrollViewContent;
+			}
+
+			// Add new ui elements for alternative address
+			// Address Label
+			UILabel altAddressLabel = new UILabel (addressLabel.Frame);
+			altAddressLabel.AdjustFrame (0, frameAdjustment * addressCount, 100, 0);
+			altAddressLabel.Text = "Alternate Address " + addressCount;
+			altAddressLabel.Font = UIFont.FromName ("HelveticaNeue", 15f);
+			altAddressLabel.TextColor = UIColor.DarkGray;
+			editProfileScrollView.AddSubview (altAddressLabel);
+
+			// Address text fields
+			List<UITextField> altAddressElements;
+
+			switch (addressCount) {
+			case 1:
+				altAddressElements = new List<UITextField> {
+					(altAddressTextField1 = new UITextField (addressTextField.Frame)),
+					(altLine2TextField1 = new UITextField (addressLine2TextField.Frame)),
+					(altCity1 = new UITextField (cityTextField.Frame)),
+					(altState1 = new UITextField (stateTextField.Frame)),
+					(altZipCode1 = new UITextField (zipCodeTextField.Frame))
+				};
+				break;
+
+			case 2:
+				altAddressElements = new List<UITextField> {
+					(altAddressTextField2 = new UITextField (addressTextField.Frame)),
+					(altLine2TextField2 = new UITextField (addressLine2TextField.Frame)),
+					(altCity2 = new UITextField (cityTextField.Frame)),
+					(altState2 = new UITextField (stateTextField.Frame)),
+					(altZipCode2 = new UITextField (zipCodeTextField.Frame))
+				};
+				break;
+
+			case 3:
+				altAddressElements = new List<UITextField> {
+					(altAddressTextField3 = new UITextField (addressTextField.Frame)),
+					(altLine2TextField3 = new UITextField (addressLine2TextField.Frame)),
+					(altCity3 = new UITextField (cityTextField.Frame)),
+					(altState3 = new UITextField (stateTextField.Frame)),
+					(altZipCode3 = new UITextField (zipCodeTextField.Frame))
+				};
+				break;
+
+			case 4:
+				altAddressElements = new List<UITextField> {
+					(altAddressTextField4 = new UITextField (addressTextField.Frame)),
+					(altLine2TextField4 = new UITextField (addressLine2TextField.Frame)),
+					(altCity4 = new UITextField (cityTextField.Frame)),
+					(altState4 = new UITextField (stateTextField.Frame)),
+					(altZipCode4 = new UITextField (zipCodeTextField.Frame))
+				};
+				break;
+
+			case 5:
+				altAddressElements = new List<UITextField> {
+					(altAddressTextField5 = new UITextField (addressTextField.Frame)),
+					(altLine2TextField5 = new UITextField (addressLine2TextField.Frame)),
+					(altCity5 = new UITextField (cityTextField.Frame)),
+					(altState5 = new UITextField (stateTextField.Frame)),
+					(altZipCode5 = new UITextField (zipCodeTextField.Frame))
+				};
+				break;
+
+			default:
+				break;
+			}
+
+
+			List<String> fieldPlaceHolderText = new List<String>{ "Address", "Address Line 2", "City", "State", "Zip Code" };
+			for (int i = 0; i < altAddressElements.Count; i++) {
+				altAddressElements [i].AdjustFrame (0, frameAdjustment * addressCount, 0, 0);
+				altAddressElements [i].Background = new UIImage ("profile-fields.png");
+				altAddressElements [i].AddPadding (10, 24);
+				altAddressElements [i].Placeholder = fieldPlaceHolderText [i];
+				altAddressElements [i].Font = UIFont.FromName ("HelveticaNeue", 15f);
+				altAddressElements [i].TextColor = UIColor.DarkGray;
+				editProfileScrollView.AddSubview (altAddressElements [i]);
+			}
+
+			addressCount++;
+		}
+		// Overload method for adding an alternate address
+		private void addAlternateAddressPressed (Address address)
 		{
 			float frameAdjustment = 241.0f;
 			List<UIView> adjustedViewsList = new List<UIView> {
@@ -140,155 +259,64 @@ namespace Cnet.iOS
 			// Add new ui elements for alternative address
 			// Address Label
 			UILabel altAddressLabel = new UILabel (addressLabel.Frame);
-			altAddressLabel.AdjustFrame(0, frameAdjustment*addressCount, 100, 0);
-			altAddressLabel.Text = "Alternate Address";
-			altAddressLabel.Font = UIFont.FromName("HelveticaNeue", 15f);
+			altAddressLabel.AdjustFrame (0, frameAdjustment * addressCount, 100, 0);
+			altAddressLabel.Text = "Alternate Address " + addressCount;
+			altAddressLabel.Font = UIFont.FromName ("HelveticaNeue", 15f);
 			altAddressLabel.TextColor = UIColor.DarkGray;
-			editProfileScrollView.AddSubview(altAddressLabel);
+			editProfileScrollView.AddSubview (altAddressLabel);
 
 			// Address text fields
 			List<UITextField> altAddressElements;
 
-			switch (addressCount)
-			{
+			switch (addressCount) {
 			case 1:
-				altAddressElements = new List<UITextField>{
+				altAddressElements = new List<UITextField> {
 					(altAddressTextField1 = new UITextField (addressTextField.Frame)),
 					(altLine2TextField1 = new UITextField (addressLine2TextField.Frame)),
 					(altCity1 = new UITextField (cityTextField.Frame)),
 					(altState1 = new UITextField (stateTextField.Frame)),
-					(altZipCode1 = new UITextField (zipCodeTextField.Frame)) };
+					(altZipCode1 = new UITextField (zipCodeTextField.Frame))
+				};
 				break;
 
 			case 2:
-				altAddressElements = new List<UITextField>{
+				altAddressElements = new List<UITextField> {
 					(altAddressTextField2 = new UITextField (addressTextField.Frame)),
 					(altLine2TextField2 = new UITextField (addressLine2TextField.Frame)),
 					(altCity2 = new UITextField (cityTextField.Frame)),
 					(altState2 = new UITextField (stateTextField.Frame)),
-					(altZipCode2 = new UITextField (zipCodeTextField.Frame)) };
+					(altZipCode2 = new UITextField (zipCodeTextField.Frame))
+				};
 				break;
 
 			case 3:
-				altAddressElements = new List<UITextField>{
+				altAddressElements = new List<UITextField> {
 					(altAddressTextField3 = new UITextField (addressTextField.Frame)),
 					(altLine2TextField3 = new UITextField (addressLine2TextField.Frame)),
 					(altCity3 = new UITextField (cityTextField.Frame)),
 					(altState3 = new UITextField (stateTextField.Frame)),
-					(altZipCode3 = new UITextField (zipCodeTextField.Frame)) };
+					(altZipCode3 = new UITextField (zipCodeTextField.Frame))
+				};
 				break;
 
 			case 4:
-				altAddressElements = new List<UITextField>{
+				altAddressElements = new List<UITextField> {
 					(altAddressTextField4 = new UITextField (addressTextField.Frame)),
 					(altLine2TextField4 = new UITextField (addressLine2TextField.Frame)),
 					(altCity4 = new UITextField (cityTextField.Frame)),
 					(altState4 = new UITextField (stateTextField.Frame)),
-					(altZipCode4 = new UITextField (zipCodeTextField.Frame)) };
+					(altZipCode4 = new UITextField (zipCodeTextField.Frame))
+				};
 				break;
 
 			case 5:
-				altAddressElements = new List<UITextField>{
+				altAddressElements = new List<UITextField> {
 					(altAddressTextField5 = new UITextField (addressTextField.Frame)),
 					(altLine2TextField5 = new UITextField (addressLine2TextField.Frame)),
 					(altCity5 = new UITextField (cityTextField.Frame)),
 					(altState5 = new UITextField (stateTextField.Frame)),
-					(altZipCode5 = new UITextField (zipCodeTextField.Frame)) };
-				break;
-
-			default:
-				break;
-			}
-
-
-			List<String> fieldPlaceHolderText = new List<String>{ "Address", "Address Line 2", "City", "State", "Zip Code" };
-			for (int i = 0; i < altAddressElements.Count; i++)
-			{
-				altAddressElements[i].AdjustFrame(0, frameAdjustment*addressCount, 0, 0);
-				altAddressElements[i].Background = new UIImage ("profile-fields.png");
-				altAddressElements[i].AddPadding (10, 24);
-				altAddressElements[i].Placeholder = fieldPlaceHolderText[i];
-				altAddressElements[i].Font = UIFont.FromName("HelveticaNeue", 15f);
-				altAddressElements[i].TextColor = UIColor.DarkGray;
-				editProfileScrollView.AddSubview(altAddressElements[i]);
-			}
-
-			addressCount++;
-		}
-
-		// Overload method for adding an alternate address
-		private void addAlternateAddressPressed (Address address)
-		{
-			float frameAdjustment = 241.0f;
-			List<UIView> adjustedViewsList = new List<UIView>{ addAddressButton, emergencyContactLabel, emergencyContactTextField, ecPhoneTextField };
-
-			foreach (UIView view in adjustedViewsList)
-			{
-				view.AdjustFrame(0, frameAdjustment, 0 ,0);
-			}
-
-			// Adjust content size, not frame for scroll view
-			SizeF scrollViewContent = editProfileScrollView.ContentSize;
-			scrollViewContent.Height += frameAdjustment;
-			editProfileScrollView.ContentSize = scrollViewContent;
-
-			// Add new ui elements for alternative address
-			// Address Label
-			UILabel altAddressLabel = new UILabel (addressLabel.Frame);
-			altAddressLabel.AdjustFrame(0, frameAdjustment*addressCount, 100, 0);
-			altAddressLabel.Text = "Alternate Address";
-			altAddressLabel.Font = UIFont.FromName("HelveticaNeue", 15f);
-			altAddressLabel.TextColor = UIColor.DarkGray;
-			editProfileScrollView.AddSubview(altAddressLabel);
-
-			// Address text fields
-			List<UITextField> altAddressElements;
-
-			switch (addressCount)
-			{
-			case 1:
-				altAddressElements = new List<UITextField>{
-					(altAddressTextField1 = new UITextField (addressTextField.Frame)),
-					(altLine2TextField1 = new UITextField (addressLine2TextField.Frame)),
-					(altCity1 = new UITextField (cityTextField.Frame)),
-					(altState1 = new UITextField (stateTextField.Frame)),
-					(altZipCode1 = new UITextField (zipCodeTextField.Frame)) };
-				break;
-
-			case 2:
-				altAddressElements = new List<UITextField>{
-					(altAddressTextField2 = new UITextField (addressTextField.Frame)),
-					(altLine2TextField2 = new UITextField (addressLine2TextField.Frame)),
-					(altCity2 = new UITextField (cityTextField.Frame)),
-					(altState2 = new UITextField (stateTextField.Frame)),
-					(altZipCode2 = new UITextField (zipCodeTextField.Frame)) };
-				break;
-
-			case 3:
-				altAddressElements = new List<UITextField>{
-					(altAddressTextField3 = new UITextField (addressTextField.Frame)),
-					(altLine2TextField3 = new UITextField (addressLine2TextField.Frame)),
-					(altCity3 = new UITextField (cityTextField.Frame)),
-					(altState3 = new UITextField (stateTextField.Frame)),
-					(altZipCode3 = new UITextField (zipCodeTextField.Frame)) };
-				break;
-
-			case 4:
-				altAddressElements = new List<UITextField>{
-					(altAddressTextField4 = new UITextField (addressTextField.Frame)),
-					(altLine2TextField4 = new UITextField (addressLine2TextField.Frame)),
-					(altCity4 = new UITextField (cityTextField.Frame)),
-					(altState4 = new UITextField (stateTextField.Frame)),
-					(altZipCode4 = new UITextField (zipCodeTextField.Frame)) };
-				break;
-
-			case 5:
-				altAddressElements = new List<UITextField>{
-					(altAddressTextField5 = new UITextField (addressTextField.Frame)),
-					(altLine2TextField5 = new UITextField (addressLine2TextField.Frame)),
-					(altCity5 = new UITextField (cityTextField.Frame)),
-					(altState5 = new UITextField (stateTextField.Frame)),
-					(altZipCode5 = new UITextField (zipCodeTextField.Frame)) };
+					(altZipCode5 = new UITextField (zipCodeTextField.Frame))
+				};
 				break;
 
 			default:
@@ -297,23 +325,28 @@ namespace Cnet.iOS
 
 			List<String> fieldPlaceHolderText = new List<String> { "Address", "Address Line 2", "City", "State", "Zip Code" };
 			// Add values from passed address
-			List<String> fieldValues = new List<String> { address.Line1, address.Line2, address.City, address.State, address.Zip };
+			List<String> fieldValues = new List<String> {
+				address.Line1,
+				address.Line2,
+				address.City,
+				address.State,
+				address.Zip
+			};
 
-			for (int i = 0; i < altAddressElements.Count; i++)
-			{
-				altAddressElements[i].AdjustFrame(0, frameAdjustment, 0, 0);
-				altAddressElements[i].Background = new UIImage ("profile-fields.png");
-				altAddressElements[i].AddPadding (10, 24);
-				altAddressElements[i].Placeholder = fieldPlaceHolderText[i];
-				altAddressElements[i].Text = fieldValues[i];
-				altAddressElements[i].Font = UIFont.FromName("HelveticaNeue", 15f);
-				altAddressElements[i].TextColor = UIColor.DarkGray;
-				editProfileScrollView.AddSubview(altAddressElements[i]);
+			for (int i = 0; i < altAddressElements.Count; i++) {
+				altAddressElements [i].AdjustFrame (0, frameAdjustment, 0, 0);
+				altAddressElements [i].Background = new UIImage ("profile-fields.png");
+				altAddressElements [i].AddPadding (10, 24);
+				altAddressElements [i].Placeholder = fieldPlaceHolderText [i];
+				altAddressElements [i].Text = fieldValues [i];
+				altAddressElements [i].Font = UIFont.FromName ("HelveticaNeue", 15f);
+				altAddressElements [i].TextColor = UIColor.DarkGray;
+				editProfileScrollView.AddSubview (altAddressElements [i]);
 			}
 
 			addressCount++;
 		}
-			
+
 		private void PhoneCarrierClick (object sender, EventArgs e)
 		{
 			ShowCarrierPicker ();
@@ -450,8 +483,7 @@ namespace Cnet.iOS
 			user.AddressCurrent.State = stateTextField.Text;
 			user.AddressCurrent.Zip = zipCodeTextField.Text;
 
-			if (addressCount > 1)
-			{
+			if (addressCount > 1) {
 				// Must be using at least one alternate address
 				user.AddressAlternate1.Line1 = altAddressTextField1.Text;
 				user.AddressAlternate1.Line2 = altLine2TextField1.Text;
@@ -459,8 +491,7 @@ namespace Cnet.iOS
 				user.AddressAlternate1.State = altState1.Text;
 				user.AddressAlternate1.Zip = altZipCode1.Text;
 
-				if (addressCount > 2)
-				{
+				if (addressCount > 2) {
 					user.AddressAlternate2.Line1 = altAddressTextField2.Text;
 					user.AddressAlternate2.Line2 = altLine2TextField2.Text;
 					user.AddressAlternate2.City = altCity2.Text;
@@ -468,8 +499,7 @@ namespace Cnet.iOS
 					user.AddressAlternate2.Zip = altZipCode2.Text;
 				}
 
-				if (addressCount > 3)
-				{
+				if (addressCount > 3) {
 					user.AddressAlternate3.Line1 = altAddressTextField3.Text;
 					user.AddressAlternate3.Line2 = altLine2TextField3.Text;
 					user.AddressAlternate3.City = altCity3.Text;
@@ -477,8 +507,7 @@ namespace Cnet.iOS
 					user.AddressAlternate3.Zip = altZipCode3.Text;
 				}
 
-				if (addressCount > 4)
-				{
+				if (addressCount > 4) {
 					user.AddressAlternate4.Line1 = altAddressTextField4.Text;
 					user.AddressAlternate4.Line2 = altLine2TextField4.Text;
 					user.AddressAlternate4.City = altCity4.Text;
@@ -486,8 +515,7 @@ namespace Cnet.iOS
 					user.AddressAlternate4.Zip = altZipCode4.Text;
 				}
 
-				if (addressCount > 5)
-				{
+				if (addressCount > 5) {
 					user.AddressAlternate5.Line1 = altAddressTextField5.Text;
 					user.AddressAlternate5.Line2 = altLine2TextField5.Text;
 					user.AddressAlternate5.City = altCity5.Text;
@@ -513,6 +541,7 @@ namespace Cnet.iOS
 		{
 			phoneCarrierButton.TouchUpInside += PhoneCarrierClick;
 		}
+
 		#endregion
 	}
 }
