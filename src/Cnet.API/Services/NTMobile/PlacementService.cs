@@ -19,31 +19,78 @@ namespace Cnt.API.Services.NTMobile
 		}
 
 		/// <summary>
-		/// Gets all upcoming assignments for the current user for the current week.
+		/// Gets all upcoming assignments for the current user from now to the specified date.
 		/// </summary>
-		/// <returns>All upcoming assignments for the current user for the current week.</returns>
+		/// <param name="toDate">The to date.</param>
+		/// <returns>All upcoming assignments for the current user from now to the specified date.</returns>
+		public IEnumerable<Assignment> GetUpcomingAssignments(DateTime toDate)
+		{
+			return GetAssignmentsInternal(DateTime.Now, toDate);
+		}
+
+		/// <summary>
+		/// Gets all upcoming assignments for the current user for the specified dates.
+		/// </summary>
+		/// <param name="startDate">The start date.</param>
+		/// <param name="endDate">The end date.</param>
+		/// <returns>All upcoming assignments for the current user for the specified dates.</returns>
+		[Obsolete("Use GetUpcomingAssignments(DateTime toDate) instead.")]
 		public IEnumerable<Assignment> GetUpcomingAssignments(DateTime startDate, DateTime endDate)
 		{
-			return GetAssignments(AssignmentType.Upcoming, startDate, endDate);
+			// Upcoming assignments are in the future.
+			if (startDate < DateTime.Now)
+				startDate = DateTime.Now;
+			return GetAssignmentsInternal(startDate, endDate);
 		}
 
 		/// <summary>
-		/// Gets all completed assignments for the current user for the current week.
+		/// Gets all completed assignments for the current user from the specified date to now.
 		/// </summary>
-		/// <returns>All completed assignments for the current user for the current week.</returns>
+		/// <param name="fromDate">The from date.</param>
+		/// <returns>All completed assignments for the current user from the specified date to now.</returns>
+		public IEnumerable<Assignment> GetCompletedAssignments(DateTime fromDate)
+		{
+			return GetAssignmentsInternal(fromDate, DateTime.Now);
+		}
+
+		/// <summary>
+		/// Gets all completed assignments for the current user for the specified dates.
+		/// </summary>
+		/// <param name="startDate">The start date.</param>
+		/// <param name="endDate">The end date.</param>
+		/// <returns>All completed assignments for the current user for the specified dates.</returns>
+		[Obsolete("Use GetCompletedAssignments(DateTime fromDate) instead.")]
 		public IEnumerable<Assignment> GetCompletedAssignments(DateTime startDate, DateTime endDate)
 		{
-			return GetAssignments(AssignmentType.Completed, startDate, endDate);
+			// Completed assignments are in the past.
+			if (endDate > DateTime.Now)
+				endDate = DateTime.Now;
+			return GetAssignmentsInternal(startDate, endDate);
 		}
 
 		/// <summary>
-		/// Gets the all assignments for the given placement.
+		/// Gets all completed assignments for the current user for the specified dates.
 		/// </summary>
-		/// <param name="placementId">Placement identifier.</param>
-		/// <returns>All assignments for the given placement.</returns>
+		/// <param name="startDate">The start date.</param>
+		/// <param name="endDate">The end date.</param>
+		/// <returns>All completed assignments for the current user for the specified dates.</returns>
+		public IEnumerable<Assignment> GetAssignments(DateTime startDate, DateTime endDate)
+		{
+			return GetAssignmentsInternal(startDate, endDate);
+		}
+
+		/// <summary>
+		/// Gets the all assignments for the given placement and dates.
+		/// </summary>
+		/// <param name="placement">The placement.</param>
+		/// <param name="startDate">The start date.</param>
+		/// <param name="endDate">The end date.</param>
+		/// <returns>All assignments for the given placement and dates.</returns>
 		public IEnumerable<Assignment> GetAssignments(Placement placement, DateTime startDate, DateTime endDate)
 		{
-			return GetAssignments (placement, (AssignmentType.Completed | AssignmentType.Upcoming), startDate, endDate);
+			var timesheets = _Client.TimesheetService.GetTimesheets(startDate, endDate);
+			var updateNotifications = _Client.NotificationService.GetPlacementUpdatedNotifications();
+			return GetAssignmentsInternal(placement, timesheets, updateNotifications, startDate, endDate);
 		}
 
 		/// <summary>
@@ -56,10 +103,10 @@ namespace Cnt.API.Services.NTMobile
 		}
 
 		/// <summary>
-		/// Gets a filterd list of all placements for the current user.
+		/// Gets a filtered list of all placements for the current user.
 		/// </summary>
 		/// <param name="query">The query used to filter.</param>
-		/// <returns>All placements for the current user.</returns>
+		/// <returns>A filtered list of all placements for the current user.</returns>
 		public IEnumerable<Placement> GetPlacements(string query)
 		{
 			return CntRestHelper.Request<IEnumerable<Placement>>(Constants.NTMOBILE_BASEURL + "/placements?q=" + query, _Client.UserName, _Client.Password).Data;
@@ -105,19 +152,21 @@ namespace Cnt.API.Services.NTMobile
 		/// <param name="startDate">The start date.</param>
 		/// <param name="endDate">The end date.</param>
 		/// <returns>All assignments for the specified week.</returns>
-		private IList<Assignment> GetAssignments(AssignmentType type, DateTime startDate, DateTime endDate)
+		private IList<Assignment> GetAssignmentsInternal(DateTime startDate, DateTime endDate)
 		{
 			string query = String.Format("Start <= {0} AND End >= {1}", startDate.ToShortDateString(), endDate.ToShortDateString());
-			IEnumerable<Placement> placements = GetPlacements(query);
+			var placements = GetPlacements(query);
+			var timesheets = _Client.TimesheetService.GetTimesheets(startDate, endDate);
+			var updateNotifications = _Client.NotificationService.GetPlacementUpdatedNotifications();
 
-			List<Assignment> assignments = new List<Assignment>();
+			var assignments = new List<Assignment>();
 			foreach (Placement placement in placements)
 			{
-				assignments.AddRange(GetAssignments(placement, type, startDate, endDate));
+				assignments.AddRange(GetAssignmentsInternal(placement, timesheets.Where(t => t.PlacementId == placement.Id), updateNotifications.Where(n => n.AssociatedId == placement.Id), startDate, endDate));
 			}
 
-			// Order "New" (subtype category and unconfirmed) status first, then order by date descending.
-			return assignments.OrderByDescending(a => a.Placement.SubServiceCategory == 1 && !a.Placement.IsConfirmed).ThenBy(a => a.Start).ToList();
+			// Order "New" status first, then order by date.
+			return assignments.OrderByDescending(a => a.Status == AssignmentStatus.New).ThenBy(a => a.Start).ToList();
 		}
 
 		/// <summary>
@@ -128,53 +177,70 @@ namespace Cnt.API.Services.NTMobile
 		/// <param name="startDate">The start date.</param>
 		/// <param name="endDate">The end date.</param>
 		/// <returns>All assignments from the placement for the specified week.</returns>
-		private IList<Assignment> GetAssignments(Placement placement, AssignmentType type, DateTime startDate, DateTime endDate)
+		private IList<Assignment> GetAssignmentsInternal(Placement placement, IEnumerable<Timesheet> timesheets, IEnumerable<Notification> updateNotifications, DateTime startDate, DateTime endDate)
 		{
-			List<Assignment> assignments = new List<Assignment> ();
+			List<Assignment> assignments = new List<Assignment>();
 			foreach (Schedule schedule in placement.Schedules)
 			{
-				AdvanceSchedule advSchedule = new AdvanceSchedule (schedule);
-				DateTime? nextOccurrence = advSchedule.NextOccurrence (startDate.AddDays (-1));
-				while (nextOccurrence.HasValue && nextOccurrence.Value < endDate.AddDays (1)) 
+				AdvanceSchedule advSchedule = new AdvanceSchedule(schedule);
+				DateTime? nextOccurrence = advSchedule.NextOccurrence(startDate.AddDays(-1));
+				while (nextOccurrence.HasValue && nextOccurrence.Value < endDate.AddDays(1))
 				{
 					// Determine if the assignment is canceled.
 					bool isCanceled = placement.IsCanceled || schedule.IsCanceled;
-					foreach (DateRange cancelDate in placement.CancelDates) 
+					foreach (DateRange cancelDate in placement.CancelDates)
 					{
 						isCanceled = isCanceled || (nextOccurrence.Value >= cancelDate.Start && nextOccurrence.Value <= cancelDate.End);
 					}
 
 					// Save the start time and get the next occurrence now so we can continue if we need to.
-					DateTime start = nextOccurrence.Value.AddSeconds (schedule.Time.Start);
-					nextOccurrence = advSchedule.NextOccurrence (nextOccurrence.Value);
-
-					// If we are only loading completed assignments and the assignment is not completed, skip it.
-					bool isCompleted = start.AddSeconds (schedule.Time.Duration) < DateTime.Now;
-					if (!(type.HasFlag(AssignmentType.Completed) && isCompleted) && 
-						!(type.HasFlag(AssignmentType.Upcoming) && !isCompleted))
-						continue;
+					DateTime start = nextOccurrence.Value.AddSeconds(schedule.Time.Start);
+					nextOccurrence = advSchedule.NextOccurrence(nextOccurrence.Value);
 
 					// If a "break off" of the new assignment is already in our assignments list, skip this assignment (it is the parent and the "break off" has priority).
-					Assignment child = assignments.FirstOrDefault (a => a.ScheduleParentId == schedule.Id && a.Start.Date == start.Date);
-					if (child != null) 
+					Assignment child = assignments.FirstOrDefault(a => a.ScheduleParentId == schedule.Id && a.Start.Date == start.Date);
+					if (child != null)
 					{
 						// If the "break off" is canceled, remove it so it can be replaced by the parent.
-						if (child.IsCanceled)
-							assignments.Remove (child);
+						if (child.Status == AssignmentStatus.Canceled)
+							assignments.Remove(child);
 						else
 							continue;
 					}
 
 					// If we have a "break off" assignment and the parent is already in our assignments list, remove the parent so it can be replaced with the "break off" one.
-					Assignment parent = assignments.FirstOrDefault (a => a.ScheduleId == schedule.ParentId && a.Start.Date == start.Date && !isCanceled);
+					Assignment parent = assignments.FirstOrDefault(a => a.ScheduleId == schedule.ParentId && a.Start.Date == start.Date && !isCanceled);
 					if (parent != null)
-						assignments.Remove (parent);
+						assignments.Remove(parent);
 
-					assignments.Add (new Assignment () 
+					bool isCompleted = start.AddSeconds(schedule.Time.Duration) < DateTime.Now;
+					bool hasTimesheet = (timesheets != null) && timesheets.Any(t => t.Start.Date == start.Date && DateHelper.DateDiff(DatePart.Second, t.Start, t.End) == schedule.Time.Duration);
+					bool hasUpdates = (updateNotifications != null) && (updateNotifications.Count() > 0);
+					AssignmentStatus status;
+					if (isCompleted)
+					{
+						if (isCanceled)
+							status = AssignmentStatus.Canceled;
+						else if (placement.SubServiceCategory == 1 && !placement.IsConfirmed)
+							status = AssignmentStatus.New;
+						else if (hasUpdates)
+							status = AssignmentStatus.Updated;
+						else
+							status = AssignmentStatus.Confirmed;
+					}
+					else
+					{
+						if (hasTimesheet)
+							status = AssignmentStatus.NoTimesheetRequired;
+						else
+							status = AssignmentStatus.TimesheetRequired;
+					}
+
+					assignments.Add(new Assignment()
 					{
 						Start = start,
 						Duration = schedule.Time.Duration,
-						IsCanceled = isCanceled,
+						Status = status,
 						Placement = placement,
 						ScheduleId = schedule.Id,
 						ScheduleParentId = schedule.ParentId
@@ -183,14 +249,6 @@ namespace Cnt.API.Services.NTMobile
 			}
 			return assignments;
 		}
-
-		[Flags]
-		private enum AssignmentType
-		{
-			Completed = 1,
-			Upcoming = 2
-		}
-
 		#endregion
 	}
 }

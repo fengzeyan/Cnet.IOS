@@ -1,4 +1,5 @@
 ﻿using Cnt.Web.API.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Cnt.API.Services.NTMobile
@@ -21,6 +22,25 @@ namespace Cnt.API.Services.NTMobile
 		public IEnumerable<Notification> GetNotifications()
 		{
 			return CntRestHelper.Request<IEnumerable<Notification>>(Constants.NTMOBILE_BASEURL + "/notifications", _Client.UserName, _Client.Password).Data;
+		}
+
+		/// <summary>
+		/// Gets a filtered list of notifications for the current user.
+		/// </summary>
+		/// <param name="query">The query used to filter.</param>
+		/// <returns>A filtered list of all notifications for the current user.</returns>
+		public IEnumerable<Notification> GetNotifications(string query)
+		{
+			return CntRestHelper.Request<IEnumerable<Notification>>(Constants.NTMOBILE_BASEURL + "/notifications?q=" + query, _Client.UserName, _Client.Password).Data;
+		}
+
+		/// <summary>
+		/// Gets all placement updated notifications for the current user.
+		/// </summary>
+		/// <returns>All placement updated notifications for the current user.</returns>
+		public IEnumerable<Notification> GetPlacementUpdatedNotifications()
+		{
+			return GetNotifications("NotificationType == 'PlacementUpdated'");
 		}
 
 		/// <summary>

@@ -89,7 +89,7 @@ namespace Cnet.iOS
 		{
 			Client client = AuthenticationHelper.GetClient ();
 			userAvailabilityDay = client.AvailabilityService.GetAvailability (selectedDate, selectedDate).FirstOrDefault ();
-			assignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (selectedDate, selectedDate));
+			assignments = new List<Assignment> (client.PlacementService.GetAssignments (selectedDate, selectedDate));
 		}
 
 		private void RenderEvents()

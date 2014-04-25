@@ -324,6 +324,9 @@
     <Compile Include="..\Cnet.API\Models\Assignment.cs">
       <Link>Cnet.API\Models\Assignment.cs</Link>
     </Compile>
+    <Compile Include="..\Cnet.API\Models\AssignmentStatus.cs">
+      <Link>Cnet.API\Models\AssignmentStatus.cs</Link>
+    </Compile>
     <Compile Include="..\Cnet.API\RestHelper.cs">
       <Link>Cnet.API\RestHelper.cs</Link>
     </Compile>
@@ -596,7 +599,5 @@
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

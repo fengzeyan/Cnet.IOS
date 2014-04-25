@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Cnt.API.Exceptions;
+using Cnt.API.Models;
+using Cnt.Web.API.Models;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Net;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using Cnt.API.Exceptions;
-using Cnt.API.Models;
-using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
@@ -141,31 +140,12 @@ namespace Cnet.iOS
 			return UIImageFromUrl(user.Photo);
 		}
 
-		public static AssignmentStatus GetStatus (this Assignment assignment, bool hasTimesheet = false)
-		{
-			AssignmentStatus status;
-			if (assignment.Start.AddSeconds (assignment.Duration) >= DateTime.Now) {
-				if (assignment.IsCanceled)
-					status = AssignmentStatus.Canceled;
-				else if (assignment.Placement.SubServiceCategory == 1 && !assignment.Placement.IsConfirmed)
-					status = AssignmentStatus.New;
-				else
-					status = AssignmentStatus.Confirmed;
-			} else {
-				if (hasTimesheet)
-					status = AssignmentStatus.NoTimesheetRequired;
-				else
-					status = AssignmentStatus.TimesheetRequired;
-			}
-			return status;
-		}
-
 		public static AssignmentStatus GetStatus (this List<Assignment> assignments)
 		{
 			// Default to the lowest priority status.
 			AssignmentStatus status = AssignmentStatus.NoTimesheetRequired;
 			foreach (Assignment assignment in assignments) {
-				AssignmentStatus currentStatus = assignment.GetStatus ();
+				AssignmentStatus currentStatus = assignment.Status;
 				if ((int)currentStatus < (int)status)
 					status = currentStatus;
 			}
@@ -174,7 +154,7 @@ namespace Cnet.iOS
 
 		public static UIImage GetStatusFlagImage(this Assignment assignment)
 		{
-			switch (assignment.GetStatus ()) {
+			switch (assignment.Status) {
 			case AssignmentStatus.New:
 				return new UIImage ("pointer-icon-upcoming.png");
 			case AssignmentStatus.Confirmed:
@@ -189,7 +169,7 @@ namespace Cnet.iOS
 
 		public static UIImage GetStatusImage(this Assignment assignment)
 		{
-			switch (assignment.GetStatus ()) {
+			switch (assignment.Status) {
 			case AssignmentStatus.New:
 				return new UIImage ("icon-upcoming.png");
 			case AssignmentStatus.Confirmed:
@@ -310,7 +290,7 @@ namespace Cnet.iOS
 
 		public static string ToStatusString(this Assignment assignment)
 		{
-			switch (assignment.GetStatus ()) {
+			switch (assignment.Status) {
 			case AssignmentStatus.New:
 				return "Unconfirmed";
 			case AssignmentStatus.Canceled:
@@ -344,15 +324,5 @@ namespace Cnet.iOS
 		}
 		#endregion
 	}
-
-	public enum AssignmentStatus
-	{
-		New,
-		TimesheetRequired,
-		Canceled,
-		Updated,
-		Confirmed,
-		NoTimesheetRequired
-  	}
 }
 

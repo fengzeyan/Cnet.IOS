@@ -93,8 +93,8 @@ namespace Cnet.iOS
 		{
 			Client client = AuthenticationHelper.GetClient ();
 			DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
-			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value, currentPayPeriod.End.Value));
-			upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (DateTime.Today, DateTime.Today.AddDays(7)));
+			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value));
+			upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (DateTime.Today.AddDays(7)));
 
 			// Next Assignment
 			if (upcomingAssignments.Count > 0)
@@ -157,13 +157,12 @@ namespace Cnet.iOS
 				OSAssignmentsTableViewCell cell = (OSAssignmentsTableViewCell)tableView.DequeueReusableCell (OSAssignmentsTableViewCellId, indexPath);
 
 				Assignment assignment = controller.Assignments [indexPath.Row];
-				AssignmentStatus status = assignment.GetStatus ();
 
 				TimeSpan updated = TimeSpan.MinValue;
 				string belowProfilePicLabel = String.Empty;
 				int childCount = assignment.Placement.Students.Count ();
 
-				switch (status) {
+				switch (assignment.Status) {
 				case AssignmentStatus.New:
 					belowProfilePicLabel = "Unconfirmed";
 					updated = DateTime.Now.Subtract (assignment.Start);
@@ -181,7 +180,7 @@ namespace Cnet.iOS
 				cell.DateLabel.Text = assignment.ToStartString();
 
 				cell.ProfileImage.Image = assignment.Placement.GetProfileImage();
-				cell.InfoImage.Image = status.GetInfoImage();
+				cell.InfoImage.Image = assignment.Status.GetInfoImage();
 
 				cell.FamilyNameLabel.Text = assignment.Placement.ToFamilyNameString() + " - " + controller.Assignments[indexPath.Row].Placement.SubServiceAbbreviation;
 
@@ -195,7 +194,7 @@ namespace Cnet.iOS
 					cell.BookmarkImage.Hidden = true;
 					if (purpleLabelMaxWidth != cell.PurpleInfoLabel.Frame.Width)
 						cell.PurpleInfoLabel.AdjustFrame (0, 0, purpleLabelMaxWidth - cell.PurpleInfoLabel.Frame.Width, 0);
-					cell.PurpleInfoLabel.Text = (status == AssignmentStatus.TimesheetRequired) ? "Timesheet due" : String.Empty;
+					cell.PurpleInfoLabel.Text = (assignment.Status == AssignmentStatus.TimesheetRequired) ? "Timesheet due" : String.Empty;
 				}
 
 				cell.TimeLabel.Text = assignment.ToTimesString ();

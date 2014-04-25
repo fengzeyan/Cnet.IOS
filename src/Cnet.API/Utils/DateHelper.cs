@@ -16,7 +16,7 @@ namespace Cnt.API.Utils
         /// <param name="culture">The <see cref="CultureInfo"/> to use.</param>
         /// <returns>The difference between the two dates, in the part specified.</returns>
         /// <exception cref="ArgumentException"><paramref name="part"/> is not a valid <see cref="DatePart"/> value.</exception>
-        public static long DateDiff(DatePart part, DateTimeOffset date1, DateTimeOffset date2, CultureInfo culture)
+        public static long DateDiff(DatePart part, DateTimeOffset date1, DateTimeOffset date2, CultureInfo culture = null)
         {
             if (culture == null)
             {

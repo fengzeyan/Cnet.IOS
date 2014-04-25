@@ -48,12 +48,12 @@ namespace Cnet.iOS
 			user = client.UserService.GetUser(AuthenticationHelper.UserData.UserId);
 
 			DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
-			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value, currentPayPeriod.End.Value));
-			upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (DateTime.Today, DateTime.Today.AddDays(7)));
+			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value));
+			upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (DateTime.Today.AddDays(7)));
 
 			// Next Assignment
-			if (upcomingAssignments.Any(a => a.GetStatus() == AssignmentStatus.Confirmed))
-				nextAssignment = upcomingAssignments.Where(a => a.GetStatus() == AssignmentStatus.Confirmed && a.Start > DateTime.Now).OrderBy (a => a.Start).First ();
+			if (upcomingAssignments.Any(a => a.Status == AssignmentStatus.Confirmed))
+				nextAssignment = upcomingAssignments.Where(a => a.Status == AssignmentStatus.Confirmed && a.Start > DateTime.Now).OrderBy (a => a.Start).First ();
 		}
 
 		private void RenderUser()
@@ -62,8 +62,8 @@ namespace Cnet.iOS
 			addressLabel.Text = user.AddressCurrent.ToLocationString ("{2}, {3} {4}");
 			phoneLabel.Text = String.IsNullOrWhiteSpace (user.MobilePhone) ? user.HomePhone : user.MobilePhone;
 
-			assignmentsLabel.Text = upcomingAssignments.Where(a => a.GetStatus() == AssignmentStatus.New).Count() + " new";
-			timesheetsLabel.Text = completedAssignments.Where(a => a.GetStatus() == AssignmentStatus.TimesheetRequired).Count() + " due";
+			assignmentsLabel.Text = upcomingAssignments.Where(a => a.Status == AssignmentStatus.New).Count() + " new";
+			timesheetsLabel.Text = completedAssignments.Where(a => a.Status == AssignmentStatus.TimesheetRequired).Count() + " due";
 			if (nextAssignment != null)
 				nextAssignmentLabel.Text = nextAssignment.ToTimeUntilString ();
 			else

@@ -57,7 +57,7 @@ namespace Cnet.iOS
 		{
 			Client client = AuthenticationHelper.GetClient ();
 			DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
-			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value, currentPayPeriod.End.Value));
+			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value));
 			timesheets = new List<Timesheet> (client.TimesheetService.GetTimesheets ());
 		}
 

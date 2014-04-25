@@ -1,4 +1,5 @@
 ﻿using Cnt.Web.API.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Cnt.API.Services.NTMobile
@@ -21,6 +22,28 @@ namespace Cnt.API.Services.NTMobile
 		public IEnumerable<Timesheet> GetTimesheets()
 		{
 			return CntRestHelper.Request<IEnumerable<Timesheet>>(Constants.NTMOBILE_BASEURL + "/timesheets", _Client.UserName, _Client.Password).Data;
+		}
+
+		/// <summary>
+		/// Gets all timesheets for the current user for the given dates.
+		/// </summary>
+		/// <param name="startDate">The start date.</param>
+		/// <param name="endDate">The end date.</param>
+		/// <returns>All timesheets for the current user for the given dates.</returns>
+		public IEnumerable<Timesheet> GetTimesheets(DateTime startDate, DateTime endDate)
+		{
+			string query = String.Format("Start <= {0} AND End >= {1}", startDate.ToShortDateString(), endDate.ToShortDateString());
+			return GetTimesheets(query);
+		}
+
+		/// <summary>
+		/// Gets a filtered list of timesheets for the current user.
+		/// </summary>
+		/// <param name="query">The query used to filter.</param>
+		/// <returns>A filtered list of all timesheets for the current user.</returns>
+		public IEnumerable<Timesheet> GetTimesheets(string query)
+		{
+			return CntRestHelper.Request<IEnumerable<Timesheet>>(Constants.NTMOBILE_BASEURL + "/timesheets?q=" + query, _Client.UserName, _Client.Password).Data;
 		}
 
 		/// <summary>
