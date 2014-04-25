@@ -110,14 +110,12 @@ namespace Cnet.iOS
 			public override int RowsInSection (UITableView tableview, int section)
 			{
 				if (controller.availabilityBlocks == null)
-					return 1;
-				return controller.availabilityBlocks.Count + 1;
+					return 0;
+				return controller.availabilityBlocks.Count;
 			}
 
 			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				if (indexPath.Row == (controller.availabilityBlocks.Count))
-					return 50;
 				return 105;//165;
 			}
 
@@ -125,11 +123,9 @@ namespace Cnet.iOS
 			{
 				UITableViewCell cell = new UITableViewCell ();
 				int rowIndex = indexPath.Row;
-				if (rowIndex != controller.availabilityBlocks.Count) {
-					AvailabilityBlock availabilityBlock = controller.availabilityBlocks [rowIndex];
-					cell = tableView.DequeueReusableCell (AvailabilityCellId, indexPath);
-					RenderAvailabilityCell ((OSAvailabilityCell)cell, rowIndex, availabilityBlock);
-				}
+				AvailabilityBlock availabilityBlock = controller.availabilityBlocks [rowIndex];
+				cell = tableView.DequeueReusableCell (AvailabilityCellId, indexPath);
+				RenderAvailabilityCell ((OSAvailabilityCell)cell, rowIndex, availabilityBlock);
 				return cell;
 			}
 			#endregion

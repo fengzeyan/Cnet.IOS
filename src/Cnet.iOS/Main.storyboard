@@ -1114,7 +1114,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Z4t-Fv-uPH" kind="modal" modalTransitionStyle="crossDissolve" id="F5g-1m-IVQ"/>
+                                            <segue destination="Z4t-Fv-uPH" kind="modal" identifier="" modalTransitionStyle="crossDissolve" id="F5g-1m-IVQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WBW-Gp-i2y">
@@ -1225,7 +1225,6 @@
                                         <connections>
                                             <outlet property="dateLabel" destination="X0Y-FN-yMv" id="Vcr-2p-IUn"/>
                                             <outlet property="timeLabel" destination="RG8-Ho-99Q" id="SWf-0y-SOa"/>
-                                            <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" modalTransitionStyle="crossDissolve" id="ToG-H1-P28"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AppointmentCellIdentifier" id="t0I-Fx-zaK" customClass="OSCalendarAppointmentCell">
@@ -1307,7 +1306,7 @@
                                             <outlet property="startTimePmLabel" destination="FGx-3V-lJO" id="Xsp-QW-M6C"/>
                                             <outlet property="statusImage" destination="XaK-7P-IIp" id="G0y-Q1-g9x"/>
                                             <outlet property="statusLabel" destination="Yvz-8f-tfJ" id="Ldu-MQ-aKq"/>
-                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="AssignmentDetail" modalTransitionStyle="crossDissolve" id="d83-zT-diI"/>
+                                            <segue destination="iwz-5G-sLE" kind="modal" identifier="AssignmentDetail" modalTransitionStyle="crossDissolve" id="VJR-Zx-ddP"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoAppointmentCellIdentifier" id="1fz-mu-6Kd" customClass="OSCalendarNoAppointmentCell">
@@ -1335,7 +1334,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wWk-yE-Sxu">
-                                <rect key="frame" x="75" y="479" width="170" height="37"/>
+                                <rect key="frame" x="70" y="473" width="181" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="View Availability" backgroundImage="purple-button.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1350,6 +1349,8 @@
                     </view>
                     <connections>
                         <outlet property="calendarTable" destination="N6Q-58-Ify" id="0E8-Z7-3wl"/>
+                        <segue destination="5bh-YD-a8B" kind="modal" identifier="AddAvailabilityBlock" modalTransitionStyle="crossDissolve" id="sUj-KP-fah"/>
+                        <segue destination="1aZ-Bh-vCu" kind="modal" identifier="EditAvailabilityBlock" modalTransitionStyle="crossDissolve" id="5Eo-Nb-tLx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8e5-i7-Zke" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3744,7 +3745,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="165" sectionHeaderHeight="22" sectionFooterHeight="22" id="9el-es-Uqg">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="454"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -3825,35 +3826,24 @@
                                             <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" modalTransitionStyle="crossDissolve" id="8eF-Po-Blh"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddAvailabilityCellIdentifier" rowHeight="50" id="Hs0-HO-RGv" customClass="OSAddAvailabilityCell">
-                                        <rect key="frame" x="0.0" y="187" width="320" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hs0-HO-RGv" id="E7K-Nf-a34">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yz8-O5-Gl3">
-                                                    <rect key="frame" x="70" y="3" width="181" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
-                                                    <state key="normal" title="Add Availability" backgroundImage="purple-button.png">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <segue destination="5bh-YD-a8B" kind="modal" modalTransitionStyle="crossDissolve" id="ffn-1S-UiO"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="DbE-Tk-nz4" id="Yav-ve-qr0"/>
                                     <outlet property="delegate" destination="DbE-Tk-nz4" id="RRt-bV-BCi"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yz8-O5-Gl3">
+                                <rect key="frame" x="70" y="522" width="181" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="Add Availability" backgroundImage="purple-button.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="5bh-YD-a8B" kind="modal" modalTransitionStyle="crossDissolve" id="ffn-1S-UiO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -4518,13 +4508,14 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="AqG-9j-HaY"/>
-        <segue reference="AiH-ud-SHk"/>
-        <segue reference="qMF-x8-UMV"/>
-        <segue reference="kLg-Mr-RbM"/>
-        <segue reference="vLg-fS-Yjj"/>
+        <segue reference="sGH-Kp-aOs"/>
         <segue reference="cdv-8V-Tzf"/>
-        <segue reference="po8-eR-gv3"/>
-        <segue reference="6Lh-UM-wfX"/>
+        <segue reference="1uv-Dv-ZEg"/>
+        <segue reference="5Eo-Nb-tLx"/>
+        <segue reference="F5g-1m-IVQ"/>
+        <segue reference="xUc-TM-EUX"/>
+        <segue reference="VJR-Zx-ddP"/>
+        <segue reference="sUj-KP-fah"/>
         <segue reference="liK-Jx-jnx"/>
     </inferredMetricsTieBreakers>
 </document>

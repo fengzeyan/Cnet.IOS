@@ -314,7 +314,9 @@ namespace Cnet.iOS
 				if (!String.IsNullOrWhiteSpace (controller.placement.Notes))
 					notesLineCount = (int)Math.Ceiling (controller.placement.Notes.ToCharArray ().Length / CharactersPerLine);
 
-				detailsLineCount = (int)Math.Ceiling(controller.placement.ImportantDetails.ToCharArray ().Length / CharactersPerLine);
+				detailsLineCount = 0;
+				if (!String.IsNullOrWhiteSpace (controller.placement.ImportantDetails))
+					detailsLineCount = (int)Math.Ceiling (controller.placement.ImportantDetails.ToCharArray ().Length / CharactersPerLine);
 			}
 
 			private void RenderFamilyCell (OSFamilyCell cell)
@@ -417,15 +419,19 @@ namespace Cnet.iOS
 					cell.OrderNotesLabel.Text = controller.placement.Notes;
 				}
 
-				int detailsHeaderLabelY = 20 + (notesLineCount > 0 ? 40 : 0) + (17 * notesLineCount);
-				int detailsLabelY = detailsHeaderLabelY + 25;
-				int detailsLabelHeight = 17 * detailsLineCount;
-				if (detailsHeaderLabelY != cell.ImportantDetailsHeaderLabel.Frame.Y)
-					cell.ImportantDetailsHeaderLabel.AdjustFrame (0, detailsHeaderLabelY - cell.ImportantDetailsHeaderLabel.Frame.Y, 0, 0);
-				if (detailsLabelY != cell.ImportantDetailsLabel.Frame.Y || detailsLabelHeight != cell.ImportantDetailsLabel.Frame.Height)
-					cell.ImportantDetailsLabel.AdjustFrame (0, detailsLabelY - cell.ImportantDetailsLabel.Frame.Y, 0, detailsLabelHeight - cell.ImportantDetailsLabel.Frame.Height);
-				cell.ImportantDetailsLabel.Lines = detailsLineCount;
-				cell.ImportantDetailsLabel.Text = controller.placement.ImportantDetails;
+				if (String.IsNullOrWhiteSpace (controller.placement.ImportantDetails)) {
+					// Do nothing?
+				} else {
+					int detailsHeaderLabelY = 20 + (notesLineCount > 0 ? 40 : 0) + (17 * notesLineCount);
+					int detailsLabelY = detailsHeaderLabelY + 25;
+					int detailsLabelHeight = 17 * detailsLineCount;
+					if (detailsHeaderLabelY != cell.ImportantDetailsHeaderLabel.Frame.Y)
+						cell.ImportantDetailsHeaderLabel.AdjustFrame (0, detailsHeaderLabelY - cell.ImportantDetailsHeaderLabel.Frame.Y, 0, 0);
+					if (detailsLabelY != cell.ImportantDetailsLabel.Frame.Y || detailsLabelHeight != cell.ImportantDetailsLabel.Frame.Height)
+						cell.ImportantDetailsLabel.AdjustFrame (0, detailsLabelY - cell.ImportantDetailsLabel.Frame.Y, 0, detailsLabelHeight - cell.ImportantDetailsLabel.Frame.Height);
+					cell.ImportantDetailsLabel.Lines = detailsLineCount;
+					cell.ImportantDetailsLabel.Text = controller.placement.ImportantDetails;
+				}
 			}
 			#endregion
 		}

@@ -19,7 +19,8 @@ namespace Cnet.iOS
 	{
 		#region Private Methods
 		private static NSString assignmentDetailSegueName = new NSString("AssignmentDetail");
-		private static NSString availabilityBlockDetailSegueName = new NSString ("AvailabilityBlockDetail");
+		private static NSString editAvailabilityBlockSegueName = new NSString ("EditAvailabilityBlock");
+		private static NSString addAvailabilityBlockSegueName = new NSString ("AddAvailabilityBlock");
 		private DateTime selectedDate;
 		private List<Assignment> assignments;
 		private UserAvailabilityDay userAvailabilityDay;
@@ -46,7 +47,7 @@ namespace Cnet.iOS
 				var selectedAssignment = assignments [indexPath.Row - 1];
 				var view = (OSUnconfirmedAssignmentViewController)segue.DestinationViewController;
 				view.PlacementId = selectedAssignment.Placement.Id;
-			} else if (segue.Identifier == availabilityBlockDetailSegueName) {
+			} else if (segue.Identifier == editAvailabilityBlockSegueName) {
 				var view = (OSEditAvailabilityViewController)segue.DestinationViewController;
 				view.AvailabilityBlockId = userAvailabilityDay.AvailabilityBlockId;
 			}
@@ -139,6 +140,22 @@ namespace Cnet.iOS
 					break;
 				}
 				return cell;
+			}
+
+			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+			{
+				switch (indexPath.Row) {
+				case 0:
+					if (controller.userAvailabilityDay.AvailabilityBlockId > 0)
+						controller.PerformSegue (OSCalendarViewController.editAvailabilityBlockSegueName, this);
+					else 
+						controller.PerformSegue (OSCalendarViewController.addAvailabilityBlockSegueName, this);
+					break;
+				default:
+					if (controller.assignments.Count >= indexPath.Row)
+						controller.PerformSegue (OSCalendarViewController.assignmentDetailSegueName, this);
+					break;
+				}
 			}
 			#endregion
 
