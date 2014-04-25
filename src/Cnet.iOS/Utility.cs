@@ -97,6 +97,26 @@ namespace Cnet.iOS
 			view.Frame = frame;
    		}
 
+		public static bool AddressHasContents(this Address address)
+		{
+			List<String> addressFields = new List<String> {
+				address.Line1,
+				address.Line2,
+				address.Line3,
+				address.City,
+				address.State,
+				address.Zip
+			};
+			foreach (String field in addressFields)
+			{
+				if (!String.IsNullOrWhiteSpace (field))
+				{
+					return true;
+				}
+			}
+				return false;
+		}
+
 		public static void AddPadding (this UITextField textField, float width, float height, UIImage image = null)
 		{
 			UIImageView paddingView = new UIImageView (new RectangleF (0, 0, width, height));
