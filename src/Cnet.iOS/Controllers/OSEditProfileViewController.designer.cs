@@ -16,9 +16,6 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UIButton addAddressButton { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton addPhoneButton { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UILabel addressLabel { get; set; }
 
 		[Outlet]
@@ -49,7 +46,13 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UITextField firstNameTextField { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UITextField homePhoneTextField { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextField lastNameTextField { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField otherPhoneTextField { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIButton phoneCarrierButton { get; set; }
@@ -64,10 +67,16 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UIImageView profileImage { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UITextField schoolPhoneTextField { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextField stateTextField { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UISwitch textMessageSwitch { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITextField workPhoneTextField { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UITextField zipCodeTextField { get; set; }
@@ -80,24 +89,9 @@ namespace Cnet.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (textMessageSwitch != null) {
-				textMessageSwitch.Dispose ();
-				textMessageSwitch = null;
-			}
-
-			if (profileImage != null) {
-				profileImage.Dispose ();
-				profileImage = null;
-			}
-
 			if (addAddressButton != null) {
 				addAddressButton.Dispose ();
 				addAddressButton = null;
-			}
-
-			if (addPhoneButton != null) {
-				addPhoneButton.Dispose ();
-				addPhoneButton = null;
 			}
 
 			if (addressLabel != null) {
@@ -155,21 +149,6 @@ namespace Cnet.iOS
 				lastNameTextField = null;
 			}
 
-			if (phoneTextField != null) {
-				phoneTextField.Dispose ();
-				phoneTextField = null;
-			}
-
-			if (stateTextField != null) {
-				stateTextField.Dispose ();
-				stateTextField = null;
-			}
-
-			if (zipCodeTextField != null) {
-				zipCodeTextField.Dispose ();
-				zipCodeTextField = null;
-			}
-
 			if (phoneCarrierButton != null) {
 				phoneCarrierButton.Dispose ();
 				phoneCarrierButton = null;
@@ -178,6 +157,51 @@ namespace Cnet.iOS
 			if (phoneCarrierLabel != null) {
 				phoneCarrierLabel.Dispose ();
 				phoneCarrierLabel = null;
+			}
+
+			if (phoneTextField != null) {
+				phoneTextField.Dispose ();
+				phoneTextField = null;
+			}
+
+			if (homePhoneTextField != null) {
+				homePhoneTextField.Dispose ();
+				homePhoneTextField = null;
+			}
+
+			if (workPhoneTextField != null) {
+				workPhoneTextField.Dispose ();
+				workPhoneTextField = null;
+			}
+
+			if (schoolPhoneTextField != null) {
+				schoolPhoneTextField.Dispose ();
+				schoolPhoneTextField = null;
+			}
+
+			if (otherPhoneTextField != null) {
+				otherPhoneTextField.Dispose ();
+				otherPhoneTextField = null;
+			}
+
+			if (profileImage != null) {
+				profileImage.Dispose ();
+				profileImage = null;
+			}
+
+			if (stateTextField != null) {
+				stateTextField.Dispose ();
+				stateTextField = null;
+			}
+
+			if (textMessageSwitch != null) {
+				textMessageSwitch.Dispose ();
+				textMessageSwitch = null;
+			}
+
+			if (zipCodeTextField != null) {
+				zipCodeTextField.Dispose ();
+				zipCodeTextField = null;
 			}
 		}
 	}
