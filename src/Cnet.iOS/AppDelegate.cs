@@ -28,10 +28,9 @@ namespace Cnet.iOS
 			Client client = AuthenticationHelper.GetClient ();
 			bool isLoggedIn = (client != null);
 			UIViewController rootViewController;
-			if (isLoggedIn) {
-				AuthenticationHelper.UpdateAppLoadData ();
+			if (isLoggedIn && AuthenticationHelper.UpdateAppLoadData ())
 				rootViewController = (UIViewController)storyboard.InstantiateViewController ("OSAssignmentViewController");
-			} else
+			else
 				rootViewController = (UIViewController)storyboard.InstantiateInitialViewController ();
 
 			Window.RootViewController = rootViewController;

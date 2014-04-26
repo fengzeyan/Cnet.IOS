@@ -32,7 +32,7 @@ namespace Cnt.API.Services.NTMobile
 		/// <returns>All timesheets for the current user for the given dates.</returns>
 		public IEnumerable<Timesheet> GetTimesheets(DateTime startDate, DateTime endDate)
 		{
-			string query = String.Format("Start <= {0} AND End >= {1}", startDate.ToShortDateString(), endDate.ToShortDateString());
+			string query = String.Format("Start >= {0} AND End <= {1}", startDate.ToShortDateString(), endDate.ToShortDateString());
 			return GetTimesheets(query);
 		}
 

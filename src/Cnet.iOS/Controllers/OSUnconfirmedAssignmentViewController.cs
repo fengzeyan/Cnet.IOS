@@ -9,12 +9,14 @@ using MonoTouch.UIKit;
 using Cnt.API;
 using Cnt.API.Models;
 using Cnt.Web.API.Models;
+using Cnt.API.Exceptions;
 
 namespace Cnet.iOS
 {
 	public partial class OSUnconfirmedAssignmentViewController : UIViewController
 	{
 		#region Private Members
+		private static NSString addTimesheetSegueName = new NSString("AddTimesheet");
 		private AssignmentStatus assignmentStatus;
 		private List<Assignment> assignments;
 		private Placement placement;
@@ -24,19 +26,43 @@ namespace Cnet.iOS
 
 		public OSUnconfirmedAssignmentViewController (IntPtr handle) : base (handle)
 		{
+			assignments = new List<Assignment> ();
 		}
 
+		#region Public Methods
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 			if (PlacementId > 0) {
 				LoadPlacement ();
+				WireUpView ();
 				RenderPlacement ();
 			}
 		}
 
+		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
+		{
+			base.PrepareForSegue (segue, sender);
+			if (segue.Identifier == addTimesheetSegueName) {
+				var oldestAssignment = assignments.OrderBy (a => a.Start).FirstOrDefault (a => a.Status == AssignmentStatus.TimesheetRequired);
+				if (oldestAssignment != null) {
+					var view = (OSNewTimesheetViewController)segue.DestinationViewController;
+					view.PlacementId = oldestAssignment.Placement.Id;
+					view.Start = oldestAssignment.Start;
+					view.End = oldestAssignment.Start.AddSeconds (oldestAssignment.Duration);
+				}
+			}
+		}
+		#endregion
+
 		#region Event Delegates
-		public void CallOffice(object sender, EventArgs e)
+		private void CallFamily(object sender, EventArgs e)
+		{
+			if (!Utility.OpenPhoneDailer (placement.ClientMobilePhone))
+				Utility.OpenPhoneDailer (placement.ClientHomePhone);
+		}
+
+		private void CallOffice(object sender, EventArgs e)
 		{
 			NTMobileAppLoadData data = AuthenticationHelper.UserData;
 			UserOfficeInfo office = data.Offices.FirstOrDefault (o => o.Id == placement.OfficeId);
@@ -44,33 +70,40 @@ namespace Cnet.iOS
 				Utility.OpenPhoneDailer (office.Phone);
 		}
 
-		public void CallFamily(object sender, EventArgs e)
-		{
-			if (!Utility.OpenPhoneDailer (placement.ClientMobilePhone))
-				Utility.OpenPhoneDailer (placement.ClientHomePhone);
-		}
-
-		public void CloseMessage (object sender, EventArgs e)
+		private void CloseMessage (object sender, EventArgs e)
 		{
 			messageView.Hidden = true;
 			// TODO: Dismiss notification.
 		}
 
-		public void ConfirmAssignment(object sender, EventArgs e)
+		private void ConfirmAssignment(object sender, EventArgs e)
 		{
-			Client client = AuthenticationHelper.GetClient ();
-			if (client != null)
-				client.PlacementService.ConfirmPlacement (PlacementId);
+			try {
+				Client client = AuthenticationHelper.GetClient ();
+				if (client != null)
+					client.PlacementService.ConfirmPlacement (PlacementId);
+			} catch (CntResponseException ex) {
+				Utility.ShowError (ex);
+			}
 		}
 
-		public void DeclineAssignment(object sender, EventArgs e)
+		private void DeclineAssignment(object sender, EventArgs e)
 		{
-			Client client = AuthenticationHelper.GetClient ();
-			if (client != null)
-				client.PlacementService.DeclinePlacement (PlacementId);
+			try {
+				Client client = AuthenticationHelper.GetClient ();
+				if (client != null)
+					client.PlacementService.DeclinePlacement (PlacementId);
+			} catch (CntResponseException ex) {
+				Utility.ShowError (ex);
+			}
 		}
 
-		public void ViewPolicy (object sender, EventArgs e)
+		private void SubmitTimesheet (object sender, EventArgs e)
+		{
+			PerformSegue (addTimesheetSegueName, this);
+		}
+
+		private void ViewPolicy (object sender, EventArgs e)
 		{
 			string message = "As a College Nannies and Tutors employee, you are expected to fulfill you responsibilities as outlined in the CNT Role Model Promise. "
 				+ "If declining an assignment, you must contact the CNT office to explain the situation. Thank You!";
@@ -81,18 +114,20 @@ namespace Cnet.iOS
 		#region Private Methods
 		private void LoadPlacement()
 		{
-			Client client = AuthenticationHelper.GetClient ();
-			placement = client.PlacementService.GetPlacement (PlacementId);
-			DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
-			DateTime endDate = currentPayPeriod.End.Value > DateTime.Now.AddDays (7) ? currentPayPeriod.End.Value : DateTime.Now.AddDays (7);
-			assignments = new List<Assignment> (client.PlacementService.GetAssignments (placement, currentPayPeriod.Start.Value, endDate));
-			assignmentStatus = assignments.GetStatus ();
+			try {
+				Client client = AuthenticationHelper.GetClient ();
+				placement = client.PlacementService.GetPlacement (PlacementId);
+				DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
+				DateTime endDate = currentPayPeriod.End.Value > DateTime.Now.AddDays (7) ? currentPayPeriod.End.Value : DateTime.Now.AddDays (7);
+				assignments = new List<Assignment> (client.PlacementService.GetAssignments (placement, currentPayPeriod.Start.Value, endDate));
+				assignmentStatus = assignments.GetStatus ();
+			} catch (CntResponseException ex) {
+				Utility.ShowError (ex);
+			}
 		}
 
 		private void RenderPlacement ()
 		{
-			callOfficeButton.Clicked += CallOffice;
-
 			// Message
 			RenderMessage ();
 
@@ -128,8 +163,6 @@ namespace Cnet.iOS
 
 		private void RenderActionButton ()
 		{
-			policyButton.TouchUpInside += ViewPolicy;
-
 			switch (assignmentStatus) {
 			case AssignmentStatus.New:
 				actionButton.SetTitle ("Confirm", UIControlState.Normal);
@@ -138,6 +171,7 @@ namespace Cnet.iOS
 				break;
 			case AssignmentStatus.TimesheetRequired:
 				actionButton.SetTitle ("Submit Timesheet", UIControlState.Normal);
+				actionButton.TouchUpInside += SubmitTimesheet;
 				declineButton.Hidden = true;
 				break;
 			default:
@@ -148,6 +182,13 @@ namespace Cnet.iOS
 				break;
 			}
 		}
+
+		private void WireUpView ()
+		{
+			callOfficeButton.Clicked += CallOffice;
+			policyButton.TouchUpInside += ViewPolicy;
+		}
+
 		#endregion
 
 		private class OSAssignmentDetailSource : UITableViewSource
@@ -298,7 +339,7 @@ namespace Cnet.iOS
 					if (controller.assignmentStatus == AssignmentStatus.New) {
 						childStrings.Add (String.Format ("{0}, {1}", child.Gender, child.ToAgeString ()));
 					} else {
-						childStrings.Add (String.Format ("{0} {1}, {2}", child.Name.Substring (0, child.Name.IndexOf (" ")), child.Gender, child.ToAgeString ()));
+						childStrings.Add (String.Format ("{0} {1}, {2}", child.Name, child.Gender, child.ToAgeString ()));
 					}
 				}
 				childrenLineCount = (int)Math.Ceiling (childStrings.Count / 2m);

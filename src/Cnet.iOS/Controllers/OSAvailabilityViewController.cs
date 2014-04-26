@@ -86,8 +86,12 @@ namespace Cnet.iOS
 
 		private void LoadAvailability ()
 		{
-			Client client = AuthenticationHelper.GetClient ();
-			availabilityBlocks = new List<AvailabilityBlock> (client.AvailabilityService.GetAvailabilityBlocks ());
+			try {
+				Client client = AuthenticationHelper.GetClient ();
+				availabilityBlocks = new List<AvailabilityBlock> (client.AvailabilityService.GetAvailabilityBlocks ());
+			} catch (CntResponseException ex) {
+				Utility.ShowError (ex);
+			}
 			availabilityTable.Source = new OSAvailabilityTableSource (this);
 		}
 		#endregion

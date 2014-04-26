@@ -3,11 +3,12 @@
 using System;
 
 using System.Collections.Generic;
+using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using Cnt.Web.API.Models;
 using Cnt.API;
-using System.Linq;
+using Cnt.API.Exceptions;
+using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
@@ -29,8 +30,12 @@ namespace Cnet.iOS
 		#region Private Methods
 		private void LoadOffices()
 		{
-			Client client = AuthenticationHelper.GetClient();
-			offices = new List<Office>(client.OfficeService.GetOffices ());
+			try {
+				Client client = AuthenticationHelper.GetClient();
+				offices = new List<Office>(client.OfficeService.GetOffices ());
+			} catch (CntResponseException ex) {
+				Utility.ShowError (ex);
+			}
 		}
 
 		private void RenderOffices ()

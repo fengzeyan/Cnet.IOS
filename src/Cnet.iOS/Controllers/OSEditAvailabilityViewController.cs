@@ -164,16 +164,20 @@ namespace Cnet.iOS
 
 		private void LoadAvailabilityBlock ()
 		{
-			Client client = AuthenticationHelper.GetClient ();
-			availabilityBlock = client.AvailabilityService.GetAvailabilityBlock (AvailabilityBlockId);
-			string weekDaysString = availabilityBlock.Weekdays
-				.Replace ("Weekdays", "Monday, Tuesday, Wednesday, Thursday, Friday")
-				.Replace ("Weekend", "Sunday, Saturday")
-				.Replace ("All", "Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday");
-			weekDays = new List<string> (Array.ConvertAll (weekDaysString.Split (new char[]{ ',' }, StringSplitOptions.RemoveEmptyEntries), p => p.Trim ()));
+			try {
+				Client client = AuthenticationHelper.GetClient ();
+				availabilityBlock = client.AvailabilityService.GetAvailabilityBlock (AvailabilityBlockId);
+				string weekDaysString = availabilityBlock.Weekdays
+					.Replace ("Weekdays", "Monday, Tuesday, Wednesday, Thursday, Friday")
+					.Replace ("Weekend", "Sunday, Saturday")
+					.Replace ("All", "Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday");
+				weekDays = new List<string> (Array.ConvertAll (weekDaysString.Split (new char[]{ ',' }, StringSplitOptions.RemoveEmptyEntries), p => p.Trim ()));
 
-			if (availabilityBlock.Times == null || availabilityBlock.Times.Count () == 0) {
-				availabilityBlock.Times = new List<TimeBlock> (new TimeBlock[]{ new TimeBlock () });
+				if (availabilityBlock.Times == null || availabilityBlock.Times.Count () == 0) {
+					availabilityBlock.Times = new List<TimeBlock> (new TimeBlock[]{ new TimeBlock () });
+				}
+			} catch (CntResponseException ex) {
+				Utility.ShowError (ex);
 			}
 		}
 

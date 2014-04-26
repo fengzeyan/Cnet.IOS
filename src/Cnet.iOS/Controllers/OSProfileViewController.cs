@@ -3,11 +3,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Cnt.API;
-using Cnt.Web.API.Models;
-using MonoTouch.Foundation;
+using Cnt.API.Exceptions;
 using Cnt.API.Models;
+using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
@@ -23,6 +24,8 @@ namespace Cnet.iOS
 
 		public OSProfileViewController (IntPtr handle) : base (handle)
 		{
+			completedAssignments = new List<Assignment> ();
+			upcomingAssignments = new List<Assignment> ();
 		}
 
 		#region Pubic Methods
@@ -44,16 +47,20 @@ namespace Cnet.iOS
 		#region Private Methods
 		private void LoadUser()
 		{
-			Client client = AuthenticationHelper.GetClient ();
-			user = client.UserService.GetUser(AuthenticationHelper.UserData.UserId);
+			try {
+				Client client = AuthenticationHelper.GetClient ();
+				user = client.UserService.GetUser(AuthenticationHelper.UserData.UserId);
 
-			DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
-			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value));
-			upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (DateTime.Today.AddDays(7)));
+				DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
+				completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value));
+				upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (DateTime.Today.AddDays(7)));
 
-			// Next Assignment
-			if (upcomingAssignments.Any(a => a.Status == AssignmentStatus.Confirmed))
-				nextAssignment = upcomingAssignments.Where(a => a.Status == AssignmentStatus.Confirmed && a.Start > DateTime.Now).OrderBy (a => a.Start).First ();
+				// Next Assignment
+				if (upcomingAssignments.Any(a => a.Status == AssignmentStatus.Confirmed))
+					nextAssignment = upcomingAssignments.Where(a => a.Status == AssignmentStatus.Confirmed && a.Start > DateTime.Now).OrderBy (a => a.Start).First ();
+			} catch (CntResponseException ex) {
+				Utility.ShowError (ex);
+			}
 		}
 
 		private void RenderUser()

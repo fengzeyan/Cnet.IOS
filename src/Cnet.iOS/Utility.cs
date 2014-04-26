@@ -76,12 +76,12 @@ namespace Cnet.iOS
 		{
 			if (e.ButtonIndex == 1) {
 				string message = exception.Message;
-				if (exception.Errors != null) {
+				if (exception.Errors != null && exception.Errors.Count() > 1) {
 					foreach (ApiError error in exception.Errors) {
 						message += "\n\n" + error.Message;
 					}
 				}
-				new UIAlertView ("Error Details", message, null, "Ok", null).Show();
+				new UIAlertView ("Error Details", message, null, "Ok", null).Show ();
 			}
 		}
 		#endregion

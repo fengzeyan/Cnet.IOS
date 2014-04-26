@@ -6,6 +6,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Cnt.API;
+using Cnt.API.Exceptions;
 using Cnt.API.Models;
 using Cnt.Web.API.Models;
 
@@ -30,6 +31,8 @@ namespace Cnet.iOS
 
 		public OSAssignmentViewController (IntPtr handle) : base (handle)
 		{
+			completedAssignments = new List<Assignment> ();
+			upcomingAssignments = new List<Assignment> ();
 		}
 
 		#region Public Methods
@@ -91,14 +94,18 @@ namespace Cnet.iOS
 		#region Private Methods
 		private void LoadAssignments()
 		{
-			Client client = AuthenticationHelper.GetClient ();
-			DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
-			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value));
-			upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (DateTime.Today.AddDays(7)));
+			try {
+				Client client = AuthenticationHelper.GetClient ();
+				DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
+				completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value));
+				upcomingAssignments = new List<Assignment> (client.PlacementService.GetUpcomingAssignments (DateTime.Today.AddDays (7)));
 
-			// Next Assignment
-			if (upcomingAssignments.Count > 0)
-				nextAssignment = upcomingAssignments.OrderBy (a => a.Start).First ();
+				// Next Assignment
+				if (upcomingAssignments.Count > 0)
+					nextAssignment = upcomingAssignments.OrderBy (a => a.Start).First ();
+			} catch (CntResponseException ex) {
+				Utility.ShowError (ex);
+			}
 		}
 
 		private void RenderAssignments()

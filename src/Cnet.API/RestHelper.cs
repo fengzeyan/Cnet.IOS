@@ -91,15 +91,19 @@ namespace Cnt.API
 						{
 							Data = sr.ReadToEnd();
 						}
-						ApiErrors = CntRestHelper.Deserialize<IEnumerable<ApiError>>(Data);
-						string message;
-						if (ApiErrors != null)
-						{
-							if (ApiErrors.Count() > 1)
-								message = "Multiple errors occurred, see ApiErrors for details.";
-							else
-								message = ApiErrors.FirstOrDefault().Message;
-							throw new CntResponseException(message, ApiErrors);
+
+						// If we have data an it is in a JSON array, deserialize it.
+						if (!String.IsNullOrWhiteSpace(Data) && Data[0] == '[') {
+							ApiErrors = CntRestHelper.Deserialize<IEnumerable<ApiError>>(Data);
+							string message;
+							if (ApiErrors != null)
+							{
+								if (ApiErrors.Count() > 1)
+									message = "Multiple errors occurred, see ApiErrors for details.";
+								else
+									message = ApiErrors.FirstOrDefault().Message;
+								throw new CntResponseException(message, ApiErrors);
+							}
 						}
 						throw new CntResponseException(((HttpWebResponse)response).StatusDescription, HttpStatusCode);
 					}

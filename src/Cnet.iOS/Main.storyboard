@@ -1057,6 +1057,7 @@
                         <outlet property="messageView" destination="sHf-9B-Wex" id="k26-Ih-PWb"/>
                         <outlet property="policyButton" destination="dww-r9-Nhu" id="QML-UK-wDj"/>
                         <outlet property="policyView" destination="5lg-jH-6J9" id="byX-Th-YhU"/>
+                        <segue destination="J1O-ty-Y6Y" kind="modal" identifier="AddTimesheet" modalTransitionStyle="crossDissolve" id="nNd-N9-n9Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ciZ-zl-rgC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4507,15 +4508,16 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="AqG-9j-HaY"/>
-        <segue reference="sGH-Kp-aOs"/>
+        <segue reference="5Eo-Nb-tLx"/>
         <segue reference="cdv-8V-Tzf"/>
         <segue reference="1uv-Dv-ZEg"/>
-        <segue reference="5Eo-Nb-tLx"/>
-        <segue reference="F5g-1m-IVQ"/>
-        <segue reference="xUc-TM-EUX"/>
+        <segue reference="sGH-Kp-aOs"/>
         <segue reference="VJR-Zx-ddP"/>
         <segue reference="sUj-KP-fah"/>
+        <segue reference="xUc-TM-EUX"/>
+        <segue reference="nNd-N9-n9Y"/>
+        <segue reference="nvb-CW-OFv"/>
+        <segue reference="AqG-9j-HaY"/>
         <segue reference="liK-Jx-jnx"/>
     </inferredMetricsTieBreakers>
 </document>

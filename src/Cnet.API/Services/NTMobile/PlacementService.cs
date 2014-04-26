@@ -89,8 +89,8 @@ namespace Cnt.API.Services.NTMobile
 		public IEnumerable<Assignment> GetAssignments(Placement placement, DateTime startDate, DateTime endDate)
 		{
 			var timesheets = _Client.TimesheetService.GetTimesheets(startDate, endDate);
-			var updateNotifications = _Client.NotificationService.GetPlacementUpdatedNotifications();
-			return GetAssignmentsInternal(placement, timesheets, updateNotifications, startDate, endDate);
+			//var updateNotifications = _Client.NotificationService.GetPlacementUpdatedNotifications();
+			return GetAssignmentsInternal(placement, timesheets, null, startDate, endDate);
 		}
 
 		/// <summary>
@@ -157,12 +157,13 @@ namespace Cnt.API.Services.NTMobile
 			string query = String.Format("Start <= {0} AND End >= {1}", startDate.ToShortDateString(), endDate.ToShortDateString());
 			var placements = GetPlacements(query);
 			var timesheets = _Client.TimesheetService.GetTimesheets(startDate, endDate);
-			var updateNotifications = _Client.NotificationService.GetPlacementUpdatedNotifications();
+			//var updateNotifications = _Client.NotificationService.GetPlacementUpdatedNotifications();
 
 			var assignments = new List<Assignment>();
 			foreach (Placement placement in placements)
 			{
-				assignments.AddRange(GetAssignmentsInternal(placement, timesheets.Where(t => t.PlacementId == placement.Id), updateNotifications.Where(n => n.AssociatedId == placement.Id), startDate, endDate));
+				//assignments.AddRange(GetAssignmentsInternal(placement, timesheets.Where(t => t.PlacementId == placement.Id), updateNotifications.Where(n => n.AssociatedId == placement.Id), startDate, endDate));
+				assignments.AddRange(GetAssignmentsInternal(placement, timesheets.Where(t => t.PlacementId == placement.Id), null, startDate, endDate));
 			}
 
 			// Order "New" status first, then order by date.
@@ -219,6 +220,13 @@ namespace Cnt.API.Services.NTMobile
 					AssignmentStatus status;
 					if (isCompleted)
 					{
+						if (hasTimesheet)
+							status = AssignmentStatus.NoTimesheetRequired;
+						else
+							status = AssignmentStatus.TimesheetRequired;
+					}
+					else
+					{
 						if (isCanceled)
 							status = AssignmentStatus.Canceled;
 						else if (placement.SubServiceCategory == 1 && !placement.IsConfirmed)
@@ -227,13 +235,6 @@ namespace Cnt.API.Services.NTMobile
 							status = AssignmentStatus.Updated;
 						else
 							status = AssignmentStatus.Confirmed;
-					}
-					else
-					{
-						if (hasTimesheet)
-							status = AssignmentStatus.NoTimesheetRequired;
-						else
-							status = AssignmentStatus.TimesheetRequired;
 					}
 
 					assignments.Add(new Assignment()

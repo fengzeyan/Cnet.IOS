@@ -135,13 +135,17 @@ namespace Cnet.iOS
 		#region Private Methods
 		private void LoadTimesheet ()
 		{
-			Client client = AuthenticationHelper.GetClient ();
-			if (TimesheetId > 0)
-				timesheet = client.TimesheetService.GetTimesheet (TimesheetId);
-			else {
+			if (TimesheetId > 0) {
+				try {
+					Client client = AuthenticationHelper.GetClient ();
+					timesheet = client.TimesheetService.GetTimesheet (TimesheetId);
+				} catch (CntResponseException ex) {
+					Utility.ShowError (ex);
+				}
+			} else {
 				timesheet = new Timesheet () { 
 					Created = DateTime.Now,
-					Start =  Start.RoundToNearest (TimeSpan.FromMinutes (15)),
+					Start = Start.RoundToNearest (TimeSpan.FromMinutes (15)),
 					End = End.RoundToNearest (TimeSpan.FromMinutes (15)),
 					Description = Remarks,
 					PlacementId = PlacementId

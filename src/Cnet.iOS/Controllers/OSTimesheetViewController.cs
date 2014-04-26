@@ -2,13 +2,14 @@
 
 using System;
 
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
 using System.Collections.Generic;
 using System.Linq;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using Cnt.API;
+using Cnt.API.Exceptions;
 using Cnt.API.Models;
 using Cnt.Web.API.Models;
-using Cnt.API;
 
 namespace Cnet.iOS
 {
@@ -22,6 +23,8 @@ namespace Cnet.iOS
 
 		public OSTimesheetViewController (IntPtr handle) : base (handle)
 		{
+			completedAssignments = new List<Assignment> ();
+			timesheets = new List<Timesheet> ();
 		}
 
 		#region Public Methods
@@ -55,10 +58,14 @@ namespace Cnet.iOS
 		#region Private Methods
 		private void LoadTimesheets ()
 		{
-			Client client = AuthenticationHelper.GetClient ();
-			DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
-			completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value));
-			timesheets = new List<Timesheet> (client.TimesheetService.GetTimesheets ());
+			try {
+				Client client = AuthenticationHelper.GetClient ();
+				DateRange currentPayPeriod = AuthenticationHelper.UserData.PayPeriod;
+				completedAssignments = new List<Assignment> (client.PlacementService.GetCompletedAssignments (currentPayPeriod.Start.Value));
+				timesheets = new List<Timesheet> (client.TimesheetService.GetTimesheets ());
+			} catch (CntResponseException ex) {
+				Utility.ShowError (ex);
+			}
 		}
 
 		private void RenderPayPeriod ()
