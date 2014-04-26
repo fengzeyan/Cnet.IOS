@@ -12,6 +12,7 @@ using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
+	// TODO: Figure out timezones.
 	public partial class AddAvailabilityViewController : UIViewController
 	{
 		#region Private Members
@@ -139,7 +140,8 @@ namespace Cnet.iOS
 		{
 			availabilityBlock = new AvailabilityBlock () {
 				Start = Start,
-				End = End
+				End = End,
+				Times = new List<TimeBlock> () { new TimeBlock() }
 			};
 			weekDays = new List<string> ();
 		}
@@ -197,7 +199,7 @@ namespace Cnet.iOS
 		{
 			try {
 				Client client = AuthenticationHelper.GetClient ();
-				client.AvailabilityService.UpdateAvailabilityBlock (availabilityBlock);
+				client.AvailabilityService.AddAvailabilityBlock (availabilityBlock);
 				hasErrors = false;
 			} catch (CntResponseException ex) {
 				hasErrors = true;
