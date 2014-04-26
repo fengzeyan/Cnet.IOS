@@ -54,6 +54,14 @@ namespace Cnet.iOS
 			} else if (segue.Identifier == editAvailabilityBlockSegueName) {
 				var view = (OSEditAvailabilityViewController)segue.DestinationViewController;
 				view.AvailabilityBlockId = userAvailabilityDay.AvailabilityBlockId;
+			} else if (segue.Identifier == addAvailabilityBlockSegueName) {
+				var view = (AddAvailabilityViewController)segue.DestinationViewController;
+				if (userAvailabilityDay != null && userAvailabilityDay.Availability.Count () > 0) {
+					TimeBlock time = userAvailabilityDay.Availability.First ();
+					view.Start = selectedDate.Date.AddSeconds (time.Start);
+					view.End = selectedDate.Date.AddSeconds (time.Start + time.Duration);
+				} else
+					view.Start = view.End = DateTime.Today;
 			}
 		}
 
@@ -163,7 +171,7 @@ namespace Cnet.iOS
 			{
 				switch (indexPath.Row) {
 				case 0:
-					if (controller.userAvailabilityDay.AvailabilityBlockId > 0)
+					if (controller.userAvailabilityDay != null && controller.userAvailabilityDay.AvailabilityBlockId > 0)
 						controller.PerformSegue (OSCalendarViewController.editAvailabilityBlockSegueName, this);
 					else
 						controller.PerformSegue (OSCalendarViewController.addAvailabilityBlockSegueName, this);
