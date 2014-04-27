@@ -24,6 +24,7 @@ namespace Cnet.iOS
 		{
 			base.ViewDidLoad ();
 			LoadOffices ();
+			WireUpView ();
 			RenderOffices ();
 		}
 
@@ -40,16 +41,20 @@ namespace Cnet.iOS
 
 		private void RenderOffices ()
 		{
+			officesTable.Source = new OSOfficesTableSrouce (this);
+		}
+
+		private void WireUpView ()
+		{
 			string officeUrl = "http://collegenanniesandtutors.com";
 			if (offices.Count < 2) {
 				officesTable.Bounces = false;
 				officeUrl = offices [0].Website;
 			}
 
-			officesTable.Source = new OSOfficesTableSrouce (this);
-
 			visitWebsiteButton.TouchUpInside += (object sender, EventArgs e) => Utility.OpenUrl(officeUrl);
 		}
+
 		#endregion
 
 		private class OSOfficesTableSrouce : UITableViewSource
@@ -77,10 +82,9 @@ namespace Cnet.iOS
 				Office office = controller.offices [indexPath.Row];
 				cell.NameLabel.Text = office.Name;
 				cell.AddressLabel.Text = office.Address.ToLocationString ("{0}\n{2}, {3} {4}");
-				cell.PhoneLabel.Text = office.Phone;
+				cell.PhoneButton.SetTitle(office.Phone, UIControlState.Normal);
 				cell.FaxLabel.Text = office.Fax;
-				cell.EmailLabel.Text = office.Email;
-				// TODO: Handle click events on phone and email.
+				cell.EmailButton.SetTitle (office.Email, UIControlState.Normal);
 
 				return cell;
 			}

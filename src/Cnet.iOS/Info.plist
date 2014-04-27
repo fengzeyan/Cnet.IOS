@@ -7,9 +7,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.onsharp.cnt</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
@@ -35,5 +33,7 @@
 		<string>Icon-Homescreen-120@2x</string>
 		<string>Spotlight-Search-80@2x</string>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>1.1</string>
 </dict>
 </plist>

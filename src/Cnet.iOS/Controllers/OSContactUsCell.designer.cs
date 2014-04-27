@@ -16,7 +16,7 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UILabel addressLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel emailLabel { get; set; }
+		MonoTouch.UIKit.UIButton emailButton { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel faxLabel { get; set; }
@@ -25,23 +25,24 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UILabel nameLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel phoneLabel { get; set; }
+		MonoTouch.UIKit.UIButton phoneButton { get; set; }
+
+		[Action ("emailClicked:")]
+		partial void emailClicked (MonoTouch.UIKit.UIButton sender);
+
+		[Action ("phoneClicked:")]
+		partial void phoneClicked (MonoTouch.UIKit.UIButton sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (nameLabel != null) {
-				nameLabel.Dispose ();
-				nameLabel = null;
-			}
-
 			if (addressLabel != null) {
 				addressLabel.Dispose ();
 				addressLabel = null;
 			}
 
-			if (phoneLabel != null) {
-				phoneLabel.Dispose ();
-				phoneLabel = null;
+			if (emailButton != null) {
+				emailButton.Dispose ();
+				emailButton = null;
 			}
 
 			if (faxLabel != null) {
@@ -49,9 +50,14 @@ namespace Cnet.iOS
 				faxLabel = null;
 			}
 
-			if (emailLabel != null) {
-				emailLabel.Dispose ();
-				emailLabel = null;
+			if (nameLabel != null) {
+				nameLabel.Dispose ();
+				nameLabel = null;
+			}
+
+			if (phoneButton != null) {
+				phoneButton.Dispose ();
+				phoneButton = null;
 			}
 		}
 	}

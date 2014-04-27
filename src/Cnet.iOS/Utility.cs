@@ -39,7 +39,7 @@ namespace Cnet.iOS
 
 		public static bool OpenPhoneDailer(string phoneNumber)
 		{
-			var cleanNumber = new String (phoneNumber.Where (Char.IsDigit).ToArray ());
+			var cleanNumber = new String (phoneNumber.Where (Char.IsLetterOrDigit).ToArray ());
 			return OpenUrl("tel:" + cleanNumber);
 		}
 

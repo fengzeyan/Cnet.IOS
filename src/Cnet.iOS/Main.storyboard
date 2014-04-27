@@ -203,7 +203,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="217"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="217" sectionHeaderHeight="1" sectionFooterHeight="1" id="sZa-xe-Xce">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="217" sectionHeaderHeight="1" sectionFooterHeight="1" id="sZa-xe-Xce">
                                 <rect key="frame" x="0.0" y="281" width="320" height="217"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -243,13 +243,18 @@
                                                     <color key="textColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="574-725-1246" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9R2-qJ-XGl">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" id="10l-zg-UAi">
                                                     <rect key="frame" x="20" y="106" width="151" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                                    <color key="textColor" white="0.14999999999999999" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <state key="normal" title="574-725-1246">
+                                                        <color key="titleColor" white="0.14999999999999999" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="phoneClicked:" destination="1uR-gW-MNd" eventType="touchUpInside" id="Qui-02-rsU"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fax:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tpS-Hg-GiJ">
                                                     <rect key="frame" x="20" y="132" width="71" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -271,21 +276,26 @@
                                                     <color key="textColor" red="0.41568627450000001" green="0.25490196079999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info@collegenanniesandtutors.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EHN-bd-Nbs">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" id="jPH-gN-KwL">
                                                     <rect key="frame" x="20" y="188" width="204" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                                    <color key="textColor" white="0.14999999999999999" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <state key="normal" title="info@collegenanniesandtutors.com">
+                                                        <color key="titleColor" white="0.14999999999999999" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="emailClicked:" destination="1uR-gW-MNd" eventType="touchUpInside" id="6Zg-K8-jBI"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="addressLabel" destination="Exk-6S-bKV" id="0At-Nk-q4U"/>
-                                            <outlet property="emailLabel" destination="EHN-bd-Nbs" id="FJ7-qM-koi"/>
+                                            <outlet property="emailButton" destination="jPH-gN-KwL" id="ivZ-I9-v49"/>
                                             <outlet property="faxLabel" destination="yRV-lK-Bym" id="5yS-Kz-AU7"/>
                                             <outlet property="nameLabel" destination="PrF-I8-mnc" id="tGP-7B-dxe"/>
-                                            <outlet property="phoneLabel" destination="9R2-qJ-XGl" id="k33-RV-oDI"/>
+                                            <outlet property="phoneButton" destination="10l-zg-UAi" id="ezg-Kp-mhu"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
