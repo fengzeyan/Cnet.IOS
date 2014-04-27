@@ -1,2 +1,2 @@
-Bug fix with availability block detail page causing crashes.
-Bug fix with assignment detail page causing crashes.
+Several bug fixes in availability, timesheets, and calendar.
+Added intent links to contact us page.

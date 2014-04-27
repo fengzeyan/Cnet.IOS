@@ -444,7 +444,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Williams Family" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="741-sd-3ad">
-                                        <rect key="frame" x="20" y="86" width="121" height="21"/>
+                                        <rect key="frame" x="20" y="86" width="147" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -457,8 +457,8 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 7:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fwl-SC-5Wt">
-                                        <rect key="frame" x="79" y="49" width="59" height="24"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 12:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fwl-SC-5Wt">
+                                        <rect key="frame" x="79" y="49" width="64" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -472,14 +472,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gDE-iS-3ah">
-                                        <rect key="frame" x="138" y="54" width="24" height="18"/>
+                                        <rect key="frame" x="143" y="54" width="24" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="N8m-4K-qgF">
-                                        <rect key="frame" x="20" y="100" width="113" height="30"/>
+                                        <rect key="frame" x="20" y="100" width="107" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <state key="normal" title="next assignment">
@@ -531,8 +531,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Family Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HpP-Ph-ZdH">
-                                                    <rect key="frame" x="80" y="9" width="164" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Family Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HpP-Ph-ZdH">
+                                                    <rect key="frame" x="82" y="-6" width="164" height="42"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
@@ -4570,16 +4570,16 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="MjI-OQ-Q29"/>
-        <segue reference="a7x-Aj-C7h"/>
-        <segue reference="xUc-TM-EUX"/>
-        <segue reference="VJR-Zx-ddP"/>
-        <segue reference="5Eo-Nb-tLx"/>
-        <segue reference="1uv-Dv-ZEg"/>
-        <segue reference="sUj-KP-fah"/>
-        <segue reference="nNd-N9-n9Y"/>
-        <segue reference="nvb-CW-OFv"/>
         <segue reference="AqG-9j-HaY"/>
+        <segue reference="oQd-yV-efo"/>
+        <segue reference="F5g-1m-IVQ"/>
+        <segue reference="zPS-ub-T9w"/>
+        <segue reference="sUj-KP-fah"/>
+        <segue reference="1uv-Dv-ZEg"/>
+        <segue reference="5Eo-Nb-tLx"/>
+        <segue reference="cdo-K6-RT6"/>
+        <segue reference="tsk-sk-Tp6"/>
+        <segue reference="nNd-N9-n9Y"/>
         <segue reference="liK-Jx-jnx"/>
     </inferredMetricsTieBreakers>
 </document>

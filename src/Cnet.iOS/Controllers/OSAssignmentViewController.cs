@@ -191,7 +191,7 @@ namespace Cnet.iOS
 
 				cell.FamilyNameLabel.Text = assignment.Placement.ToFamilyNameString() + " - " + controller.Assignments[indexPath.Row].Placement.SubServiceAbbreviation;
 
-				cell.LocationLabel.Text = assignment.Placement.Location.ToLocationString("{1}, {2}");
+				cell.LocationLabel.Text = assignment.Placement.Location.ToLocationString("{2}, {3}");
 				cell.BelowProfilePicLabel.Text = belowProfilePicLabel;
 
 				if (updated > TimeSpan.MinValue) {
