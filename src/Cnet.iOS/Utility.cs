@@ -338,9 +338,15 @@ namespace Cnet.iOS
 		public static string ToTimeUntilString(this Assignment assignment)
 		{
 			TimeSpan timeUntil = assignment.Start.Subtract (DateTime.Now);
+			if (timeUntil.Days == 1)
+				return "1 day";
 			if (timeUntil.Days > 0)
 				return timeUntil.Days + " days";
-			return timeUntil.Hours + " hours";
+			if (timeUntil.Hours == 1)
+				return "1 hour";
+			if (timeUntil.Hours > 0)
+				return timeUntil.Hours + " hours";
+			return String.Empty;
 		}
 		#endregion
 	}
