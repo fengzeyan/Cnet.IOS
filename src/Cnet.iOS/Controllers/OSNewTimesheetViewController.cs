@@ -6,6 +6,8 @@ using MonoTouch.UIKit;
 using Cnt.API;
 using Cnt.API.Exceptions;
 using Cnt.Web.API.Models;
+using System.Drawing;
+using Cnt.API.Utils;
 
 namespace Cnet.iOS
 {
@@ -37,6 +39,7 @@ namespace Cnet.iOS
 			LoadTimesheet ();
 			WireUpView ();
 			RenderTimesheet ();
+			SetUpKeyboardNotifications ();
 		}
 
 		public override bool ShouldPerformSegue (string segueIdentifier, NSObject sender)
@@ -195,6 +198,46 @@ namespace Cnet.iOS
 				hasErrors = true;
 				Utility.ShowError (ex);
 			}
+		}
+
+		private void SetUpKeyboardNotifications ()
+		{
+			NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.DidShowNotification, KeyboardOpened);
+			NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.DidHideNotification, KeyboardClosed);
+		}
+
+		private void KeyboardOpened (NSNotification notification)
+		{
+			System.Console.WriteLine ("Keyboard Opened");
+			UIView activeView = KeyboardGetActiveView();
+			if (activeView == null)
+				return;
+
+			var keyboardFrame = UIKeyboard.FrameBeginFromNotification (notification);
+			var contentInsets = new UIEdgeInsets (0.0f, 0.0f, keyboardFrame.Height, 0.0f);
+
+			newTimesheetScrollView.ContentInset = contentInsets;
+			newTimesheetScrollView.ScrollIndicatorInsets = contentInsets;
+
+			// Position of the active field relative inside the scroll view
+			RectangleF relativeFrame = activeView.Superview.ConvertRectToView(activeView.Frame, newTimesheetScrollView);
+			var spaceAboveKeyboard = newTimesheetScrollView.Frame.Height - keyboardFrame.Height;
+
+			// Move the active field to the center of the available space
+			var offset = relativeFrame.Y - (spaceAboveKeyboard - activeView.Frame.Height) / 2;
+			newTimesheetScrollView.ContentOffset = new PointF(0, offset);
+		}
+
+		private void KeyboardClosed (NSNotification notification)
+		{
+			System.Console.WriteLine ("Keyboard Closed");
+			newTimesheetScrollView.ContentInset = UIEdgeInsets.Zero;
+			newTimesheetScrollView.ScrollIndicatorInsets = UIEdgeInsets.Zero;
+		}
+
+		protected virtual UIView KeyboardGetActiveView()
+		{
+			return this.View.FindFirstResponder();
 		}
 
 		private void WireUpView ()
