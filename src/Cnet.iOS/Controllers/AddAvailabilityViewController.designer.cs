@@ -25,6 +25,9 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UILabel endLabel { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton endTimeButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton endTimeDownButton { get; set; }
 
 		[Outlet]
@@ -47,6 +50,9 @@ namespace Cnet.iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel startLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton startTimeButton { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIButton startTimeDownButton { get; set; }
@@ -76,9 +82,9 @@ namespace Cnet.iOS
 				actionButton = null;
 			}
 
-			if (startButton != null) {
-				startButton.Dispose ();
-				startButton = null;
+			if (addTimeBlockButton != null) {
+				addTimeBlockButton.Dispose ();
+				addTimeBlockButton = null;
 			}
 
 			if (endButton != null) {
@@ -86,29 +92,9 @@ namespace Cnet.iOS
 				endButton = null;
 			}
 
-			if (startLabel != null) {
-				startLabel.Dispose ();
-				startLabel = null;
-			}
-
 			if (endLabel != null) {
 				endLabel.Dispose ();
 				endLabel = null;
-			}
-
-			if (startTimeUpButton != null) {
-				startTimeUpButton.Dispose ();
-				startTimeUpButton = null;
-			}
-
-			if (startTimeDownButton != null) {
-				startTimeDownButton.Dispose ();
-				startTimeDownButton = null;
-			}
-
-			if (endTimeUpButton != null) {
-				endTimeUpButton.Dispose ();
-				endTimeUpButton = null;
 			}
 
 			if (endTimeDownButton != null) {
@@ -116,19 +102,54 @@ namespace Cnet.iOS
 				endTimeDownButton = null;
 			}
 
-			if (startTimeLabel != null) {
-				startTimeLabel.Dispose ();
-				startTimeLabel = null;
-			}
-
 			if (endTimeLabel != null) {
 				endTimeLabel.Dispose ();
 				endTimeLabel = null;
 			}
 
-			if (addTimeBlockButton != null) {
-				addTimeBlockButton.Dispose ();
-				addTimeBlockButton = null;
+			if (endTimeUpButton != null) {
+				endTimeUpButton.Dispose ();
+				endTimeUpButton = null;
+			}
+
+			if (fridayButton != null) {
+				fridayButton.Dispose ();
+				fridayButton = null;
+			}
+
+			if (mondayButton != null) {
+				mondayButton.Dispose ();
+				mondayButton = null;
+			}
+
+			if (saturdayButton != null) {
+				saturdayButton.Dispose ();
+				saturdayButton = null;
+			}
+
+			if (startButton != null) {
+				startButton.Dispose ();
+				startButton = null;
+			}
+
+			if (startLabel != null) {
+				startLabel.Dispose ();
+				startLabel = null;
+			}
+
+			if (startTimeDownButton != null) {
+				startTimeDownButton.Dispose ();
+				startTimeDownButton = null;
+			}
+
+			if (startTimeLabel != null) {
+				startTimeLabel.Dispose ();
+				startTimeLabel = null;
+			}
+
+			if (startTimeUpButton != null) {
+				startTimeUpButton.Dispose ();
+				startTimeUpButton = null;
 			}
 
 			if (sundayButton != null) {
@@ -136,9 +157,9 @@ namespace Cnet.iOS
 				sundayButton = null;
 			}
 
-			if (mondayButton != null) {
-				mondayButton.Dispose ();
-				mondayButton = null;
+			if (thursdayButton != null) {
+				thursdayButton.Dispose ();
+				thursdayButton = null;
 			}
 
 			if (tuesdayButton != null) {
@@ -151,19 +172,14 @@ namespace Cnet.iOS
 				wednesdayButton = null;
 			}
 
-			if (thursdayButton != null) {
-				thursdayButton.Dispose ();
-				thursdayButton = null;
+			if (startTimeButton != null) {
+				startTimeButton.Dispose ();
+				startTimeButton = null;
 			}
 
-			if (fridayButton != null) {
-				fridayButton.Dispose ();
-				fridayButton = null;
-			}
-
-			if (saturdayButton != null) {
-				saturdayButton.Dispose ();
-				saturdayButton = null;
+			if (endTimeButton != null) {
+				endTimeButton.Dispose ();
+				endTimeButton = null;
 			}
 		}
 	}
