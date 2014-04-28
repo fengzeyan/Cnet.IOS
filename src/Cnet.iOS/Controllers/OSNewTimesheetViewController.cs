@@ -40,6 +40,7 @@ namespace Cnet.iOS
 			WireUpView ();
 			RenderTimesheet ();
 			SetUpKeyboardNotifications ();
+			DismissKeyboardOnBackgroundTap ();
 		}
 
 		public override bool ShouldPerformSegue (string segueIdentifier, NSObject sender)
@@ -238,6 +239,14 @@ namespace Cnet.iOS
 		protected virtual UIView KeyboardGetActiveView()
 		{
 			return this.View.FindFirstResponder();
+		}
+
+		protected void DismissKeyboardOnBackgroundTap()
+		{
+			// Add gesture recognizer to hide keyboard
+			var tap = new UITapGestureRecognizer { CancelsTouchesInView = false };
+			tap.AddTarget(() => View.EndEditing(true));
+			View.AddGestureRecognizer(tap);
 		}
 
 		private void WireUpView ()
