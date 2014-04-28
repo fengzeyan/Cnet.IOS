@@ -22,7 +22,7 @@ namespace Cnt.API.Services.NTMobile
 		/// <returns>All availability days for the current user for the given dates.</returns>
 		public IEnumerable<UserAvailabilityDay> GetAvailability(DateTime startDate, DateTime endDate)
 		{
-			string query = String.Format("Date <= {0} AND Date >= {1}", startDate.ToShortDateString(), endDate.ToShortDateString());
+			string query = String.Format("Date <= {0} AND Date >= {1}", startDate.ToString("s"), endDate.ToString("s"));
 			return GetAvailability (query);
 		}
 

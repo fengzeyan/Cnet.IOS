@@ -154,7 +154,7 @@ namespace Cnt.API.Services.NTMobile
 		/// <returns>All assignments for the specified week.</returns>
 		private IList<Assignment> GetAssignmentsInternal(DateTime startDate, DateTime endDate)
 		{
-			string query = String.Format("Start <= {0} AND End >= {1}", startDate.ToShortDateString(), endDate.ToShortDateString());
+			string query = String.Format("Start <= {0} AND End >= {1}", startDate.ToString("s"), endDate.ToString("s"));
 			var placements = GetPlacements(query);
 			var timesheets = _Client.TimesheetService.GetTimesheets(startDate, endDate);
 			//var updateNotifications = _Client.NotificationService.GetPlacementUpdatedNotifications();
@@ -184,8 +184,8 @@ namespace Cnt.API.Services.NTMobile
 			foreach (Schedule schedule in placement.Schedules)
 			{
 				AdvanceSchedule advSchedule = new AdvanceSchedule(schedule);
-				DateTime? nextOccurrence = advSchedule.NextOccurrence(startDate.AddDays(-1));
-				while (nextOccurrence.HasValue && nextOccurrence.Value < endDate.AddDays(1))
+				DateTime? nextOccurrence = advSchedule.NextOccurrence(startDate.AddMinutes(-1));
+				while (nextOccurrence.HasValue && nextOccurrence.Value <= endDate)
 				{
 					// Determine if the assignment is canceled.
 					bool isCanceled = placement.IsCanceled || schedule.IsCanceled;
@@ -215,6 +215,7 @@ namespace Cnt.API.Services.NTMobile
 						assignments.Remove(parent);
 
 					bool isCompleted = start.AddSeconds(schedule.Time.Duration) < DateTime.Now;
+					List<Timesheet> timesheetList = new List<Timesheet> (timesheets);
 					bool hasTimesheet = (timesheets != null) && timesheets.Any(t => t.Start.Date == start.Date && DateHelper.DateDiff(DatePart.Second, t.Start, t.End) == schedule.Time.Duration);
 					bool hasUpdates = (updateNotifications != null) && (updateNotifications.Count() > 0);
 					AssignmentStatus status;

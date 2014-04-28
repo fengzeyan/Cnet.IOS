@@ -71,7 +71,7 @@ namespace Cnet.iOS
 
 		private void ViewEvents (object sender, TSQCalendarViewDelegateAEventArgs e)
 		{
-			selectedDate = (DateTime)e.Date;
+			selectedDate = ((DateTime)e.Date).Date;
 			LoadEvents ();
 			RenderEvents ();
 		}
