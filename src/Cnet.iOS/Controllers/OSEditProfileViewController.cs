@@ -44,6 +44,7 @@ namespace Cnet.iOS
 			LoadUser ();
 			WireUpView ();
 			RenderUser ();
+			SetUpKeyboardNotifications ();
 		}
 
 		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
@@ -537,9 +538,49 @@ namespace Cnet.iOS
 			}
 		}
 
+		private void SetUpKeyboardNotifications ()
+		{
+			NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.DidShowNotification, KeyboardOpened);
+			NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.DidHideNotification, KeyboardClosed);
+		}
+
+		private void KeyboardOpened (NSNotification notification)
+		{
+			System.Console.WriteLine ("Keyboard Opened");
+			UIView activeView = KeyboardGetActiveView();
+			if (activeView == null)
+				return;
+
+			var keyboardFrame = UIKeyboard.FrameBeginFromNotification (notification);
+			var contentInsets = new UIEdgeInsets (0.0f, 0.0f, keyboardFrame.Height, 0.0f);
+
+			editProfileScrollView.ContentInset = contentInsets;
+			editProfileScrollView.ScrollIndicatorInsets = contentInsets;
+
+			// Position of the active field relative inside the scroll view
+			RectangleF relativeFrame = activeView.Superview.ConvertRectToView(activeView.Frame, editProfileScrollView);
+			var spaceAboveKeyboard = editProfileScrollView.Frame.Height - keyboardFrame.Height;
+
+			// Move the active field to the center of the available space
+			var offset = relativeFrame.Y - (spaceAboveKeyboard - activeView.Frame.Height) / 2;
+			editProfileScrollView.ContentOffset = new PointF(0, offset);
+		}
+
+		private void KeyboardClosed (NSNotification notification)
+		{
+			System.Console.WriteLine ("Keyboard Closed");
+			editProfileScrollView.ContentInset = UIEdgeInsets.Zero;
+			editProfileScrollView.ScrollIndicatorInsets = UIEdgeInsets.Zero;
+		}
+
 		private void WireUpView ()
 		{
 			phoneCarrierButton.TouchUpInside += PhoneCarrierClick;
+		}
+
+		protected virtual UIView KeyboardGetActiveView()
+		{
+			return this.View.FindFirstResponder();
 		}
 
 		#endregion
