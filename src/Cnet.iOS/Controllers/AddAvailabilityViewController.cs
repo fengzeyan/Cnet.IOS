@@ -189,7 +189,7 @@ namespace Cnet.iOS
 		private void ShowDatePicker(DateTime date, UIDatePickerMode mode, EventHandler valueChangedHandler)
 		{
 			var actionSheetDatePicker = new ActionSheetDatePicker (this.View);
-			NSDate nsDate = (NSDate)DateTime.SpecifyKind (date, DateTimeKind.Utc);
+			NSDate nsDate = (NSDate)DateTime.SpecifyKind (date.AddHours(5), DateTimeKind.Utc); // Adjust for central.
 			actionSheetDatePicker.DatePicker.Date = nsDate;
 			actionSheetDatePicker.DatePicker.Mode = mode;
 			actionSheetDatePicker.DatePicker.ValueChanged += valueChangedHandler;

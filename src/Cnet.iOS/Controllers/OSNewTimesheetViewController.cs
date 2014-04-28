@@ -175,7 +175,7 @@ namespace Cnet.iOS
 		private void ShowDatePicker(DateTime date, UIDatePickerMode mode, EventHandler valueChangedHandler)
 		{
 			var actionSheetDatePicker = new ActionSheetDatePicker (this.View);
-			NSDate nsDate = (NSDate)DateTime.SpecifyKind (date, DateTimeKind.Utc);
+			NSDate nsDate = (NSDate)DateTime.SpecifyKind (date.AddHours(5), DateTimeKind.Utc); // Adjust for central.
 			actionSheetDatePicker.DatePicker.Date = nsDate;
 			actionSheetDatePicker.DatePicker.Mode = mode;
 			actionSheetDatePicker.DatePicker.ValueChanged += valueChangedHandler;
@@ -205,10 +205,10 @@ namespace Cnet.iOS
 			startButton.TouchUpInside += StartButtonClicked;
 			endButton.TouchUpInside += EndButtonClicked;
 
-			//startTimeButton.TouchUpInside += StartTimeClicked; // Doesn't work because of timezone issues.
+			startTimeButton.TouchUpInside += StartTimeClicked; // Doesn't work because of timezone issues.
 			startTimeUpButton.TouchUpInside += StartTimeUpClicked;
 			startTimeDownButton.TouchUpInside += StartTimeDownClicked;
-			//endTimeButton.TouchUpInside += EndTimeClicked; // Doesn't work because of timezone issues.
+			endTimeButton.TouchUpInside += EndTimeClicked; // Doesn't work because of timezone issues.
 			endTimeUpButton.TouchUpInside += EndTimeUpClicked;
 			endTimeDownButton.TouchUpInside += EndTimeDownClicked;
 

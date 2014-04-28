@@ -171,14 +171,16 @@ namespace Cnet.iOS
 
 				switch (assignment.Status) {
 				case AssignmentStatus.New:
-					belowProfilePicLabel = "Unconfirmed";
-					updated = DateTime.Now.Subtract (assignment.Start);
+					cell.BelowProfilePicLabel.Text = "Unconfirmed";
+					cell.BelowProfilePicLabel.TextColor = Utility.NewTextColor;
+					cell.BelowProfilePicLabel.AdjustsFontSizeToFitWidth = true;
+					updated = DateTime.Now.Subtract (assignment.Placement.Created);
 					break;
 				case AssignmentStatus.Canceled:
-					belowProfilePicLabel = "Cancelled";
+					cell.BelowProfilePicLabel.Text = "Cancelled";
 					break;
 				case AssignmentStatus.Confirmed:
-					belowProfilePicLabel = "Upcoming";
+					cell.BelowProfilePicLabel.Text = "Upcoming";
 					break;
 				}
 
@@ -192,7 +194,6 @@ namespace Cnet.iOS
 				cell.FamilyNameLabel.Text = assignment.Placement.ToFamilyNameString() + " - " + controller.Assignments[indexPath.Row].Placement.SubServiceAbbreviation;
 
 				cell.LocationLabel.Text = assignment.Placement.Location.ToLocationString("{2}, {3}");
-				cell.BelowProfilePicLabel.Text = belowProfilePicLabel;
 
 				if (updated > TimeSpan.MinValue) {
 					cell.BookmarkImage.Image = new UIImage ("icon-bookmark.png");

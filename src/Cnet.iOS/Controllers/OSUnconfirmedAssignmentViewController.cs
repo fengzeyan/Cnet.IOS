@@ -80,8 +80,10 @@ namespace Cnet.iOS
 		{
 			try {
 				Client client = AuthenticationHelper.GetClient ();
-				if (client != null)
+				if (client != null) {
 					client.PlacementService.ConfirmPlacement (PlacementId);
+					PerformSegue("", this);
+				}
 			} catch (CntResponseException ex) {
 				Utility.ShowError (ex);
 			}
