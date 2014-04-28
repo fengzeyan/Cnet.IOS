@@ -23,9 +23,7 @@ namespace Cnet.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
-			forgotPasswordButton.TouchUpInside += ShowForgotPassword;
-			signUpButton.TouchUpInside += GoToSignUp;
+			WireUpView ();
 		}
 
 		public override bool ShouldPerformSegue (string segueIdentifier, MonoTouch.Foundation.NSObject sender)
@@ -94,6 +92,21 @@ namespace Cnet.iOS
 				break;
 			}
 			Utility.ShowError (exception, defaultMessage);
+		}
+
+		private void RenderLogin ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		private void WireUpView ()
+		{
+			// Indent text for text fields.
+			tbxUsername.AddPadding (10, 24);
+			tbxPassword.AddPadding (10, 24);
+
+			forgotPasswordButton.TouchUpInside += ShowForgotPassword;
+			signUpButton.TouchUpInside += GoToSignUp;
 		}
 		#endregion
 	}

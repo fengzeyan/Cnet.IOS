@@ -110,6 +110,10 @@ namespace Cnet.iOS
 					cell.ProfileLabel.Text = tableData [indexPath.Row].Label;
 					if (tableData [indexPath.Row].Label == "Emergency Contact" && cell.ProfileLabel.Frame.X != 20)
 						cell.ProfileLabel.AdjustFrame (-39, 0, 39, 0);
+					if (tableData [indexPath.Row].Label == "We need your help!\nPlease provide emergency contact." && cell.ProfileLabel.Frame.Height != 36) {
+						cell.ProfileLabel.Lines = 2;
+						cell.ProfileLabel.AdjustFrame (0, -9, 30, 15);
+					}
 					cell.IconImage.Image = tableData [indexPath.Row].Icon;
 					cell.PhoneIconImage.Image = tableData [indexPath.Row].PhoneIcon;
 					return cell;
@@ -163,7 +167,7 @@ namespace Cnet.iOS
 					Label = "Emergency Contact"
 				});
 				tableData.Add (new OSProfileCellData () { 
-					Label = String.IsNullOrWhiteSpace (controller.user.EmergencyContactName) ? "We need your help! Please provide emergency contact." : controller.user.EmergencyContactName,
+					Label = String.IsNullOrWhiteSpace (controller.user.EmergencyContactName) ? "We need your help!\nPlease provide emergency contact." : controller.user.EmergencyContactName,
 					Icon = new UIImage ("icon-user.png"),
 					PhoneIcon = new UIImage ()
 				});
