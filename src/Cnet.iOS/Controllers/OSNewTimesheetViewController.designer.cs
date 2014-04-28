@@ -34,6 +34,9 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UIButton endTimeUpButton { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIScrollView newTimesheetScrollView { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextView recapTextView { get; set; }
 
 		[Outlet]
@@ -59,16 +62,6 @@ namespace Cnet.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (startTimeButton != null) {
-				startTimeButton.Dispose ();
-				startTimeButton = null;
-			}
-
-			if (endTimeButton != null) {
-				endTimeButton.Dispose ();
-				endTimeButton = null;
-			}
-
 			if (actionButton != null) {
 				actionButton.Dispose ();
 				actionButton = null;
@@ -82,6 +75,11 @@ namespace Cnet.iOS
 			if (endLabel != null) {
 				endLabel.Dispose ();
 				endLabel = null;
+			}
+
+			if (endTimeButton != null) {
+				endTimeButton.Dispose ();
+				endTimeButton = null;
 			}
 
 			if (endTimeDownButton != null) {
@@ -119,6 +117,11 @@ namespace Cnet.iOS
 				startLabel = null;
 			}
 
+			if (startTimeButton != null) {
+				startTimeButton.Dispose ();
+				startTimeButton = null;
+			}
+
 			if (startTimeDownButton != null) {
 				startTimeDownButton.Dispose ();
 				startTimeDownButton = null;
@@ -132,6 +135,11 @@ namespace Cnet.iOS
 			if (startTimeUpButton != null) {
 				startTimeUpButton.Dispose ();
 				startTimeUpButton = null;
+			}
+
+			if (newTimesheetScrollView != null) {
+				newTimesheetScrollView.Dispose ();
+				newTimesheetScrollView = null;
 			}
 		}
 	}

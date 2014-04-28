@@ -44,6 +44,7 @@ namespace Cnet.iOS
 			LoadUser ();
 			WireUpView ();
 			RenderUser ();
+			SetUpKeyboardNotifications ();
 		}
 
 		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
@@ -65,61 +66,6 @@ namespace Cnet.iOS
 
 		#region Event Delegates
 
-		/*partial void addNewPhonePressed (NSObject sender)
-		{
-			float frameAdjustment = 161.0f;
-			List<UIView> adjustedViewsList = new List<UIView> {
-				addPhoneButton, addressLabel, addressTextField, addressLine2TextField,
-				cityTextField, stateTextField, zipCodeTextField, addAddressButton,
-				emergencyContactLabel, emergencyContactTextField, ecPhoneTextField
-			};
-
-			foreach (UIView view in adjustedViewsList) {
-				view.AdjustFrame (0, frameAdjustment, 0, 0);
-			}
-
-			// Adjust content size, not frame for scroll view
-			SizeF scrollViewContent = editProfileScrollView.ContentSize;
-			scrollViewContent.Height += frameAdjustment;
-			editProfileScrollView.ContentSize = scrollViewContent;
-
-			// Add new ui elements for phone
-			var frame = new RectangleF (addPhoneButton.Frame.X, (addPhoneButton.Frame.Y - frameAdjustment), addPhoneButton.Frame.Width, addPhoneButton.Frame.Height);
-			UITextField newPhoneTextField = new UITextField (frame);
-			newPhoneTextField.Background = new UIImage ("profile-fields.png");
-			newPhoneTextField.AddPadding (40, 24, new UIImage ("icon-mobile.png"));
-			newPhoneTextField.Placeholder = "Phone #";
-			newPhoneTextField.Font = UIFont.FromName ("HelveticaNeue", 15f);
-			newPhoneTextField.TextColor = UIColor.DarkGray;
-
-			UIButton newPhoneCarrierButton = new UIButton (newPhoneTextField.Frame);
-			newPhoneCarrierButton.AdjustFrame (0, 51, 0, 0);
-			UILabel newPhoneCarrierLabel = new UILabel (new RectangleF (60, newPhoneCarrierButton.Frame.Y + 11, 120, 21));
-			newPhoneCarrierButton.SetBackgroundImage (new UIImage ("profile-carrier.png"), UIControlState.Normal);
-			newPhoneCarrierLabel.Text = "Choose Carrier...";
-			newPhoneCarrierLabel.Font = UIFont.FromName ("HelveticaNeue", 15f);
-			newPhoneCarrierLabel.TextColor = UIColor.DarkGray;
-
-			UIImageView newPhoneSMSImage = new UIImageView (newPhoneCarrierButton.Frame);
-			newPhoneSMSImage.AdjustFrame (0, 51, 0, 0);
-			UILabel smsLabel = new UILabel (new RectangleF (60, newPhoneSMSImage.Frame.Y + 11, 95, 21));
-			UIImageView smsIcon = new UIImageView (new RectangleF (28, newPhoneSMSImage.Frame.Y + 10, 24, 24));
-			UISwitch smsSwitch = new UISwitch (new RectangleF (234, newPhoneSMSImage.Frame.Y + 6, 51, 31));
-			smsLabel.Text = "Text Message";
-			smsLabel.Font = UIFont.FromName ("HelveticaNeue", 15f);
-			smsLabel.TextColor = UIColor.DarkGray;
-			newPhoneSMSImage.Image = new UIImage ("profile-fields.png");
-			smsIcon.Image = new UIImage ("icon-text.png");
-			smsSwitch.OnTintColor = UIColor.FromRGB (135, 198, 86);
-
-			editProfileScrollView.AddSubview(newPhoneTextField);
-			editProfileScrollView.AddSubview(newPhoneCarrierButton);
-			editProfileScrollView.AddSubview(newPhoneCarrierLabel);
-			editProfileScrollView.AddSubview(newPhoneSMSImage);
-			editProfileScrollView.AddSubview(smsLabel);
-			editProfileScrollView.AddSubview(smsIcon);
-			editProfileScrollView.AddSubview(smsSwitch);
-		}*/
 		partial void addAlternateAddressPressed (NSObject sender)
 		{
 			float frameAdjustment = 241.0f;
@@ -537,9 +483,49 @@ namespace Cnet.iOS
 			}
 		}
 
+		private void SetUpKeyboardNotifications ()
+		{
+			NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.DidShowNotification, KeyboardOpened);
+			NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.DidHideNotification, KeyboardClosed);
+		}
+
+		private void KeyboardOpened (NSNotification notification)
+		{
+			System.Console.WriteLine ("Keyboard Opened");
+			UIView activeView = KeyboardGetActiveView();
+			if (activeView == null)
+				return;
+
+			var keyboardFrame = UIKeyboard.FrameBeginFromNotification (notification);
+			var contentInsets = new UIEdgeInsets (0.0f, 0.0f, keyboardFrame.Height, 0.0f);
+
+			editProfileScrollView.ContentInset = contentInsets;
+			editProfileScrollView.ScrollIndicatorInsets = contentInsets;
+
+			// Position of the active field relative inside the scroll view
+			RectangleF relativeFrame = activeView.Superview.ConvertRectToView(activeView.Frame, editProfileScrollView);
+			var spaceAboveKeyboard = editProfileScrollView.Frame.Height - keyboardFrame.Height;
+
+			// Move the active field to the center of the available space
+			var offset = relativeFrame.Y - (spaceAboveKeyboard - activeView.Frame.Height) / 2;
+			editProfileScrollView.ContentOffset = new PointF(0, offset);
+		}
+
+		private void KeyboardClosed (NSNotification notification)
+		{
+			System.Console.WriteLine ("Keyboard Closed");
+			editProfileScrollView.ContentInset = UIEdgeInsets.Zero;
+			editProfileScrollView.ScrollIndicatorInsets = UIEdgeInsets.Zero;
+		}
+
 		private void WireUpView ()
 		{
 			phoneCarrierButton.TouchUpInside += PhoneCarrierClick;
+		}
+
+		protected virtual UIView KeyboardGetActiveView()
+		{
+			return this.View.FindFirstResponder();
 		}
 
 		#endregion

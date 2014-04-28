@@ -124,6 +124,24 @@ namespace Cnet.iOS
 			return false;
 		}
 
+		public static UIView FindFirstResponder (this UIView view)
+		{
+			if (view.IsFirstResponder)
+			{
+				return view;
+			}
+
+			foreach (UIView subView in view.Subviews)
+			{
+				var firstResponder = subView.FindFirstResponder ();
+				if (firstResponder != null)
+				{
+					return firstResponder;
+				}
+			}
+			return null;
+		}
+
 		public static void AddPadding (this UITextField textField, float width, float height, UIImage image = null)
 		{
 			UIImageView paddingView = new UIImageView (new RectangleF (0, 0, width, height));
