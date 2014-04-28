@@ -139,6 +139,7 @@ namespace Cnet.iOS
 		private void LoadAvailabilityBlock ()
 		{
 			availabilityBlock = new AvailabilityBlock () {
+				UserId = AuthenticationHelper.UserData.UserId,
 				Start = Start,
 				End = End,
 				Times = new List<TimeBlock> () { new TimeBlock() }

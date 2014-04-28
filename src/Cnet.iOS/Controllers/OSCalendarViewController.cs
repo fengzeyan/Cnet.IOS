@@ -212,9 +212,10 @@ namespace Cnet.iOS
 					cell.TimeLabel.Hidden = true;
 				} else {
 					List<string> timeStrings = new List<string> ();
-					foreach (TimeBlock block in controller.userAvailabilityDay.Availability.OrderBy(a => a.Start)) {
+					foreach (TimeBlock block in controller.userAvailabilityDay.Availability) {
 						timeStrings.Add ("Available from " + block.ToTimesString ());
 					}
+					cell.TimeLabel.Hidden = false;
 					cell.TimeLabel.Lines = timeStrings.Count;
 					float expectedHeight = 21 * timeStrings.Count;
 					if (cell.TimeLabel.Frame.Height != expectedHeight)

@@ -3886,7 +3886,7 @@
                                             <outlet property="daysOfWeekLabel" destination="7Ya-fq-dZW" id="mRQ-kp-45D"/>
                                             <outlet property="editButton" destination="fcH-8O-vLC" id="Zrp-1G-bom"/>
                                             <outlet property="timesLabel" destination="cge-w1-XLl" id="f8E-L7-aA7"/>
-                                            <segue destination="1aZ-Bh-vCu" kind="modal" identifier="AvailabilityBlockDetail" modalTransitionStyle="crossDissolve" id="8eF-Po-Blh"/>
+                                            <segue destination="1aZ-Bh-vCu" kind="modal" identifier="EditAvailabilityBlock" modalTransitionStyle="crossDissolve" id="8eF-Po-Blh"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -4570,16 +4570,16 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="AqG-9j-HaY"/>
         <segue reference="oQd-yV-efo"/>
         <segue reference="F5g-1m-IVQ"/>
-        <segue reference="zPS-ub-T9w"/>
-        <segue reference="sUj-KP-fah"/>
+        <segue reference="cdv-8V-Tzf"/>
         <segue reference="1uv-Dv-ZEg"/>
-        <segue reference="5Eo-Nb-tLx"/>
-        <segue reference="cdo-K6-RT6"/>
+        <segue reference="8eF-Po-Blh"/>
+        <segue reference="ffn-1S-UiO"/>
         <segue reference="tsk-sk-Tp6"/>
+        <segue reference="cdo-K6-RT6"/>
         <segue reference="nNd-N9-n9Y"/>
         <segue reference="liK-Jx-jnx"/>
+        <segue reference="AqG-9j-HaY"/>
     </inferredMetricsTieBreakers>
 </document>
