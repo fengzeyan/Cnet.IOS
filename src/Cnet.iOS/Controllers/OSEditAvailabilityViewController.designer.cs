@@ -25,6 +25,9 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UIBarButtonItem editButton { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIScrollView editSrollView { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton endButton { get; set; }
 
 		[Outlet]
@@ -83,6 +86,11 @@ namespace Cnet.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (editSrollView != null) {
+				editSrollView.Dispose ();
+				editSrollView = null;
+			}
+
 			if (actionButton != null) {
 				actionButton.Dispose ();
 				actionButton = null;
@@ -111,6 +119,11 @@ namespace Cnet.iOS
 			if (endLabel != null) {
 				endLabel.Dispose ();
 				endLabel = null;
+			}
+
+			if (endTimeButton != null) {
+				endTimeButton.Dispose ();
+				endTimeButton = null;
 			}
 
 			if (endTimeDownButton != null) {
@@ -153,6 +166,11 @@ namespace Cnet.iOS
 				startLabel = null;
 			}
 
+			if (startTimeButton != null) {
+				startTimeButton.Dispose ();
+				startTimeButton = null;
+			}
+
 			if (startTimeDownButton != null) {
 				startTimeDownButton.Dispose ();
 				startTimeDownButton = null;
@@ -186,16 +204,6 @@ namespace Cnet.iOS
 			if (wednesdayButton != null) {
 				wednesdayButton.Dispose ();
 				wednesdayButton = null;
-			}
-
-			if (startTimeButton != null) {
-				startTimeButton.Dispose ();
-				startTimeButton = null;
-			}
-
-			if (endTimeButton != null) {
-				endTimeButton.Dispose ();
-				endTimeButton = null;
 			}
 		}
 	}

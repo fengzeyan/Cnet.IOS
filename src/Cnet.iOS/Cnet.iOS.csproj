@@ -307,10 +307,12 @@
     <BundleResource Include="Resources\Spotlight-Search-80.png" />
     <BundleResource Include="Resources\Spotlight-Search-80%402x.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Resources\Default%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
+    <None Include="RELEASE-NOTES.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Cnet.API\Client.cs">
