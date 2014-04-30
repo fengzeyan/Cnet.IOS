@@ -19,76 +19,19 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UIButton addTimeBlockButton { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UITableView availabillityTable { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton deleteButton { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIBarButtonItem editButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIScrollView editSrollView { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton endButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UILabel endLabel { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton endTimeButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton endTimeDownButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UILabel endTimeLabel { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton endTimeUpButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton fridayButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton mondayButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton saturdayButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton startButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UILabel startLabel { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton startTimeButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton startTimeDownButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UILabel startTimeLabel { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton startTimeUpButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton sundayButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton thursdayButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton tuesdayButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton wednesdayButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (editSrollView != null) {
-				editSrollView.Dispose ();
-				editSrollView = null;
+			if (availabillityTable != null) {
+				availabillityTable.Dispose ();
+				availabillityTable = null;
 			}
 
 			if (actionButton != null) {
@@ -109,101 +52,6 @@ namespace Cnet.iOS
 			if (editButton != null) {
 				editButton.Dispose ();
 				editButton = null;
-			}
-
-			if (endButton != null) {
-				endButton.Dispose ();
-				endButton = null;
-			}
-
-			if (endLabel != null) {
-				endLabel.Dispose ();
-				endLabel = null;
-			}
-
-			if (endTimeButton != null) {
-				endTimeButton.Dispose ();
-				endTimeButton = null;
-			}
-
-			if (endTimeDownButton != null) {
-				endTimeDownButton.Dispose ();
-				endTimeDownButton = null;
-			}
-
-			if (endTimeLabel != null) {
-				endTimeLabel.Dispose ();
-				endTimeLabel = null;
-			}
-
-			if (endTimeUpButton != null) {
-				endTimeUpButton.Dispose ();
-				endTimeUpButton = null;
-			}
-
-			if (fridayButton != null) {
-				fridayButton.Dispose ();
-				fridayButton = null;
-			}
-
-			if (mondayButton != null) {
-				mondayButton.Dispose ();
-				mondayButton = null;
-			}
-
-			if (saturdayButton != null) {
-				saturdayButton.Dispose ();
-				saturdayButton = null;
-			}
-
-			if (startButton != null) {
-				startButton.Dispose ();
-				startButton = null;
-			}
-
-			if (startLabel != null) {
-				startLabel.Dispose ();
-				startLabel = null;
-			}
-
-			if (startTimeButton != null) {
-				startTimeButton.Dispose ();
-				startTimeButton = null;
-			}
-
-			if (startTimeDownButton != null) {
-				startTimeDownButton.Dispose ();
-				startTimeDownButton = null;
-			}
-
-			if (startTimeLabel != null) {
-				startTimeLabel.Dispose ();
-				startTimeLabel = null;
-			}
-
-			if (startTimeUpButton != null) {
-				startTimeUpButton.Dispose ();
-				startTimeUpButton = null;
-			}
-
-			if (sundayButton != null) {
-				sundayButton.Dispose ();
-				sundayButton = null;
-			}
-
-			if (thursdayButton != null) {
-				thursdayButton.Dispose ();
-				thursdayButton = null;
-			}
-
-			if (tuesdayButton != null) {
-				tuesdayButton.Dispose ();
-				tuesdayButton = null;
-			}
-
-			if (wednesdayButton != null) {
-				wednesdayButton.Dispose ();
-				wednesdayButton = null;
 			}
 		}
 	}

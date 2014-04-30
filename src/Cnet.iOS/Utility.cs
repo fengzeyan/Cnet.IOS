@@ -295,6 +295,13 @@ namespace Cnet.iOS
 			return datesString;
 		}
 
+		public static DateTime ToDateTime(this NSDate nsDate)
+		{
+			DateTime date = DateTime.SpecifyKind (nsDate, DateTimeKind.Unspecified);
+			DateTime localDate = date.AddHours (-5); // Adjust for central.
+			return localDate;
+		}
+
 		public static string ToDurationString (this Timesheet timesheet)
 		{
 			if (timesheet == null)
@@ -328,6 +335,13 @@ namespace Cnet.iOS
 			if (!String.IsNullOrWhiteSpace (user.LastName))
 				nameParts.Add (user.LastName);
 			return String.Join (" ", nameParts);
+		}
+
+		public static NSDate ToNSDate(this DateTime date)
+		{
+			DateTime localDate = date.AddHours (5); // Adjust for central.
+			NSDate nsDate = (NSDate)DateTime.SpecifyKind (localDate, DateTimeKind.Utc);
+			return nsDate;
 		}
 
 		public static string ToStartString (this Assignment assignment)

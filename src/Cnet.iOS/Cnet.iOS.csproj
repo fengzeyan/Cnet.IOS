@@ -585,6 +585,14 @@
     <Compile Include="Controllers\OSCalendarNoAppointmentCell.designer.cs">
       <DependentUpon>OSCalendarNoAppointmentCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\OSAvailabilityDatesCell.cs" />
+    <Compile Include="Controllers\OSAvailabilityDatesCell.designer.cs">
+      <DependentUpon>OSAvailabilityDatesCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\OSAvailabilityTimesCell.cs" />
+    <Compile Include="Controllers\OSAvailabilityTimesCell.designer.cs">
+      <DependentUpon>OSAvailabilityTimesCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
