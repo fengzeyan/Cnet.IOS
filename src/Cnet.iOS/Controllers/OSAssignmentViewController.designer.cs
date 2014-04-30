@@ -57,16 +57,14 @@ namespace Cnet.iOS
 		[Action ("completedSwitchPressed:")]
 		partial void completedSwitchPressed (MonoTouch.UIKit.UIButton sender);
 
+		[Action ("notificationsButtonPressed:")]
+		partial void notificationsButtonPressed (MonoTouch.UIKit.UIButton sender);
+
 		[Action ("upcomingSwitchPressed:")]
 		partial void upcomingSwitchPressed (MonoTouch.UIKit.UIButton sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (noAssignmentsImage != null) {
-				noAssignmentsImage.Dispose ();
-				noAssignmentsImage = null;
-			}
-
 			if (assignmentsTable != null) {
 				assignmentsTable.Dispose ();
 				assignmentsTable = null;
@@ -75,11 +73,6 @@ namespace Cnet.iOS
 			if (completedButton != null) {
 				completedButton.Dispose ();
 				completedButton = null;
-			}
-
-			if (nextAssignmentView != null) {
-				nextAssignmentView.Dispose ();
-				nextAssignmentView = null;
 			}
 
 			if (nextAssignmentButton != null) {
@@ -125,6 +118,16 @@ namespace Cnet.iOS
 			if (nextAssignmentStartPmLabel != null) {
 				nextAssignmentStartPmLabel.Dispose ();
 				nextAssignmentStartPmLabel = null;
+			}
+
+			if (nextAssignmentView != null) {
+				nextAssignmentView.Dispose ();
+				nextAssignmentView = null;
+			}
+
+			if (noAssignmentsImage != null) {
+				noAssignmentsImage.Dispose ();
+				noAssignmentsImage = null;
 			}
 
 			if (upcomingButton != null) {

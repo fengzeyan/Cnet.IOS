@@ -79,6 +79,13 @@ namespace Cnet.iOS
 			assignmentsTable.Hidden = (upcomingAssignments.Count == 0);
 		}
 
+		partial void notificationsButtonPressed (UIButton sender)
+		{
+			System.Console.WriteLine("Notifications function called");
+			// following line fails to find NSBundle
+			// OSNotificationsView notificationsView = new OSNotificationsView (View.Frame);
+		}
+
 		private void callNextAssignment(object sender, EventArgs e)
 		{
 			if (!Utility.OpenPhoneDailer (nextAssignment.Placement.ClientMobilePhone))
