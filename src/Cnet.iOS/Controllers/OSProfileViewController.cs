@@ -15,6 +15,7 @@ namespace Cnet.iOS
 	public partial class OSProfileViewController : UIViewController
 	{
 		#region Private Members
+		private static NSString EditProfileSegueName = new NSString ("EditProfile");
 		private static NSString LogOutSegueName = new NSString ("LogOut");
 		private User user;
 		private Assignment nextAssignment;
@@ -42,6 +43,13 @@ namespace Cnet.iOS
 			if (segue.Identifier == LogOutSegueName)
 				AuthenticationHelper.LogOut ();
 		}
+
+		public override bool ShouldPerformSegue (string segueIdentifier, NSObject sender)
+		{
+			if (user == null && segueIdentifier == EditProfileSegueName)
+				return false;
+			return base.ShouldPerformSegue (segueIdentifier ?? string.Empty, sender);
+		}
 		#endregion
 
 		#region Private Methods
@@ -66,8 +74,10 @@ namespace Cnet.iOS
 		private void RenderUser()
 		{
 			nameLabel.Text = user.ToNameString ();
-			addressLabel.Text = user.AddressCurrent.ToLocationString ("{2}, {3} {4}");
-			phoneLabel.Text = String.IsNullOrWhiteSpace (user.MobilePhone) ? user.HomePhone : user.MobilePhone;
+			if (user != null) {
+				addressLabel.Text = user.AddressCurrent.ToLocationString ("{2}, {3} {4}");
+				phoneLabel.Text = String.IsNullOrWhiteSpace (user.MobilePhone) ? user.HomePhone : user.MobilePhone;
+			}
 
 			assignmentsLabel.Text = upcomingAssignments.Where(a => a.Status == AssignmentStatus.New).Count() + " new";
 			timesheetsLabel.Text = completedAssignments.Where(a => a.Status == AssignmentStatus.TimesheetRequired).Count() + " due";
@@ -110,7 +120,7 @@ namespace Cnet.iOS
 					cell.ProfileLabel.Text = tableData [indexPath.Row].Label;
 					if (tableData [indexPath.Row].Label == "Emergency Contact" && cell.ProfileLabel.Frame.X != 20)
 						cell.ProfileLabel.AdjustFrame (-39, 0, 39, 0);
-					if (tableData [indexPath.Row].Label == "We need your help!\nPlease provide emergency contact." && cell.ProfileLabel.Frame.Height != 36) {
+					else if (tableData [indexPath.Row].Label == "We need your help!\nPlease provide emergency contact." && cell.ProfileLabel.Frame.Height != 36) {
 						cell.ProfileLabel.Lines = 2;
 						cell.ProfileLabel.AdjustFrame (0, -9, 30, 15);
 					}
@@ -133,50 +143,52 @@ namespace Cnet.iOS
 			private void LoadRows (OSProfileViewController controller)
 			{
 				tableData = new List<OSProfileCellData> ();
-				if (!String.IsNullOrWhiteSpace (controller.user.Email))
+				if (controller.user != null) {
+					if (!String.IsNullOrWhiteSpace (controller.user.Email))
+						tableData.Add (new OSProfileCellData () { 
+							Label = controller.user.Email,
+							Icon = new UIImage ("icon-mail.png"),
+							PhoneIcon = new UIImage ()
+						});
+					if (!String.IsNullOrWhiteSpace (controller.user.MobilePhone))
+						tableData.Add (new OSProfileCellData () { 
+							Label = controller.user.MobilePhone,
+							Icon = new UIImage ("icon-phone.png"),
+							PhoneIcon = new UIImage ("icon-mobile-nocircle.png")
+						});
+					if (!String.IsNullOrWhiteSpace (controller.user.HomePhone))
+						tableData.Add (new OSProfileCellData () { 
+							Label = controller.user.HomePhone,
+							Icon = new UIImage ("icon-phone.png"),
+							PhoneIcon = new UIImage ("icon-home.png")
+						});
+					if (!String.IsNullOrWhiteSpace (controller.user.AddressCurrent.Line1))
+						tableData.Add (new OSProfileCellData () { 
+							Label = controller.user.AddressCurrent.Line1,
+							Icon = new UIImage ("icon-street.png"),
+							PhoneIcon = new UIImage ()
+						});
+					if (!String.IsNullOrWhiteSpace (controller.user.AddressCurrent.ToLocationString ("{2}{3}{4}")))
+						tableData.Add (new OSProfileCellData () { 
+							Label = controller.user.AddressCurrent.ToLocationString ("{2}, {3} {4}"),
+							Icon = new UIImage ("icon-city.png"),
+							PhoneIcon = new UIImage ()
+						});
+					tableData.Add (new OSProfileCellData () {
+						Label = "Emergency Contact"
+					});
 					tableData.Add (new OSProfileCellData () { 
-						Label = controller.user.Email,
-						Icon = new UIImage ("icon-mail.png"),
+						Label = String.IsNullOrWhiteSpace (controller.user.EmergencyContactName) ? "We need your help!\nPlease provide emergency contact." : controller.user.EmergencyContactName,
+						Icon = new UIImage ("icon-user.png"),
 						PhoneIcon = new UIImage ()
 					});
-				if (!String.IsNullOrWhiteSpace (controller.user.MobilePhone))
-					tableData.Add (new OSProfileCellData () { 
-						Label = controller.user.MobilePhone,
-						Icon = new UIImage ("icon-phone.png"),
-						PhoneIcon = new UIImage ("icon-mobile-nocircle.png")
-					});
-				if (!String.IsNullOrWhiteSpace (controller.user.HomePhone))
-					tableData.Add (new OSProfileCellData () { 
-						Label = controller.user.HomePhone,
-						Icon = new UIImage ("icon-phone.png"),
-						PhoneIcon = new UIImage ("icon-home.png")
-					});
-				if (!String.IsNullOrWhiteSpace (controller.user.AddressCurrent.Line1))
-					tableData.Add (new OSProfileCellData () { 
-						Label = controller.user.AddressCurrent.Line1,
-						Icon = new UIImage ("icon-street.png"),
-						PhoneIcon = new UIImage ()
-					});
-				if (!String.IsNullOrWhiteSpace (controller.user.AddressCurrent.ToLocationString ("{2}{3}{4}")))
-					tableData.Add (new OSProfileCellData () { 
-						Label = controller.user.AddressCurrent.ToLocationString ("{2}, {3} {4}"),
-						Icon = new UIImage ("icon-city.png"),
-						PhoneIcon = new UIImage ()
-					});
-				tableData.Add(new OSProfileCellData(){
-					Label = "Emergency Contact"
-				});
-				tableData.Add (new OSProfileCellData () { 
-					Label = String.IsNullOrWhiteSpace (controller.user.EmergencyContactName) ? "We need your help!\nPlease provide emergency contact." : controller.user.EmergencyContactName,
-					Icon = new UIImage ("icon-user.png"),
-					PhoneIcon = new UIImage ()
-				});
-				if (!String.IsNullOrWhiteSpace (controller.user.EmergencyContactPhone))
-					tableData.Add (new OSProfileCellData () { 
-						Label = controller.user.EmergencyContactPhone,
-						Icon = new UIImage ("icon-phone.png"),
-						PhoneIcon = new UIImage ("icon-home.png")
-					});
+					if (!String.IsNullOrWhiteSpace (controller.user.EmergencyContactPhone))
+						tableData.Add (new OSProfileCellData () { 
+							Label = controller.user.EmergencyContactPhone,
+							Icon = new UIImage ("icon-phone.png"),
+							PhoneIcon = new UIImage ("icon-home.png")
+						});
+				}
 			}
 
 			private class OSProfileCellData

@@ -98,6 +98,8 @@ namespace Cnet.iOS
 
 		public static void AdjustFrame (this UIView view, float x, float y, float width, float height)
 		{
+			if (view == null)
+				return;
 			var frame = view.Frame;
 			frame.X += x;
 			frame.Y += y;
@@ -108,6 +110,8 @@ namespace Cnet.iOS
 
 		public static bool AddressHasContents (this Address address)
 		{
+			if (address == null)
+				return false;
 			List<String> addressFields = new List<String> {
 				address.Line1,
 				address.Line2,
@@ -126,24 +130,23 @@ namespace Cnet.iOS
 
 		public static UIView FindFirstResponder (this UIView view)
 		{
+			if (view == null)
+				return null;
 			if (view.IsFirstResponder)
-			{
 				return view;
-			}
-
 			foreach (UIView subView in view.Subviews)
 			{
 				var firstResponder = subView.FindFirstResponder ();
 				if (firstResponder != null)
-				{
 					return firstResponder;
-				}
 			}
 			return null;
 		}
 
 		public static void AddPadding (this UITextField textField, float width, float height, UIImage image = null)
 		{
+			if (textField == null)
+				return;
 			UIImageView paddingView = new UIImageView (new RectangleF (0, 0, width, height));
 			if (image != null) {
 				paddingView.Image = image;
@@ -171,17 +174,19 @@ namespace Cnet.iOS
 
 		public static UIImage GetProfileImage (this Placement placement)
 		{
+			if (placement == null)
+				return new UIImage ();
 			if (String.IsNullOrWhiteSpace (placement.ClientPhoto))
 				return new UIImage ("icon-no-image.png");
-
 			return UIImageFromUrl (placement.ClientPhoto);
 		}
 
 		public static UIImage GetProfileImage (this User user)
 		{
+			if (user == null)
+				return new UIImage ();
 			if (String.IsNullOrWhiteSpace (user.Photo))
 				return new UIImage ("icon-no-image.png");
-
 			return UIImageFromUrl (user.Photo);
 		}
 
@@ -199,6 +204,8 @@ namespace Cnet.iOS
 
 		public static UIImage GetStatusFlagImage (this Assignment assignment)
 		{
+			if (assignment == null)
+				return new UIImage ();
 			switch (assignment.Status) {
 			case AssignmentStatus.New:
 				return new UIImage ("flag-updated.png");
@@ -211,6 +218,8 @@ namespace Cnet.iOS
 
 		public static UIImage GetStatusImage (this Assignment assignment)
 		{
+			if (assignment == null)
+				return new UIImage ();
 			switch (assignment.Status) {
 			case AssignmentStatus.New:
 				return new UIImage ("icon-updated.png");
@@ -231,7 +240,6 @@ namespace Cnet.iOS
 		{
 			var delta = dt.Ticks % d.Ticks;
 			bool roundUp = delta > d.Ticks / 2;
-
 			return roundUp ? dt.RoundUp (d) : dt.RoundDown (d);
 		}
 
@@ -243,7 +251,7 @@ namespace Cnet.iOS
 
 		public static string ToAgeString (this Student child)
 		{
-			if (!child.DateOfBirth.HasValue)
+			if (child == null || !child.DateOfBirth.HasValue)
 				return String.Empty;
 
 			DateTime dateOfBirth = child.DateOfBirth.Value;
@@ -276,6 +284,8 @@ namespace Cnet.iOS
 
 		public static string ToDatesString (this AvailabilityBlock availabilityBlock)
 		{
+			if (availabilityBlock == null)
+				return String.Empty;
 			string datesString = availabilityBlock.Start.ToString ("MMM d");
 			if (availabilityBlock.End.HasValue) {
 				if (availabilityBlock.End.Value != availabilityBlock.Start)
@@ -287,12 +297,16 @@ namespace Cnet.iOS
 
 		public static string ToDurationString (this Timesheet timesheet)
 		{
+			if (timesheet == null)
+				return String.Empty;
 			TimeSpan duration = timesheet.End.Subtract (timesheet.Start);
 			return String.Format ("{0:%h} hrs {0:%m} min", duration);
 		}
 
 		public static string ToFamilyNameString (this Placement placement)
 		{
+			if (placement == null)
+				return String.Empty;
 			string clientName = placement.ClientName;
 			return clientName.Substring (clientName.LastIndexOf (" ") + 1) + " Family";
 		}
@@ -306,13 +320,11 @@ namespace Cnet.iOS
 
 		public static string ToNameString (this User user)
 		{
+			if (user == null)
+				return String.Empty;
 			List<string> nameParts = new List<string> ();
 			if (!String.IsNullOrWhiteSpace (user.FirstName))
 				nameParts.Add (user.FirstName);
-			if (!String.IsNullOrWhiteSpace (user.MiddleName))
-				nameParts.Add (user.MiddleName);
-			if (!String.IsNullOrWhiteSpace (user.PreferredName))
-				nameParts.Add ("(" + user.PreferredName + ")");
 			if (!String.IsNullOrWhiteSpace (user.LastName))
 				nameParts.Add (user.LastName);
 			return String.Join (" ", nameParts);
@@ -320,11 +332,15 @@ namespace Cnet.iOS
 
 		public static string ToStartString (this Assignment assignment)
 		{
+			if (assignment == null)
+				return String.Empty;
 			return assignment.Start.ToString ("ddd d MMM");
 		}
 
 		public static string ToStatusString (this Assignment assignment)
 		{
+			if (assignment == null)
+				return String.Empty;
 			switch (assignment.Status) {
 			case AssignmentStatus.New:
 				return "Unconfirmed";
@@ -339,12 +355,16 @@ namespace Cnet.iOS
 
 		public static string ToTimesString (this Assignment assignment)
 		{
+			if (assignment == null)
+				return String.Empty;
 			DateTime end = assignment.Start.AddSeconds (assignment.Duration);
 			return assignment.Start.ToString ("h:mmtt").ToLower () + " - " + end.ToString ("h:mmtt").ToLower ();
 		}
 
 		public static string ToTimesString (this TimeBlock timeBlock)
 		{
+			if (timeBlock == null)
+				return String.Empty;
 			DateTime start = DateTime.Today + TimeSpan.FromSeconds (timeBlock.Start);
 			DateTime end = start.AddSeconds (timeBlock.Duration);
 			return start.ToString ("h:mmtt").ToLower () + " - " + end.ToString ("h:mmtt").ToLower ();
@@ -352,6 +372,8 @@ namespace Cnet.iOS
 
 		public static string ToTimeUntilString (this Assignment assignment)
 		{
+			if (assignment == null)
+				return String.Empty;
 			TimeSpan timeUntil = assignment.Start.Subtract (DateTime.Now);
 			if (timeUntil.Days == 1)
 				return "1 day";

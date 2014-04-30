@@ -16,6 +16,7 @@ namespace Cnet.iOS
 	public partial class OSUnconfirmedAssignmentViewController : UIViewController
 	{
 		#region Private Members
+		private static NSString listAssignmentsSegueName = new NSString ("ListAssignments");
 		private static NSString addTimesheetSegueName = new NSString("AddTimesheet");
 		private AssignmentStatus assignmentStatus;
 		private List<Assignment> assignments;
@@ -82,7 +83,7 @@ namespace Cnet.iOS
 				Client client = AuthenticationHelper.GetClient ();
 				if (client != null) {
 					client.PlacementService.ConfirmPlacement (PlacementId);
-					PerformSegue("", this);
+					PerformSegue(listAssignmentsSegueName, this);
 				}
 			} catch (CntResponseException ex) {
 				Utility.ShowError (ex);
@@ -93,8 +94,10 @@ namespace Cnet.iOS
 		{
 			try {
 				Client client = AuthenticationHelper.GetClient ();
-				if (client != null)
+				if (client != null) {
 					client.PlacementService.DeclinePlacement (PlacementId);
+					PerformSegue (listAssignmentsSegueName, this);
+				}
 			} catch (CntResponseException ex) {
 				Utility.ShowError (ex);
 			}

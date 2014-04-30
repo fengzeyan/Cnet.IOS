@@ -102,7 +102,7 @@ namespace Cnet.iOS
 
 				// Next Assignment
 				if (upcomingAssignments.Count > 0)
-					nextAssignment = upcomingAssignments.OrderBy (a => a.Start).First ();
+					nextAssignment = upcomingAssignments.Where(a => a.Status == AssignmentStatus.Confirmed && a.Start > DateTime.Now).OrderBy (a => a.Start).First ();
 			} catch (CntResponseException ex) {
 				Utility.ShowError (ex);
 			}
@@ -166,7 +166,6 @@ namespace Cnet.iOS
 				Assignment assignment = controller.Assignments [indexPath.Row];
 
 				TimeSpan updated = TimeSpan.MinValue;
-				string belowProfilePicLabel = String.Empty;
 				int childCount = assignment.Placement.Students.Count ();
 
 				switch (assignment.Status) {
@@ -178,9 +177,14 @@ namespace Cnet.iOS
 					break;
 				case AssignmentStatus.Canceled:
 					cell.BelowProfilePicLabel.Text = "Cancelled";
+					cell.BelowProfilePicLabel.TextColor = UIColor.Black;
 					break;
 				case AssignmentStatus.Confirmed:
 					cell.BelowProfilePicLabel.Text = "Upcoming";
+					cell.BelowProfilePicLabel.TextColor = UIColor.Black;
+					break;
+				default:
+					cell.BelowProfilePicLabel.Text = String.Empty;
 					break;
 				}
 
@@ -197,7 +201,7 @@ namespace Cnet.iOS
 
 				if (updated > TimeSpan.MinValue) {
 					cell.BookmarkImage.Image = new UIImage ("icon-bookmark.png");
-					cell.PurpleInfoLabel.Text = (updated.Hours > 0 ? updated.Hours + " hours" : updated.Minutes + " minutes") + " ago";
+					cell.PurpleInfoLabel.Text = (updated.Hours > 0 ? updated.Hours + " hours" : updated.Minutes + " min") + " ago";
 				} else {
 					cell.BookmarkImage.Hidden = true;
 					if (purpleLabelMaxWidth != cell.PurpleInfoLabel.Frame.Width)

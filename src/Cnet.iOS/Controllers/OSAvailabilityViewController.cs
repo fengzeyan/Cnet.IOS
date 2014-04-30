@@ -32,6 +32,7 @@ namespace Cnet.iOS
 
 		public OSAvailabilityViewController (IntPtr handle) : base (handle)
 		{
+			availabilityBlocks = new List<AvailabilityBlock> ();
 		}
 
 		#endregion
@@ -49,8 +50,7 @@ namespace Cnet.iOS
 			base.PrepareForSegue (segue, sender);
 			if (segue.Identifier == editAvailabilityBlockSegueName) {
 				var indexPath = availabilityTable.IndexPathForSelectedRow;
-				var selectedAvailabilityBlock = availabilityBlocks [indexPath.Row];
-				//var selectedAvailabilityBlock = availabilityBlocks [selectedRowIndex];
+				var selectedAvailabilityBlock = availabilityBlocks [selectedRowIndex];
 				var view = (OSEditAvailabilityViewController)segue.DestinationViewController;
 				view.AvailabilityBlockId = selectedAvailabilityBlock.Id;
 			} else if (segue.Identifier == addAvailabilityBlockSegueName) {
@@ -140,7 +140,7 @@ namespace Cnet.iOS
 
 			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				return 105;//165;
+				return 165;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
@@ -165,19 +165,23 @@ namespace Cnet.iOS
 				foreach (TimeBlock time in availabilityBlock.Times) {
 					cell.TimesLabel.Text = time.ToTimesString ();
 				}
-				cell.CloseButton.Hidden = true;
-				cell.EditButton.Hidden = true;
 				// Remove the event handlers first since this may be a reused cell.
-				//cell.EditButton.TouchDown -= (object sender, EventArgs e) => {
-				//	controller.selectedRowIndex = cell.RowIndex;
-				//	controller.PerformSegue("AvailabilityBlockDetail", this);
-				//};
-				//cell.CloseButton.TouchUpInside -= controller.DeleteButtonClicked;
-				//cell.EditButton.TouchDown += (object sender, EventArgs e) => {
-				//	controller.selectedRowIndex = cell.RowIndex;
-				//	controller.PerformSegue("AvailabilityBlockDetail", this);
-				//};
-				//cell.CloseButton.TouchUpInside += controller.DeleteButtonClicked;
+				cell.EditButton.TouchDown -= (object sender, EventArgs e) => {
+					controller.selectedRowIndex = cell.RowIndex;
+					controller.PerformSegue(editAvailabilityBlockSegueName, this);
+				};
+				cell.CloseButton.TouchUpInside -= (object sender, EventArgs e) => {
+					controller.selectedRowIndex = cell.RowIndex;
+					controller.DeleteButtonClicked (sender, e);
+				};
+				cell.EditButton.TouchDown += (object sender, EventArgs e) => {
+					controller.selectedRowIndex = cell.RowIndex;
+					controller.PerformSegue(editAvailabilityBlockSegueName, this);
+				};
+				cell.CloseButton.TouchUpInside += (object sender, EventArgs e) => {
+					controller.selectedRowIndex = cell.RowIndex;
+					controller.DeleteButtonClicked (sender, e);
+				};
 			}
 
 			#endregion

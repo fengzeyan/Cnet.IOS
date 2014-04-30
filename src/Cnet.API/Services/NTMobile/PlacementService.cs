@@ -154,7 +154,14 @@ namespace Cnt.API.Services.NTMobile
 		/// <returns>All assignments for the specified week.</returns>
 		private IList<Assignment> GetAssignmentsInternal(DateTime startDate, DateTime endDate)
 		{
-			string query = String.Format("Start <= {0} AND End >= {1}", startDate.ToString("s"), endDate.ToString("s"));
+			string query = String.Format(@"(Start == null AND End == null)
+OR (Start >= {0} AND Start <= {1})
+OR (End >= {0} AND End <= {1})
+OR
+(
+    (End == null OR End > {1})
+    and Start <= {1}
+)", startDate.ToString("s"), endDate.ToString("s"));
 			var placements = GetPlacements(query);
 			var timesheets = _Client.TimesheetService.GetTimesheets(startDate, endDate);
 			//var updateNotifications = _Client.NotificationService.GetPlacementUpdatedNotifications();
