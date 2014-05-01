@@ -593,17 +593,20 @@
     <Compile Include="Controllers\OSAvailabilityTimesCell.designer.cs">
       <DependentUpon>OSAvailabilityTimesCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSNotificationsView.cs">
-      <DeployService-Deploy>True</DeployService-Deploy>
+    <Compile Include="Controllers\OSNotificationsViewController.cs" />
+    <Compile Include="Controllers\OSNotificationsViewController.designer.cs">
+      <DependentUpon>OSNotificationsViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="OSNotificationsView.designer.cs">
-      <DependentUpon>OSNotificationsView.cs</DependentUpon>
+    <Compile Include="Controllers\OSNotificationsCell.cs" />
+    <Compile Include="Controllers\OSNotificationsCell.designer.cs">
+      <DependentUpon>OSNotificationsCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\NotificationHelper.cs" />
+    <Compile Include="Helpers\LoadingOverlay.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="Resources\NotificationsView.xib" />
-    <InterfaceDefinition Include="NotificationsView.xib" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />

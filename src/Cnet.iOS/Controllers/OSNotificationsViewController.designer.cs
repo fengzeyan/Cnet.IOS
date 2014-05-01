@@ -9,28 +9,28 @@ using System.CodeDom.Compiler;
 
 namespace Cnet.iOS
 {
-	[Register ("OSCalendarViewController")]
-	partial class OSCalendarViewController
+	[Register ("OSNotificationsViewController")]
+	partial class OSNotificationsViewController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UITableView calendarTable { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton messagesButton { get; set; }
+		MonoTouch.UIKit.UIButton closeButton { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel messagesLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITableView notificationsTable { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (calendarTable != null) {
-				calendarTable.Dispose ();
-				calendarTable = null;
+			if (notificationsTable != null) {
+				notificationsTable.Dispose ();
+				notificationsTable = null;
 			}
 
-			if (messagesButton != null) {
-				messagesButton.Dispose ();
-				messagesButton = null;
+			if (closeButton != null) {
+				closeButton.Dispose ();
+				closeButton = null;
 			}
 
 			if (messagesLabel != null) {

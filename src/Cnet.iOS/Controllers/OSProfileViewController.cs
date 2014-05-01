@@ -34,6 +34,7 @@ namespace Cnet.iOS
 		{
 			base.ViewDidLoad ();
 			LoadUser ();
+			WireUpView ();
 			RenderUser ();
 		}
 
@@ -49,6 +50,13 @@ namespace Cnet.iOS
 			if (user == null && segueIdentifier == EditProfileSegueName)
 				return false;
 			return base.ShouldPerformSegue (segueIdentifier ?? string.Empty, sender);
+		}
+		#endregion
+
+		#region Event Delegates
+		private void MessagesClicked (object sender, EventArgs e)
+		{
+			NotificationHelper.ShowNotificationView (this);
 		}
 		#endregion
 
@@ -87,6 +95,12 @@ namespace Cnet.iOS
 				nextAssignmentLabel.Hidden = true;
 
 			profileTable.Source = new OSProfileTableSource (this);
+		}
+
+		private void WireUpView()
+		{
+			messagesButton.TouchUpInside += MessagesClicked;
+			messagesLabel.Text = NotificationHelper.Notifications.Count.ToString ();
 		}
 		#endregion
 

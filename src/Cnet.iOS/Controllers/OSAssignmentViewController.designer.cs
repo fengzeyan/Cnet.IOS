@@ -19,6 +19,12 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UIButton completedButton { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton messagesButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel messagesLabel { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton nextAssignmentButton { get; set; }
 
 		[Outlet]
@@ -57,9 +63,6 @@ namespace Cnet.iOS
 		[Action ("completedSwitchPressed:")]
 		partial void completedSwitchPressed (MonoTouch.UIKit.UIButton sender);
 
-		[Action ("notificationsButtonPressed:")]
-		partial void notificationsButtonPressed (MonoTouch.UIKit.UIButton sender);
-
 		[Action ("upcomingSwitchPressed:")]
 		partial void upcomingSwitchPressed (MonoTouch.UIKit.UIButton sender);
 		
@@ -73,6 +76,16 @@ namespace Cnet.iOS
 			if (completedButton != null) {
 				completedButton.Dispose ();
 				completedButton = null;
+			}
+
+			if (messagesButton != null) {
+				messagesButton.Dispose ();
+				messagesButton = null;
+			}
+
+			if (messagesLabel != null) {
+				messagesLabel.Dispose ();
+				messagesLabel = null;
 			}
 
 			if (nextAssignmentButton != null) {

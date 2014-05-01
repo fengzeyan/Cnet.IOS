@@ -19,6 +19,12 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UILabel assignmentsLabel { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton messagesButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel messagesLabel { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel nameLabel { get; set; }
 
 		[Outlet]
@@ -59,6 +65,16 @@ namespace Cnet.iOS
 				nameLabel = null;
 			}
 
+			if (newAssignmentsButton != null) {
+				newAssignmentsButton.Dispose ();
+				newAssignmentsButton = null;
+			}
+
+			if (nextAssignmentButton != null) {
+				nextAssignmentButton.Dispose ();
+				nextAssignmentButton = null;
+			}
+
 			if (nextAssignmentLabel != null) {
 				nextAssignmentLabel.Dispose ();
 				nextAssignmentLabel = null;
@@ -74,24 +90,24 @@ namespace Cnet.iOS
 				profileTable = null;
 			}
 
-			if (timesheetsLabel != null) {
-				timesheetsLabel.Dispose ();
-				timesheetsLabel = null;
-			}
-
-			if (newAssignmentsButton != null) {
-				newAssignmentsButton.Dispose ();
-				newAssignmentsButton = null;
-			}
-
 			if (timesheetsDueButton != null) {
 				timesheetsDueButton.Dispose ();
 				timesheetsDueButton = null;
 			}
 
-			if (nextAssignmentButton != null) {
-				nextAssignmentButton.Dispose ();
-				nextAssignmentButton = null;
+			if (timesheetsLabel != null) {
+				timesheetsLabel.Dispose ();
+				timesheetsLabel = null;
+			}
+
+			if (messagesButton != null) {
+				messagesButton.Dispose ();
+				messagesButton = null;
+			}
+
+			if (messagesLabel != null) {
+				messagesLabel.Dispose ();
+				messagesLabel = null;
 			}
 		}
 	}

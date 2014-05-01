@@ -32,6 +32,7 @@ namespace Cnet.iOS
 		{
 			base.ViewDidLoad ();
 			LoadTimesheets ();
+			WireUpView ();
 			RenderPayPeriod ();
 			RenderTimesheets ();
 		}
@@ -55,7 +56,21 @@ namespace Cnet.iOS
 		}
 		#endregion
 
+		#region Event Delegates
+		private void MessagesClicked (object sender, EventArgs e)
+		{
+			NotificationHelper.ShowNotificationView (this);
+		}
+		#endregion
+
 		#region Private Methods
+		private Timesheet GetTimesheet(Assignment assignment)
+		{
+			return timesheets.FirstOrDefault (t => assignment.Placement.Id == t.PlacementId && 
+				assignment.Start == t.Start && 
+				assignment.Start.AddSeconds((double)assignment.Duration) == t.End);
+		}
+
 		private void LoadTimesheets ()
 		{
 			try {
@@ -77,13 +92,12 @@ namespace Cnet.iOS
 		private void RenderTimesheets ()
 		{
 			timesheetsTable.Source = new OSTimesheetTableSource (this);
-		}
+   		}
 
-		private Timesheet GetTimesheet(Assignment assignment)
+		private void WireUpView()
 		{
-			return timesheets.FirstOrDefault (t => assignment.Placement.Id == t.PlacementId && 
-				assignment.Start == t.Start && 
-				assignment.Start.AddSeconds((double)assignment.Duration) == t.End);
+			messagesButton.TouchUpInside += MessagesClicked;
+			messagesLabel.Text = NotificationHelper.Notifications.Count.ToString ();
 		}
 		#endregion
 

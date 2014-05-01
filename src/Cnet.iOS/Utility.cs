@@ -172,6 +172,40 @@ namespace Cnet.iOS
 			}
 		}
 
+		public static UIImage GetInfoImage (this Notification notification)
+		{
+			switch (notification.Type) {
+			case "PlacementSubmitTimesheet":
+				return new UIImage ("check-dollar.png");
+			case "PlacementUpdate":
+				return new UIImage ("icon-no-image.png");
+			case "PlacementCreated":
+			case "PlacementCanceled":
+			case "PlacementReminder":
+			case "UpdateAvailability":
+			case "UpdateProfile":
+			default:
+				return new UIImage ();
+			}
+		}
+
+		public static UIImage GetProfileImage (this Notification notification)
+		{
+			switch (notification.Type) {
+			case "PlacementUpdate":
+				return new UIImage ("icon-no-image.png");
+			case "UpdateAvailability":
+				return new UIImage ("icon-calendar-assign.png");
+			case "PlacementReminder":
+			case "PlacementCanceled":
+			case "PlacementCreated":
+			case "PlacementSubmitTimesheet":
+			case "UpdateProfile":
+			default:
+				return new UIImage ("icon-no-image.png");
+			}
+		}
+
 		public static UIImage GetProfileImage (this Placement placement)
 		{
 			if (placement == null)
@@ -375,6 +409,24 @@ namespace Cnet.iOS
 			case AssignmentStatus.Updated:
 				return assignment.Placement.Location.ToLocationString ("{2}, {3} {4}");
 			}
+		}
+
+		public static string ToTimeSinceString (this DateTime dateTime)
+		{
+			TimeSpan timeSince = DateTime.Now.Subtract (dateTime);
+			if (timeSince.Days == 1)
+				return "1 day ago";
+			if (timeSince.Days > 0)
+				return timeSince.Days + " days ago";
+			if (timeSince.Hours == 1)
+				return "1 hour ago";
+			if (timeSince.Hours > 0)
+				return timeSince.Hours + " hours ago";
+			if (timeSince.Minutes == 1)
+				return "1 min ago";
+			if (timeSince.Minutes > 0)
+				return timeSince.Minutes + " mins ago";
+			return String.Empty;
 		}
 
 		public static string ToTimesString (this Assignment assignment)

@@ -39,6 +39,7 @@ namespace Cnet.iOS
 			base.ViewDidLoad ();
 			LoadCalendar ();
 			LoadEvents ();
+			WireUpView ();
 			RenderEvents ();
 		}
 
@@ -65,6 +66,11 @@ namespace Cnet.iOS
 		#endregion
 
 		#region Event Delegates
+
+		private void MessagesClicked (object sender, EventArgs e)
+		{
+			NotificationHelper.ShowNotificationView (this);
+		}
 
 		private void ViewEvents (object sender, TSQCalendarViewDelegateAEventArgs e)
 		{
@@ -111,6 +117,12 @@ namespace Cnet.iOS
 		private void RenderEvents ()
 		{
 			calendarTable.ReloadData ();
+		}
+
+		private void WireUpView()
+		{
+			messagesButton.TouchUpInside += MessagesClicked;
+			messagesLabel.Text = NotificationHelper.Notifications.Count.ToString ();
 		}
 
 		#endregion

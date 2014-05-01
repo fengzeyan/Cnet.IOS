@@ -9,6 +9,7 @@ using Cnt.API;
 using Cnt.API.Exceptions;
 using Cnt.API.Models;
 using Cnt.Web.API.Models;
+using System.Drawing;
 
 namespace Cnet.iOS
 {
@@ -40,6 +41,7 @@ namespace Cnet.iOS
 		{
 			base.ViewDidLoad ();
 			LoadAssignments ();
+			WireUpView ();
 			RenderNextAssignment ();
 			RenderAssignments ();
 		}
@@ -61,6 +63,12 @@ namespace Cnet.iOS
 		#endregion
 
 		#region Event Delegates
+		private void CallNextAssignment(object sender, EventArgs e)
+		{
+			if (!Utility.OpenPhoneDailer (nextAssignment.Placement.ClientMobilePhone))
+				Utility.OpenPhoneDailer (nextAssignment.Placement.ClientHomePhone);
+		}
+
 		partial void completedSwitchPressed (UIButton sender)
 		{
 			completedButton.Selected = true;
@@ -77,22 +85,14 @@ namespace Cnet.iOS
 			Mode = AssignmentType.Upcoming;
 			assignmentsTable.ReloadData();
 			assignmentsTable.Hidden = (upcomingAssignments.Count == 0);
-		}
+         		}
 
-		partial void notificationsButtonPressed (UIButton sender)
+		private void MessagesClicked (object sender, EventArgs e)
 		{
-			System.Console.WriteLine("Notifications function called");
-			// following line fails to find NSBundle
-			// OSNotificationsView notificationsView = new OSNotificationsView (View.Frame);
+			NotificationHelper.ShowNotificationView (this);
 		}
 
-		private void callNextAssignment(object sender, EventArgs e)
-		{
-			if (!Utility.OpenPhoneDailer (nextAssignment.Placement.ClientMobilePhone))
-				Utility.OpenPhoneDailer (nextAssignment.Placement.ClientHomePhone);
-		}
-
-		private void viewNextAssignmentMap(object sender, EventArgs e)
+		private void ViewNextAssignmentMap(object sender, EventArgs e)
 		{
 			Utility.OpenMap (nextAssignment.Placement.Location);
 		}
@@ -136,14 +136,20 @@ namespace Cnet.iOS
 				nextAssignmentEndPmLabel.Text = end.ToString ("tt").ToUpper ();
 				nextAssignmentFamilyLabel.Text = nextAssignment.Placement.ToFamilyNameString ();
 
-				nextAssignmentMapButton.TouchUpInside += viewNextAssignmentMap;
-				nextAssignmentCallButton.TouchUpInside += callNextAssignment;
+				nextAssignmentMapButton.TouchUpInside += ViewNextAssignmentMap;
+				nextAssignmentCallButton.TouchUpInside += CallNextAssignment;
 			} else {
 				nextAssignmentView.Hidden = true;
 				upcomingButton.AdjustFrame (0, -150, 0, 0);
 				completedButton.AdjustFrame (0, -150, 0, 0);
 				assignmentsTable.AdjustFrame (0, -150, 0, 150);
 			}
+		}
+
+		private void WireUpView()
+		{
+			messagesButton.TouchUpInside += MessagesClicked;
+			messagesLabel.Text = NotificationHelper.Notifications.Count.ToString ();
 		}
 		#endregion
 
@@ -172,7 +178,6 @@ namespace Cnet.iOS
 
 				Assignment assignment = controller.Assignments [indexPath.Row];
 
-				TimeSpan updated = TimeSpan.MinValue;
 				int childCount = assignment.Placement.Students.Count ();
 
 				switch (assignment.Status) {
@@ -180,7 +185,6 @@ namespace Cnet.iOS
 					cell.BelowProfilePicLabel.Text = "Unconfirmed";
 					cell.BelowProfilePicLabel.TextColor = Utility.NewTextColor;
 					cell.BelowProfilePicLabel.AdjustsFontSizeToFitWidth = true;
-					updated = DateTime.Now.Subtract (assignment.Placement.Created);
 					break;
 				case AssignmentStatus.Canceled:
 					cell.BelowProfilePicLabel.Text = "Cancelled";
@@ -206,9 +210,9 @@ namespace Cnet.iOS
 
 				cell.LocationLabel.Text = assignment.Placement.Location.ToLocationString("{2}, {3}");
 
-				if (updated > TimeSpan.MinValue) {
+				if (assignment.Status == AssignmentStatus.New) {
 					cell.BookmarkImage.Image = new UIImage ("icon-bookmark.png");
-					cell.PurpleInfoLabel.Text = (updated.Hours > 0 ? updated.Hours + " hours" : updated.Minutes + " min") + " ago";
+					cell.PurpleInfoLabel.Text = assignment.Placement.Created.ToTimeSinceString();
 				} else {
 					cell.BookmarkImage.Hidden = true;
 					if (purpleLabelMaxWidth != cell.PurpleInfoLabel.Frame.Width)

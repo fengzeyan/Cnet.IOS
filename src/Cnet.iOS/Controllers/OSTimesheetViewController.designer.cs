@@ -16,6 +16,12 @@ namespace Cnet.iOS
 		MonoTouch.UIKit.UILabel currentPayPeriodLabel { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton messagesButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel messagesLabel { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITableView timesheetsTable { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -23,6 +29,16 @@ namespace Cnet.iOS
 			if (currentPayPeriodLabel != null) {
 				currentPayPeriodLabel.Dispose ();
 				currentPayPeriodLabel = null;
+			}
+
+			if (messagesLabel != null) {
+				messagesLabel.Dispose ();
+				messagesLabel = null;
+			}
+
+			if (messagesButton != null) {
+				messagesButton.Dispose ();
+				messagesButton = null;
 			}
 
 			if (timesheetsTable != null) {
