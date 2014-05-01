@@ -1,1 +1,1 @@
-Several bug fixes.
+Updated availability view fixing several timezone related bugs and adding the ability to add/remove time blocks.

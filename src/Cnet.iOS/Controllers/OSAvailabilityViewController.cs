@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Cnt.API;
@@ -13,19 +14,15 @@ namespace Cnet.iOS
 	public partial class OSAvailabilityViewController : UIViewController
 	{
 		#region Private Members
-
 		private static NSString addAvailabilityBlockSegueName = new NSString ("AddAvailabilityBlock");
 		private static NSString editAvailabilityBlockSegueName = new NSString ("EditAvailabilityBlock");
 		private List<AvailabilityBlock> availabilityBlocks;
-		private int selectedRowIndex;
 		private bool hasErrors;
-
 		#endregion
 
 		#region Public Properties
-
 		public DateTime SelectedDate { get; set; }
-
+		internal int SelectedRowIndex { get; set; }
 		#endregion
 
 		#region Constructors
@@ -38,7 +35,6 @@ namespace Cnet.iOS
 		#endregion
 
 		#region Public Methods
-
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
@@ -50,20 +46,18 @@ namespace Cnet.iOS
 			base.PrepareForSegue (segue, sender);
 			if (segue.Identifier == editAvailabilityBlockSegueName) {
 				var indexPath = availabilityTable.IndexPathForSelectedRow;
-				var selectedAvailabilityBlock = availabilityBlocks [selectedRowIndex];
+				var selectedAvailabilityBlock = availabilityBlocks [SelectedRowIndex];
 				var view = (OSEditAvailabilityViewController)segue.DestinationViewController;
 				view.AvailabilityBlockId = selectedAvailabilityBlock.Id;
 			} else if (segue.Identifier == addAvailabilityBlockSegueName) {
-				var view = (AddAvailabilityViewController)segue.DestinationViewController;
+				var view = (OSEditAvailabilityViewController)segue.DestinationViewController;
 				view.Start = view.End = DateTime.Today;
 			}
 		}
-
 		#endregion
 
 		#region Event Delegates
-
-		private void DeleteButtonClicked (object sender, EventArgs e)
+		internal void DeleteButtonClicked (object sender, EventArgs e)
 		{
 			UIAlertView alert = new UIAlertView ("Delete Availability", "Are you sure you want to delete this availability?", null, "Cancel", "Confirm");
 			alert.Clicked += DeleteConfirmClicked;
@@ -80,15 +74,13 @@ namespace Cnet.iOS
 				}
 			}
 		}
-
 		#endregion
 
 		#region Private Methods
-
 		private void DeleteAvailabilityBlock ()
 		{
 			try {
-				var selectedAvailabilityBlock = availabilityBlocks [selectedRowIndex];
+				var selectedAvailabilityBlock = availabilityBlocks [SelectedRowIndex];
 				Client client = AuthenticationHelper.GetClient ();
 				client.AvailabilityService.DeleteAvailabilityBlock (selectedAvailabilityBlock.Id);
 				hasErrors = false;
@@ -108,29 +100,23 @@ namespace Cnet.iOS
 			}
 			availabilityTable.Source = new OSAvailabilityTableSource (this);
 		}
-
 		#endregion
 
 		private class OSAvailabilityTableSource : UITableViewSource
 		{
 			#region Private Members
-
 			private OSAvailabilityViewController controller;
 			private static NSString AvailabilityCellId = new NSString ("AvailabilityCellIdentifier");
-
 			#endregion
 
 			#region Constructors
-
 			public OSAvailabilityTableSource (OSAvailabilityViewController parent) : base ()
 			{
 				controller = parent;
 			}
-
 			#endregion
 
 			#region Public Methods
-
 			public override int RowsInSection (UITableView tableview, int section)
 			{
 				if (controller.availabilityBlocks == null)
@@ -152,38 +138,24 @@ namespace Cnet.iOS
 				RenderAvailabilityCell ((OSAvailabilityCell)cell, rowIndex, availabilityBlock);
 				return cell;
 			}
-
 			#endregion
 
 			#region Private Methods
-
 			private void RenderAvailabilityCell (OSAvailabilityCell cell, int row, AvailabilityBlock availabilityBlock)
 			{
 				cell.RowIndex = row;
 				cell.DatesLabel.Text = availabilityBlock.ToDatesString ();
 				cell.DaysOfWeek.Text = availabilityBlock.Weekdays;
-				foreach (TimeBlock time in availabilityBlock.Times) {
-					cell.TimesLabel.Text = time.ToTimesString ();
+				if (availabilityBlock.Times != null) {
+					cell.TimesLabel.Text = String.Join ("\n", availabilityBlock.Times.Select (t => t.ToTimesString ()));
+					int lines = availabilityBlock.Times.Count ();
+					cell.TimesLabel.Lines = lines;
+					if (cell.TimesLabel.Frame.Height != (lines * 17))
+						cell.TimesLabel.AdjustFrame (0, 0, 0, (lines * 17) - cell.TimesLabel.Frame.Height);
 				}
-				// Remove the event handlers first since this may be a reused cell.
-				cell.EditButton.TouchDown -= (object sender, EventArgs e) => {
-					controller.selectedRowIndex = cell.RowIndex;
-					controller.PerformSegue(editAvailabilityBlockSegueName, this);
-				};
-				cell.CloseButton.TouchUpInside -= (object sender, EventArgs e) => {
-					controller.selectedRowIndex = cell.RowIndex;
-					controller.DeleteButtonClicked (sender, e);
-				};
-				cell.EditButton.TouchDown += (object sender, EventArgs e) => {
-					controller.selectedRowIndex = cell.RowIndex;
-					controller.PerformSegue(editAvailabilityBlockSegueName, this);
-				};
-				cell.CloseButton.TouchUpInside += (object sender, EventArgs e) => {
-					controller.selectedRowIndex = cell.RowIndex;
-					controller.DeleteButtonClicked (sender, e);
-				};
-			}
 
+				cell.InitEventHandlers (controller);
+			}
 			#endregion
 		}
 	}

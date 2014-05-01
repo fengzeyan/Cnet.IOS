@@ -4,15 +4,25 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
 	public partial class OSAvailabilityTimesCell : UITableViewCell
 	{
+		#region Private Members
+		private const string timeFormat = "h:mm tt";
+		private int jumpInSeconds;
+		private OSEditAvailabilityViewController controller;
+		#endregion
+
 		public OSAvailabilityTimesCell (IntPtr handle) : base (handle)
 		{
+			jumpInSeconds = (int)TimeSpan.FromMinutes (15).TotalSeconds;
 		}
 
+		#region Public Properties
+		public int RowIndex { get; set; }
 		public UILabel StartTimeLabel { get { return startTimeLabel; } set { startTimeLabel = value; } }
 		public UILabel EndTimeLabel { get { return endTimeLabel; } set { endTimeLabel = value; } }
 		public UIButton StartTimeButton { get { return startTimeButton; } set { startTimeButton = value; } }
@@ -21,5 +31,99 @@ namespace Cnet.iOS
 		public UIButton EndTimeButton { get { return endTimeButton; } set { endTimeButton = value; } }
 		public UIButton EndTimeUpButton { get { return endTimeUpButton; } set { endTimeUpButton = value; } }
 		public UIButton EndTimeDownButton { get { return endTimeDownButton; } set { endTimeDownButton = value; } }
+		#endregion
+
+		#region Public Methods
+		public void InitEventHandlers(OSEditAvailabilityViewController grandparent)
+		{
+			controller = grandparent;
+
+			deleteButton.TouchUpInside -= DeleteButtonClicked;
+			endTimeButton.TouchUpInside -= EndTimeClicked;
+			endTimeDownButton.TouchUpInside -= EndTimeDownClicked;
+			endTimeUpButton.TouchUpInside -= EndTimeUpClicked;
+			startTimeButton.TouchUpInside -= StartTimeClicked;
+			startTimeDownButton.TouchUpInside -= StartTimeDownClicked;
+			startTimeUpButton.TouchUpInside -= StartTimeUpClicked;
+
+			deleteButton.TouchUpInside += DeleteButtonClicked;
+			endTimeButton.TouchUpInside += EndTimeClicked;
+			endTimeDownButton.TouchUpInside += EndTimeDownClicked;
+			endTimeUpButton.TouchUpInside += EndTimeUpClicked;
+			startTimeButton.TouchUpInside += StartTimeClicked;
+			startTimeDownButton.TouchUpInside += StartTimeDownClicked;
+			startTimeUpButton.TouchUpInside += StartTimeUpClicked;
+		}
+		#endregion
+
+		#region Event Delegates
+		private void DeleteButtonClicked (object sender, EventArgs e)
+		{
+			UIAlertView alert = new UIAlertView ("Delete Time Block", "Are you sure you want to delete this time block?", null, "Cancel", "Confirm");
+			alert.Clicked += DeleteConfirmClicked;
+			alert.Show ();
+		}
+
+		private void DeleteConfirmClicked (object sender, UIButtonEventArgs e)
+		{
+			if (e.ButtonIndex == 1) {
+				controller.DeleteTimeBlock (RowIndex);
+			}
+		}
+
+		private void EndTimeClicked (object sender, EventArgs e)
+		{
+			controller.View.ShowDatePicker (
+				DateTime.Today.AddSeconds (controller.Times[RowIndex].Start + controller.Times[RowIndex].Duration), 
+				UIDatePickerMode.Time, 
+				(object s, EventArgs ev) => {
+					DateTime date = (s as UIDatePicker).Date.ToDateTime ();
+					controller.Times[RowIndex].Duration = (int)date.TimeOfDay.TotalSeconds - controller.Times[RowIndex].Start;
+					endTimeLabel.Text = date.ToString (timeFormat);
+				}
+			);
+		}
+
+		private void EndTimeDownClicked (object sender, EventArgs e)
+		{
+			controller.Times[RowIndex].Duration -= jumpInSeconds;
+			endTimeLabel.Text = DateTime.Today.AddSeconds(controller.Times[RowIndex].Start + controller.Times[RowIndex].Duration).ToString (timeFormat);
+		}
+
+		private void EndTimeUpClicked (object sender, EventArgs e)
+		{
+			controller.Times[RowIndex].Duration += jumpInSeconds;
+			endTimeLabel.Text = DateTime.Today.AddSeconds(controller.Times[RowIndex].Start + controller.Times[RowIndex].Duration).ToString (timeFormat);
+		}
+
+		private void StartTimeClicked (object sender, EventArgs e)
+		{
+			controller.View.ShowDatePicker (
+				DateTime.Today.AddSeconds (controller.Times[RowIndex].Start), 
+				UIDatePickerMode.Time, 
+				(object s, EventArgs ev) => {
+					DateTime date = (s as UIDatePicker).Date.ToDateTime ();
+					int diff = controller.Times[RowIndex].Start - (int)date.TimeOfDay.TotalSeconds;
+					controller.Times[RowIndex].Start -= diff;
+					controller.Times[RowIndex].Duration += diff; 
+					startTimeLabel.Text = date.ToString (timeFormat);
+				}
+			);
+		}
+
+		private void StartTimeDownClicked (object sender, EventArgs e)
+		{
+			controller.Times[RowIndex].Start -= jumpInSeconds;
+			controller.Times[RowIndex].Duration += jumpInSeconds;
+			startTimeLabel.Text = DateTime.Today.AddSeconds(controller.Times[RowIndex].Start).ToString (timeFormat);
+		}
+
+		private void StartTimeUpClicked (object sender, EventArgs e)
+		{
+			controller.Times[RowIndex].Start += jumpInSeconds;
+			controller.Times[RowIndex].Duration -= jumpInSeconds;
+			startTimeLabel.Text = DateTime.Today.AddSeconds(controller.Times[RowIndex].Start).ToString (timeFormat);
+		}
+		#endregion
 	}
 }

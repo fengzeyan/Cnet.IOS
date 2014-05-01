@@ -11,7 +11,6 @@ using Cnt.API.Utils;
 
 namespace Cnet.iOS
 {
-	// TODO: Figure out timezone stuff.
 	public partial class OSNewTimesheetViewController : UIViewController
 	{
 		#region Private Members

@@ -9,6 +9,9 @@ namespace Cnet.iOS
 {
 	public partial class OSAvailabilityCell : UITableViewCell
 	{
+		private static NSString editAvailabilityBlockSegueName = new NSString ("EditAvailabilityBlock");
+		private OSAvailabilityViewController controller;
+
 		public OSAvailabilityCell (IntPtr handle) : base (handle)
 		{
 		}
@@ -19,5 +22,32 @@ namespace Cnet.iOS
 		public UILabel DaysOfWeek { get { return daysOfWeekLabel; } set { daysOfWeekLabel = value; } }
 		public UIButton EditButton { get { return editButton; } set { editButton = value; } }
 		public UIButton CloseButton { get { return closeButton; } set { closeButton = value; } }
+
+		#region Public Methods
+		public void InitEventHandlers(OSAvailabilityViewController grandparent)
+		{
+			controller = grandparent;
+
+			closeButton.TouchUpInside -= DeleteButtonClicked;
+			editButton.TouchUpInside -= EditButtonClicked;
+
+			closeButton.TouchUpInside += DeleteButtonClicked;
+			editButton.TouchUpInside += EditButtonClicked;
+		}
+		#endregion
+
+		#region Event Delegates
+		private void DeleteButtonClicked (object sender, EventArgs e)
+		{
+			controller.SelectedRowIndex = RowIndex;
+			controller.DeleteButtonClicked (sender, e);
+		}
+
+		private void EditButtonClicked (object sender, EventArgs e)
+		{
+			controller.SelectedRowIndex = RowIndex;
+			controller.PerformSegue(editAvailabilityBlockSegueName, this);
+		}
+		#endregion
 	}
 }

@@ -4,15 +4,23 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Cnt.Web.API.Models;
+using System.Collections.Generic;
 
 namespace Cnet.iOS
 {
 	public partial class OSAvailabilityDatesCell : UITableViewCell
 	{
+		#region Private Members
+		private const string dateFormat = "ddd, MMM d, yyyy";
+		private OSEditAvailabilityViewController controller;
+		#endregion
+
 		public OSAvailabilityDatesCell (IntPtr handle) : base (handle)
 		{
 		}
 
+		#region Public Properties
 		public UIButton StartButton { get { return startButton; } set { startButton = value; } }
 		public UILabel StartLabel { get { return startLabel; } set { startLabel = value; } }
 		public UIButton EndButton { get { return endButton; } set { endButton = value; } }
@@ -24,5 +32,108 @@ namespace Cnet.iOS
 		public UIButton ThursdayButton { get { return thursdayButton; } set { thursdayButton = value; } }
 		public UIButton FridayButton { get { return fridayButton; } set { fridayButton = value; } }
 		public UIButton SaturdayButton { get { return saturdayButton; } set { saturdayButton = value; } }
+		#endregion
+
+		#region Public Methods
+		public void InitEventHandlers(OSEditAvailabilityViewController grandparent)
+		{
+			controller = grandparent;
+
+			startButton.TouchUpInside -= StartButtonClicked;
+			endButton.TouchUpInside -= EndButtonClicked;
+			sundayButton.TouchUpInside -= SundayClicked;
+			mondayButton.TouchUpInside -= MondayClicked;
+			tuesdayButton.TouchUpInside -= TuesdayClicked;
+			wednesdayButton.TouchUpInside -= WednesdayClicked;
+			thursdayButton.TouchUpInside -= ThursdayClicked;
+			fridayButton.TouchUpInside -= FridayClicked;
+			saturdayButton.TouchUpInside -= SaturdayClicked;
+
+			startButton.TouchUpInside += StartButtonClicked;
+			endButton.TouchUpInside += EndButtonClicked;
+			sundayButton.TouchUpInside += SundayClicked;
+			mondayButton.TouchUpInside += MondayClicked;
+			tuesdayButton.TouchUpInside += TuesdayClicked;
+			wednesdayButton.TouchUpInside += WednesdayClicked;
+			thursdayButton.TouchUpInside += ThursdayClicked;
+			fridayButton.TouchUpInside += FridayClicked;
+			saturdayButton.TouchUpInside += SaturdayClicked;
+		}
+		#endregion
+
+		#region Event Delegates
+		private void EndButtonClicked (object sender, EventArgs e)
+		{
+			DateTime endDate = controller.AvailabilityBlock.End.HasValue ? controller.AvailabilityBlock.End.Value : DateTime.Now;
+			controller.View.ShowDatePicker (
+				endDate, 
+				UIDatePickerMode.Date, 
+				(object s, EventArgs ev) => {
+					DateTime date = (s as UIDatePicker).Date.ToDateTime();
+					controller.AvailabilityBlock.End = date.Date;
+					endLabel.Text = date.ToString (dateFormat);
+				}
+			);
+		}
+
+		private void StartButtonClicked (object sender, EventArgs e)
+		{
+			controller.View.ShowDatePicker (
+				controller.AvailabilityBlock.Start, 
+				UIDatePickerMode.Date, 
+				(object s, EventArgs ev) => {
+					DateTime date = (s as UIDatePicker).Date.ToDateTime();
+					controller.AvailabilityBlock.Start = date;
+					startLabel.Text = date.ToString (dateFormat);
+				}
+			);
+		}
+
+		private void SundayClicked(object sender, EventArgs e)
+		{
+			ToggleWeekDay ("Sunday", (UIButton)sender);
+		}
+
+		private void MondayClicked(object sender, EventArgs e)
+		{
+			ToggleWeekDay ("Monday", (UIButton)sender);
+		}
+
+		private void TuesdayClicked(object sender, EventArgs e)
+		{
+			ToggleWeekDay ("Tuesday", (UIButton)sender);
+		}
+
+		private void WednesdayClicked(object sender, EventArgs e)
+		{
+			ToggleWeekDay ("Wednesday", (UIButton)sender);
+		}
+
+		private void ThursdayClicked(object sender, EventArgs e)
+		{
+			ToggleWeekDay ("Thursday", (UIButton)sender);
+		}
+
+		private void FridayClicked(object sender, EventArgs e)
+		{
+			ToggleWeekDay ("Friday", (UIButton)sender);
+		}
+
+		private void SaturdayClicked(object sender, EventArgs e)
+		{
+			ToggleWeekDay ("Saturday", (UIButton)sender);
+		}
+		#endregion
+
+		private void ToggleWeekDay (string weekDay, UIButton sender)
+		{
+			if (controller.WeekDays.Contains (weekDay)) {
+				controller.WeekDays.Remove (weekDay);
+				sender.SetTitleColor (Utility.DisabledTextColor, UIControlState.Normal);
+			} else {
+				controller.WeekDays.Add (weekDay);
+				sender.SetTitleColor (Utility.NewTextColor, UIControlState.Normal);
+			}
+		}
 	}
 }

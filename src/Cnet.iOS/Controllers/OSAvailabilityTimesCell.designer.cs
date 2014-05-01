@@ -13,6 +13,9 @@ namespace Cnet.iOS
 	partial class OSAvailabilityTimesCell
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIButton deleteButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton endTimeButton { get; set; }
 
 		[Outlet]
@@ -76,6 +79,11 @@ namespace Cnet.iOS
 			if (startTimeUpButton != null) {
 				startTimeUpButton.Dispose ();
 				startTimeUpButton = null;
+			}
+
+			if (deleteButton != null) {
+				deleteButton.Dispose ();
+				deleteButton = null;
 			}
 		}
 	}

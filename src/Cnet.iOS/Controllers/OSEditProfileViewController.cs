@@ -12,7 +12,6 @@ using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
-	// TODO: Add ability to add phones and addresses.
 	public partial class OSEditProfileViewController : UIViewController
 	{
 		#region Private Members

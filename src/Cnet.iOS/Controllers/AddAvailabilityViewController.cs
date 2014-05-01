@@ -12,7 +12,6 @@ using Cnt.Web.API.Models;
 
 namespace Cnet.iOS
 {
-	// TODO: Figure out timezones.
 	public partial class AddAvailabilityViewController : UIViewController
 	{
 		#region Private Members
@@ -229,8 +228,6 @@ namespace Cnet.iOS
 			thursdayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("Thursday", (UIButton)sender);
 			fridayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("Friday", (UIButton)sender);
 			saturdayButton.TouchUpInside += (object sender, EventArgs e) => WeekDayClicked ("Saturday", (UIButton)sender);
-
-			// TODO: Wireup Add Time Block button.
 		}
 		#endregion
 	}

@@ -249,6 +249,16 @@ namespace Cnet.iOS
 			return new DateTime (dt.Ticks + delta);
 		}
 
+		public static void ShowDatePicker(this UIView view, DateTime date, UIDatePickerMode mode, EventHandler valueChangedHandler)
+		{
+			var actionSheetDatePicker = new ActionSheetDatePicker (view);
+			actionSheetDatePicker.DatePicker.Date = date.ToNSDate();
+			actionSheetDatePicker.DatePicker.Mode = mode;
+			actionSheetDatePicker.DatePicker.MinuteInterval = 15;
+			actionSheetDatePicker.DatePicker.ValueChanged += valueChangedHandler;
+			actionSheetDatePicker.Show ();
+		}
+
 		public static string ToAgeString (this Student child)
 		{
 			if (child == null || !child.DateOfBirth.HasValue)

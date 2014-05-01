@@ -21,7 +21,6 @@ namespace Cnet.iOS
 
 		private static NSString assignmentDetailSegueName = new NSString ("AssignmentDetail");
 		private static NSString editAvailabilityBlockSegueName = new NSString ("EditAvailabilityBlock");
-		private static NSString addAvailabilityBlockSegueName = new NSString ("AddAvailabilityBlock");
 		private DateTime selectedDate;
 		private List<Assignment> assignments;
 		private UserAvailabilityDay userAvailabilityDay;
@@ -53,15 +52,13 @@ namespace Cnet.iOS
 				view.PlacementId = selectedAssignment.Placement.Id;
 			} else if (segue.Identifier == editAvailabilityBlockSegueName) {
 				var view = (OSEditAvailabilityViewController)segue.DestinationViewController;
-				view.AvailabilityBlockId = userAvailabilityDay.AvailabilityBlockId;
-			} else if (segue.Identifier == addAvailabilityBlockSegueName) {
-				var view = (AddAvailabilityViewController)segue.DestinationViewController;
+				view.Start = view.End = selectedDate;
 				if (userAvailabilityDay != null && userAvailabilityDay.Availability.Count () > 0) {
-					TimeBlock time = userAvailabilityDay.Availability.First ();
-					view.Start = selectedDate.Date.AddSeconds (time.Start);
-					view.End = selectedDate.Date.AddSeconds (time.Start + time.Duration);
-				} else
-					view.Start = view.End = DateTime.Today;
+					if (userAvailabilityDay.AvailabilityBlockId > 0)
+						view.AvailabilityBlockId = userAvailabilityDay.AvailabilityBlockId;
+					else
+						view.Times = new List<TimeBlock> (userAvailabilityDay.Availability);
+				}
 			}
 		}
 
@@ -171,10 +168,7 @@ namespace Cnet.iOS
 			{
 				switch (indexPath.Row) {
 				case 0:
-					if (controller.userAvailabilityDay != null && controller.userAvailabilityDay.AvailabilityBlockId > 0)
-						controller.PerformSegue (OSCalendarViewController.editAvailabilityBlockSegueName, this);
-					else
-						controller.PerformSegue (OSCalendarViewController.addAvailabilityBlockSegueName, this);
+					controller.PerformSegue (OSCalendarViewController.editAvailabilityBlockSegueName, this);
 					break;
 				default:
 					if (controller.assignments.Count >= indexPath.Row)
